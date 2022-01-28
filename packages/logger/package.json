@@ -1,0 +1,55 @@
+{
+    "name": "@cichol/logger",
+    "version": "4.0.0-alpha.0",
+    "description": "A logger based on `winston` for personal projects.",
+    "homepage": "https://github.com/morrighan/packages",
+    "bugs": {
+        "url": "https://github.com/morrighan/packages/issues"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Yongbin Min",
+        "email": "contact@cichol.com",
+        "url": "https://www.cichol.com/"
+    },
+    "main": "releases/cjs.js",
+    "module": "releases/esm.js",
+    "types": "releases/index.d.ts",
+    "directories": {
+        "lib": "releases"
+    },
+    "exports": {
+        "import": "./releases/esm.js",
+        "require": "./releases/cjs.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/morrighan/packages.git",
+        "directory": "packages/logger"
+    },
+    "scripts": {
+        "build": "npm run build:tsc",
+        "build:tsc": "npx tsc --project sources --outFile releases/index.d.ts"
+    },
+    "dependencies": {
+        "bluebird": "^3.7.2",
+        "chalk": "^4.1.2",
+        "cli-highlight": "^2.1.11",
+        "cls-rtracer": "^2.6.0",
+        "lodash": "^4.17.21",
+        "moment": "^2.29.1",
+        "morgan": "^1.10.0",
+        "pretty-bytes": "^5.6.0",
+        "pretty-ms": "^7.0.1",
+        "reflect-metadata": "^0.1.13",
+        "winston": "^3.3.3"
+    },
+    "engines": {
+        "node": "^14.18.3 || ^16.13.2",
+        "npm": "^8.3.1"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    }
+}

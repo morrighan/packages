@@ -1,0 +1,69 @@
+{
+    "name": "@cichol/alias-mapper",
+    "version": "4.0.0-alpha.0",
+    "description": "A resolver in order to shorten deeply nested relative path expression.",
+    "keywords": [
+        "babel",
+        "babel-plugin",
+        "module",
+        "resolver",
+        "alias",
+        "rewrite",
+        "resolve",
+        "rename",
+        "mapping",
+        "import",
+        "eslint",
+        "eslint-plugin-import",
+        "eslint-import-resolver"
+    ],
+    "homepage": "https://github.com/morrighan/packages",
+    "bugs": {
+        "url": "https://github.com/morrighan/packages/issues"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Yongbin Min",
+        "email": "contact@cichol.com",
+        "url": "https://www.cichol.com/"
+    },
+    "main": "releases/cjs.js",
+    "module": "releases/esm.js",
+    "types": "releases/index.d.ts",
+    "directories": {
+        "lib": "releases",
+        "test": "tests"
+    },
+    "exports": {
+        "import": "./releases/esm.js",
+        "require": "./releases/cjs.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/morrighan/packages.git",
+        "directory": "packages/alias-mapper"
+    },
+    "scripts": {
+        "build": "npm run build:tsc",
+        "build:tsc": "npx tsc --project sources --outFile releases/index.d.ts"
+    },
+    "dependencies": {
+        "@babel/helper-plugin-utils": "^7.14.5",
+        "@babel/runtime-corejs3": "^7.15.4",
+        "core-js": "^3.18.3",
+        "eslint-import-resolver-node": "^0.3.6",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "@babel/core": "^7.16.7",
+        "eslint": "^8.7.0"
+    },
+    "engines": {
+        "node": "^14.18.3 || ^16.13.2",
+        "npm": "^8.3.1"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    }
+}
