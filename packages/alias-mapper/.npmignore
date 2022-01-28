@@ -1,0 +1,11 @@
+# Unnecessary files
+.*
+
+# Configuration files
+tsconfig.json
+
+# Source contents
+sources
+
+# Test codes
+tests

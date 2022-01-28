@@ -1,0 +1,59 @@
+{
+    "private": true,
+    "name": "@cichol/packages",
+    "description": "The centralized repository of npm packages for personal projects.",
+    "homepage": "https://github.com/morrighan/packages",
+    "bugs": {
+        "url": "https://github.com/morrighan/packages/issues"
+    },
+    "author": {
+        "name": "Yongbin Min",
+        "email": "contact@cichol.com",
+        "url": "https://www.cichol.com/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/morrighan/packages.git"
+    },
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "build": "npm run build:rollup && npm run build:packages",
+        "build:rollup": "npx rollup --config",
+        "build:packages": "npm run build --workspaces --if-present",
+        "test": "npm run test:eslint && npm run test:mocha && npm run test:tsc",
+        "test:eslint": "npx eslint . --ext .js,.ts",
+        "test:mocha": "npx mocha packages/*/tests/*.ts --require scripts/register --timeout 10000",
+        "test:tsc": "find packages -type d -depth 1 -exec sh -c \"npx tsc --project {} --noEmit\" \\;"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.16.7",
+        "@babel/plugin-transform-runtime": "^7.16.8",
+        "@babel/preset-env": "^7.16.8",
+        "@babel/preset-typescript": "^7.16.7",
+        "@babel/register": "^7.16.9",
+        "@babel/types": "^7.16.8",
+        "@rollup/plugin-babel": "^5.3.0",
+        "@rollup/plugin-json": "^4.1.0",
+        "@rollup/plugin-node-resolve": "^13.1.3",
+        "@types/babel__core": "^7.1.18",
+        "@types/babel__helper-plugin-utils": "^7.10.0",
+        "@types/bluebird": "^3.5.36",
+        "@types/chai": "^4.3.0",
+        "@types/eslint": "^8.2.2",
+        "@types/lodash": "^4.14.178",
+        "@types/mocha": "^9.0.0",
+        "@types/morgan": "^1.9.3",
+        "@types/node": "^16.11.2",
+        "chai": "^4.3.6",
+        "eslint": "^8.7.0",
+        "mocha": "^9.2.0",
+        "rollup": "^2.66.1",
+        "typescript": "^4.5.5"
+    },
+    "engines": {
+        "node": "^14.18.3 || ^16.13.2",
+        "npm": "^8.3.1"
+    }
+}
