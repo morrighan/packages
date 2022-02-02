@@ -50,9 +50,9 @@ $ npm install --save-dev @cichol/eslint-config
 
 [MIT Licensed](../../LICENSE).
 
-[github actions badge]: https://img.shields.io/github/workflow/status/morrighan/eslint-config/On%20default/develop?style=flat-square
-[github actions]: https://github.com/morrighan/eslint-config/actions
-[license badge]: https://img.shields.io/github/license/morrighan/eslint-config.svg?style=flat-square
+[github actions badge]: https://img.shields.io/github/workflow/status/morrighan/packages/On%20default/develop?style=flat-square
+[github actions]: https://github.com/morrighan/packages/actions
+[license badge]: https://img.shields.io/github/license/morrighan/packages.svg?style=flat-square
 [npm package version badge]: https://img.shields.io/npm/v/@cichol/eslint-config.svg?style=flat-square
 [npm package]: https://www.npmjs.com/package/@cichol/eslint-config
 [eslint]: https://eslint.org/
