@@ -39,7 +39,7 @@ module.exports = Object.assign(mapExtensionRules({
     /**
      * Enforces consistent usage of type assertions.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/consistent-type-assertions.md}
+     * @see {@link https://typescript-eslint.io/rules/consistent-type-assertions}
      */
     '@typescript-eslint/consistent-type-assertions': [
         'error',
@@ -52,7 +52,7 @@ module.exports = Object.assign(mapExtensionRules({
     /**
      * Enforces a consistent member delimiter style in interfaces and type literals.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/member-delimiter-style.md}
+     * @see {@link https://typescript-eslint.io/rules/member-delimiter-style}
      */
     '@typescript-eslint/member-delimiter-style': [ 'error', {
         multiline: { delimiter: 'semi', requireLast: true },
@@ -68,14 +68,14 @@ module.exports = Object.assign(mapExtensionRules({
     /**
      * Enforces a consistent member declaration order.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/member-ordering.md}
+     * @see {@link https://typescript-eslint.io/rules/member-ordering}
      */
     '@typescript-eslint/member-ordering': 'error',
 
     /**
      * Enforces naming conventions for everything across a codebase.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/naming-convention.md}
+     * @see {@link https://typescript-eslint.io/rules/naming-convention}
      */
     '@typescript-eslint/naming-convention': [ 'error', {
         selector: 'interface',
@@ -86,70 +86,77 @@ module.exports = Object.assign(mapExtensionRules({
     /**
      * Allows the declaration of empty interfaces.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-empty-interface.md}
+     * @see {@link https://typescript-eslint.io/rules/no-empty-interface}
      */
     '@typescript-eslint/no-empty-interface': 'off',
 
     /**
      * Allows to use of the `any` type.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-explicit-any.md}
+     * @see {@link https://typescript-eslint.io/rules/no-explicit-any}
      */
     '@typescript-eslint/no-explicit-any': 'off',
 
     /**
      * Allows to assign `any` to variables and properties.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unsafe-assignment.md}
+     * @see {@link https://typescript-eslint.io/rules/no-unsafe-assignment}
      */
     '@typescript-eslint/no-unsafe-assignment': 'off',
 
     /**
      * Allows to call an `any` type value.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unsafe-call.md}
+     * @see {@link https://typescript-eslint.io/rules/no-unsafe-call}
      */
     '@typescript-eslint/no-unsafe-call': 'off',
 
     /**
      * Allows member access on `any` typed variables.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unsafe-member-access.md}
+     * @see {@link https://typescript-eslint.io/rules/no-unsafe-member-access}
      */
     '@typescript-eslint/no-unsafe-member-access': 'off',
 
     /**
      * Allows to return `any` from a function.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unsafe-return.md}
+     * @see {@link https://typescript-eslint.io/rules/no-unsafe-return}
      */
     '@typescript-eslint/no-unsafe-return': 'off',
 
     /**
      * Prefers to use concise optional chain expressions instead of chained logical `&&` operators.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/prefer-optional-chain.md}
+     * @see {@link https://typescript-eslint.io/rules/prefer-optional-chain}
      */
     '@typescript-eslint/prefer-optional-chain': 'error',
 
     /**
      * Prefers to use of the nullish coalescing operator instead of logical chaining.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/prefer-nullish-coalescing.md}
+     * @see {@link https://typescript-eslint.io/rules/prefer-nullish-coalescing}
      */
     '@typescript-eslint/prefer-nullish-coalescing': 'error',
 
     /**
      * Enforces the use of `String#startsWith` and `String#endsWith` instead of other equivalent methods of checking substrings.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/prefer-string-starts-ends-with.md}
+     * @see {@link https://typescript-eslint.io/rules/prefer-string-starts-ends-with}
      */
     '@typescript-eslint/prefer-string-starts-ends-with': 'error',
 
     /**
+     * Allows to explicit type assertion on template expressions.
+     *
+     * @see {@link https://typescript-eslint.io/rules/no-unnecessary-type-assertion}
+     */
+    '@typescript-eslint/restrict-template-expressions': 'off',
+
+    /**
      * Enforces consistent spacing around type annotations.
      *
-     * @see {@link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/type-annotation-spacing.md}
+     * @see {@link https://typescript-eslint.io/rules/type-annotation-spacing}
      */
     '@typescript-eslint/type-annotation-spacing': 'error'
 });
