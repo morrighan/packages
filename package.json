@@ -24,7 +24,7 @@
         "build:packages": "npm run build --workspaces --if-present",
         "test": "npm run test:eslint && npm run test:mocha && npm run test:tsc",
         "test:eslint": "npx eslint . --ext .js,.ts",
-        "test:mocha": "npx mocha packages/*/tests/*.ts --require scripts/register --timeout 10000",
+        "test:mocha": "npx mocha packages/*/tests/*.ts --require scripts/register --timeout 10000 --colors",
         "test:tsc": "find packages/* -mindepth 0 -maxdepth 0 -type d -exec sh -c \"npx tsc --project {} --noEmit\" \\;"
     },
     "devDependencies": {
