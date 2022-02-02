@@ -20,12 +20,12 @@ const astFile = path.resolve(__dirname, 'artifacts/ast.json');
 const savedAst = fs.readFile(astFile, 'utf8').then(data => JSON.parse(data));
 
 describe('@cichol/alias-mapper', () => {
-    it(`ESLint v${ESLint.version as string} should lint without an error`, async () => {
+    it(`ESLint v${ESLint.version} should lint without an error`, async () => {
         const eslint = new ESLint({ cwd: examplesPath });
         const [ { messages } ] = await eslint.lintFiles([ targetFile ]);
 
         for (const { message, ruleId, line, column } of messages) {
-            console.error(`[${(ruleId ?? '?') as string}] ${message as string} (${line as number}:${column as number})`);
+            console.error(`[${(ruleId ?? '?')}] ${message} (${line}:${column})`);
         }
 
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
