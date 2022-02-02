@@ -9,7 +9,7 @@ import Promise from 'bluebird';
 import lodash from 'lodash';
 import morgan from 'morgan';
 import type { level as LoggingLevel } from 'winston';
-import winston, { Logger as BaseLogger } from 'winston';
+import winston, { Logger as BaseLogger, transports as WinstonTransports } from 'winston';
 
 // Formatters.
 import formatForCLI from '../formatters/command-line';
@@ -26,7 +26,7 @@ import handlers from '../handlers';
 type Morgan = (req: HttpRequest, res: HttpResponse, next: (error?: Error) => void) => void;
 
 // Transports.
-const { Console: ConsoleTransport } = winston.transports;
+const { Console: ConsoleTransport } = WinstonTransports;
 
 // Keys in order to access private properties.
 const KeyOfInstance: unique symbol = Symbol('@cichol/logger::classes/logger::Instance');
