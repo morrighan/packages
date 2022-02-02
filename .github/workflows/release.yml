@@ -28,10 +28,22 @@ jobs:
 
     - name: Install, Build and Test
       run: |
+        echo "\$ npm install --global npm"
         npm install --global npm
+
+        echo "\$ npm ci --ignore-scripts"
         npm ci --ignore-scripts
+
+        echo "\$ npm install react --no-save --no-package-lock"
         npm install react --no-save --no-package-lock
+
+        echo "\$ npm ls --depth=0"
+        npm ls --depth=0
+
+        echo "\$ npm run build"
         npm run build
+
+        echo "\$ npm test"
         npm test
       env:
         CI: true

@@ -40,7 +40,7 @@ class Logger {
             .fromPairs()
             .value(),
 
-        level: (executionMode === ExecutionMode.ProductionMode ? 'http' : 'verbose') as LoggingLevel,
+        level: (executionMode === ExecutionMode.ProductionMode ? 'http' : 'verbose') as typeof LoggingLevel,
 
         transports: [
             new ConsoleTransport({ format: formatForCLI })
@@ -124,7 +124,7 @@ class Logger {
         }
 
         default: {
-            const [ level, message, ...data ] = args as [ LoggingLevel, string, ...any[] ];
+            const [ level, message, ...data ] = args as [ typeof LoggingLevel, string, ...any[] ];
 
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             logger.log(level, message, ...data);
