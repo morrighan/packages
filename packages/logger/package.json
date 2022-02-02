@@ -14,7 +14,7 @@
     },
     "main": "releases/cjs.js",
     "module": "releases/esm.js",
-    "types": "releases/index.d.ts",
+    "types": "types/index.d.ts",
     "directories": {
         "lib": "releases"
     },
@@ -29,7 +29,7 @@
     },
     "scripts": {
         "build": "npm run build:tsc",
-        "build:tsc": "npx tsc --project sources --outFile releases/index.d.ts"
+        "build:tsc": "npx tsc --project sources --outDir types"
     },
     "dependencies": {
         "bluebird": "^3.7.2",
