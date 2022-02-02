@@ -1,7 +1,7 @@
 // Third-party modules.
 import chalk from 'chalk';
 import rTracer from 'cls-rtracer';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import { format } from 'winston';
 
 // Local helpers.
@@ -11,7 +11,7 @@ import LoggingLevel from '../helpers/logging-level';
 import handlers from '../handlers';
 
 export default format.printf(data => {
-    const timestamp = chalk.gray(moment().toISOString(true));
+    const timestamp = chalk.gray(DateTime.now().toISO({ includeOffset: true }));
     const handler = handlers.find(({ name }) => name === data.level);
     const fallback = { label: handler?.label, payload: data.message };
     const performHandle = handler?.default ?? ((): typeof fallback => fallback);
