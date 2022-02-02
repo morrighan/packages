@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+echo "npm install --global npm"
+npm install --global npm || exit 1
+
+echo "npm ci --ignore-scripts"
+npm ci --ignore-scripts || exit 1
+
+echo "npm install react --no-save --no-package-lock"
+npm install react --no-save --no-package-lock || exit 1
+
+echo "npm ls --depth=0"
+npm ls --depth=0 || exit 1
+
+echo "npm run build"
+npm run build || exit 1
+
+echo "npm test"
+npm test || exit 1

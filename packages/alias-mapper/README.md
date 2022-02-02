@@ -128,9 +128,9 @@ After the integration process, you can write code with aliased scopes. an alias 
 
 [MIT Licensed](../../LICENSE).
 
-[github actions badge]: https://img.shields.io/github/workflow/status/morrighan/alias-mapper/On%20default/develop?style=flat-square
-[github actions]: https://github.com/morrighan/alias-mapper/actions
-[license badge]: https://img.shields.io/github/license/morrighan/alias-mapper.svg?style=flat-square
+[github actions badge]: https://img.shields.io/github/workflow/status/morrighan/packages/On%20default/develop?style=flat-square
+[github actions]: https://github.com/morrighan/packages/actions
+[license badge]: https://img.shields.io/github/license/morrighan/packages.svg?style=flat-square
 [npm package version badge]: https://img.shields.io/npm/v/@cichol/alias-mapper.svg?style=flat-square
 [npm package]: https://www.npmjs.com/package/@cichol/alias-mapper
 [babel plugin module resolver]: https://www.npmjs.com/package/babel-plugin-module-resolver

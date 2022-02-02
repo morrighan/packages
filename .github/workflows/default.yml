@@ -28,11 +28,6 @@ jobs:
         cache: 'npm'
 
     - name: Install, Build and Test
-      run: |
-        npm install --global npm
-        npm ci --ignore-scripts
-        npm install react --no-save --no-package-lock
-        npm run build
-        npm test
+      run: sh -f scripts/integration
       env:
         CI: true
