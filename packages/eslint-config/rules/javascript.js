@@ -96,6 +96,15 @@ module.exports = {
     } ],
 
     /**
+     * Enforces a convention in module import order.
+     *
+     * @see {@link https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md}
+     */
+    'import/order': [ 'error', {
+        groups: [ 'builtin', 'external', [ 'internal', 'parent', 'sibling' ], 'index' ]
+    } ],
+
+    /**
      * Enforces consistent indentation.
      *
      * @see {@link https://eslint.org/docs/rules/indent}
