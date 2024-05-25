@@ -230,6 +230,13 @@ module.exports = {
     'node/no-missing-import': 'off',
 
     /**
+     * Forbids import declarations which import non-existence modules.
+     *
+     * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-missing-require.md}
+     */
+    'node/no-missing-require': 'off',
+
+    /**
      * Forbids unsupported ECMAScript syntax on the specified version.
      *
      * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features/es-syntax.md}

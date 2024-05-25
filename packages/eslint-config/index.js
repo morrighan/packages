@@ -65,6 +65,10 @@ module.exports = {
         'import/extensions': extensions,
         'import/ignore': [ 'node_modules', '\\.(scss|css|svg|json)$' ],
         'import/core-modules': [],
-        'import/resolver': { node: { extensions } }
+
+        'import/resolver': {
+            typescript: { extensions },
+            node: { extensions }
+        }
     }
 };

@@ -1,5 +1,5 @@
 // Third-party modules.
-import { resolve as defaultResolve } from 'eslint-import-resolver-node';
+import { resolve as defaultResolve } from 'eslint-import-resolver-typescript';
 
 // Local helpers.
 import type { Configuration } from './helpers/alias-finder';
