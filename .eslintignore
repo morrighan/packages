@@ -1,9 +1,0 @@
-# Dependency directory
-node_modules
-
-# Released contents
-packages/**/releases
-packages/**/*.d.ts
-
-# Testing fixtures
-packages/alias-mapper/tests/examples

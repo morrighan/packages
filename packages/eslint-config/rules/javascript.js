@@ -89,7 +89,7 @@ module.exports = {
             'scripts/**',
             'tests/**',
 
-            '**/babel.config.js'
+            '**/*.config.js'
         ],
 
         optionalDependencies: false

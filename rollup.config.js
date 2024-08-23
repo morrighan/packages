@@ -1,6 +1,6 @@
 // Rollup plugins.
-const { default: resolve } = require('@rollup/plugin-node-resolve');
-const { default: babel } = require('@rollup/plugin-babel');
+import resolve from '@rollup/plugin-node-resolve';
+import babel from '@rollup/plugin-babel';
 
 // Shared constants.
 const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ];
@@ -41,8 +41,7 @@ function configurateRollup(packageName, extraOutputOptions = {}) {
     return [ configurateRollupByFormat('cjs'), configurateRollupByFormat('esm') ];
 }
 
-/** @type {import('rollup').RollupOptions[]} */
-module.exports = [
+export default [
     ...configurateRollup('alias-mapper', { exports: 'named' }),
     ...configurateRollup('logger', { exports: 'auto' })
 ];
