@@ -12,30 +12,30 @@ function configurateBabel(API) {
     API.assertVersion('^7.14.0');
     API.cache.forever();
 
-	// Configuration fragments.
+    // Configuration fragments.
     const corejs = { version: 3, proposals: true };
 
     const presets = Object.entries({
-		'@babel/preset-env': { bugfixes: true, useBuiltIns: 'usage', targets: { node: 'current' }, modules: false, corejs }
-	});
+        '@babel/preset-env': { bugfixes: true, useBuiltIns: 'usage', targets: { node: 'current' }, modules: false, corejs }
+    });
 
-	const plugins = Object.entries({
-		[aliasMapper]: {
-			basePath: __dirname,
+    const plugins = Object.entries({
+        [aliasMapper]: {
+            basePath: __dirname,
 
-			rootDirs: [
-				'sources/frontend',
-			],
+            rootDirs: [
+                'sources/frontend'
+            ],
 
-			aliases: {
-				common: 'sources/common',
-				backend: 'sources/backend',
-				models: 'sources/backend/models'
-			},
-		},
+            aliases: {
+                common: 'sources/common',
+                backend: 'sources/backend',
+                models: 'sources/backend/models'
+            }
+        },
 
-		'@babel/plugin-transform-runtime': { regenerator: false, corejs }
-	});
+        '@babel/plugin-transform-runtime': { regenerator: false, corejs }
+    });
 
     return { presets, plugins };
 }

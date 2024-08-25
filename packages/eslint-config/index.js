@@ -10,13 +10,13 @@ const extensions = [ '.mjs', '.js', '.jsx', '.ts', '.tsx', '.json' ];
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
     env: {
-        es2021: true
+        es2024: true
     },
 
     parser: '@typescript-eslint/parser',
 
     parserOptions: {
-        ecmaVersion: 2021,
+        ecmaVersion: 2024,
         sourceType: 'module'
     },
 
@@ -65,6 +65,10 @@ module.exports = {
         'import/extensions': extensions,
         'import/ignore': [ 'node_modules', '\\.(scss|css|svg|json)$' ],
         'import/core-modules': [],
-        'import/resolver': { node: { extensions } }
+
+        'import/resolver': {
+            typescript: { extensions },
+            node: { extensions }
+        }
     }
 };

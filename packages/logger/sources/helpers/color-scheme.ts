@@ -1,10 +1,10 @@
 /* eslint-disable no-use-before-define */
 
 // Third-party modules.
-import chalk, { Chalk } from 'chalk';
+import chalk, { type ChalkInstance } from 'chalk';
 
 // Constants.
-const colorizerMap = new Map<number, Chalk>();
+const colorizerMap = new Map<number, ChalkInstance>();
 
 // Helpers.
 function createScheme(options: { background: ColorValue, foreground: ColorValue }): number {
@@ -67,7 +67,7 @@ const ColorScheme = {
 
 type ColorScheme = typeof ColorScheme[keyof typeof ColorScheme];
 
-export function getChalkOf(colorSet: ColorScheme): Chalk {
+export function getChalkOf(colorSet: ColorScheme): ChalkInstance {
     return colorizerMap.get(colorSet) ?? chalk;
 }
 
