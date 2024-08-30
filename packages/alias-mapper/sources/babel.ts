@@ -2,7 +2,7 @@
 import path from 'path';
 
 // Third-party modules.
-import curryRight from 'lodash/curryRight';
+import lodash from 'lodash';
 
 // Babel modules.
 import type { Visitor } from '@babel/core';
@@ -20,18 +20,19 @@ interface State extends Record<string, any> {
 }
 
 function createReplacer(configuration: Configuration, basePath: string) {
-    const performFind = curryRight(findAlias)({ ...configuration, basePath: configuration.basePath ?? basePath });
+    const curriedFind = lodash.curryRight(findAlias);
+    const performFind = curriedFind({ ...configuration, basePath: configuration.basePath ?? basePath });
 
     return (source: StringLiteral, state: State) => {
         const rawPath = source.value;
 
-        if (state.filename) {
-            const mentionedFile = path.dirname(state.filename);
-            const [ mappedPath ] = performFind(rawPath, mentionedFile) ?? [];
+        if (!state.filename) return;
 
-            if (mappedPath) {
-                source.value = findRelativePath(mentionedFile, mappedPath); // eslint-disable-line no-param-reassign
-            }
+        const mentionedFile = path.dirname(state.filename);
+        const [ mappedPath ] = performFind(rawPath, mentionedFile) ?? [];
+
+        if (mappedPath) {
+            source.value = findRelativePath(mentionedFile, mappedPath); // eslint-disable-line no-param-reassign
         }
     };
 }

@@ -2,46 +2,39 @@
 import resolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 
-// Shared constants.
-const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ];
-
 /**
  *
  * @param {string} packageName
  * @param {import('rollup').OutputOptions} [extraOutputOptions]
- * @returns {import('rollup').RollupOptions[]}
+ * @returns {import('rollup').RollupOptions}
  */
 function configurateRollup(packageName, extraOutputOptions = {}) {
-    /**
-     * @param {import('rollup').ModuleFormat} format
-     * @returns {import('rollup').RollupOptions}
-     */
-    function configurateRollupByFormat(format) {
-        const inputPath = `./packages/${packageName}/sources/index.ts`;
-        const outputPath = `./packages/${packageName}/releases/${format}.js`;
+    const inputPath = `./packages/${packageName}/sources/index.ts`;
+    const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ];
 
-        return {
-            input: inputPath,
-            output: { file: outputPath, format, ...extraOutputOptions },
+    return {
+        input: inputPath,
 
-            plugins: [
-                resolve({ extensions }),
+        output: [
+            { file: `./packages/${packageName}/releases/cjs.js`, format: 'cjs', ...extraOutputOptions },
+            { file: `./packages/${packageName}/releases/esm.js`, format: 'esm', ...extraOutputOptions }
+        ],
 
-                babel({
-                    exclude: 'node_modules/**',
-                    extensions,
-                    babelHelpers: 'runtime'
-                })
-            ],
+        plugins: [
+            resolve({ extensions }),
 
-            external: source => source.includes('node_modules')
-        };
-    }
+            babel({
+                exclude: 'node_modules/**',
+                extensions,
+                babelHelpers: 'runtime'
+            })
+        ],
 
-    return [ configurateRollupByFormat('cjs'), configurateRollupByFormat('esm') ];
+        external: source => source.includes('node_modules')
+    };
 }
 
 export default [
-    ...configurateRollup('alias-mapper', { exports: 'named' }),
-    ...configurateRollup('logger', { exports: 'auto' })
+    configurateRollup('alias-mapper', { exports: 'named' }),
+    configurateRollup('logger', { exports: 'auto' })
 ];
