@@ -32,6 +32,6 @@ jobs:
         CI: true
 
     - name: Publish the package
-      run: npm publish --workspaces
+      run: npm publish --provenance --workspaces
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
