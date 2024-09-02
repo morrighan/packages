@@ -38,6 +38,7 @@ jobs:
     - name: Upload collected code coverage
       uses: codecov/codecov-action@v4
       with:
+        flags: alias-mapper, eslint-config, sass-bridge
         token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Publish the package
