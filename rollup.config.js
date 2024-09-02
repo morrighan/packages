@@ -36,5 +36,6 @@ function configurateRollup(packageName, extraOutputOptions = {}) {
 
 export default [
     configurateRollup('alias-mapper', { exports: 'named' }),
-    configurateRollup('logger', { exports: 'auto' })
+    configurateRollup('logger', { exports: 'auto' }),
+    configurateRollup('sass-bridge', { exports: 'auto' })
 ];

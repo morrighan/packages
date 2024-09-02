@@ -1,0 +1,8 @@
+# Unnecessary files
+.*
+
+# Local configurations
+tsconfig.json
+
+# Sources
+sources

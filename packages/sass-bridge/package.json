@@ -1,0 +1,48 @@
+{
+    "name": "@cichol/sass-bridge",
+    "version": "4.2.2",
+    "description": "A bridge interface to define Sass custom functions.",
+    "homepage": "https://github.com/morrighan/packages",
+    "bugs": {
+        "url": "https://github.com/morrighan/packages/issues"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Yongbin Min",
+        "email": "contact@cichol.com",
+        "url": "https://www.cichol.com/"
+    },
+    "type": "module",
+    "main": "releases/cjs.js",
+    "module": "releases/esm.js",
+    "types": "types/index.d.ts",
+    "directories": {
+        "lib": "releases"
+    },
+    "exports": {
+        "import": "./releases/esm.js",
+        "require": "./releases/cjs.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/morrighan/packages.git",
+        "directory": "packages/sass-bridge"
+    },
+    "scripts": {
+        "build": "npm run build:tsc",
+        "build:tsc": "npx tsc --project sources --outDir types"
+    },
+    "dependencies": {
+        "chroma-js": "^3.0.0",
+        "reflect-metadata": "^0.2.2",
+        "sass": "npm:sass-embedded@^1.77.8"
+    },
+    "engines": {
+        "node": "^20.16.0",
+        "npm": "^10.8.0"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    }
+}
