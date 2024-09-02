@@ -4,6 +4,7 @@
         "lib": [
             "ESNext"
         ],
+        "allowImportingTsExtensions": true,
         "baseUrl": ".",
         "typeRoots": [
             "../../node_modules/@types",

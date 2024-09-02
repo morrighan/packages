@@ -17,7 +17,7 @@ export default [ {
 
     languageOptions: {
         parserOptions: {
-            project: 'tsconfig.lint.json',
+            project: 'tsconfig.json',
             tsconfigRootDir: '.'
         }
     }
