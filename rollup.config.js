@@ -2,40 +2,37 @@
 import resolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 
+// Constants.
+const formats = [ 'cjs', 'esm' ];
+const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ];
+
 /**
- *
- * @param {string} packageName
- * @param {import('rollup').OutputOptions} [extraOutputOptions]
- * @returns {import('rollup').RollupOptions}
+ * @param {([ packageName: string, extraOutputOptions?: import('rollup').OutputOptions ][]} definitions
+ * @returns {import('rollup').RollupOptions[]}
  */
-function configurateRollup(packageName, extraOutputOptions = {}) {
-    const inputPath = `./packages/${packageName}/sources/index.ts`;
-    const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ];
+const configurateRollup = (...definitions) => definitions.map((
+    [ packageName, extraOutputOptions = { exports: 'auto' } ]
+) => ({
+    input: `./packages/${packageName}/sources/index.ts`,
 
-    return {
-        input: inputPath,
+    output: formats.map(format => ({
+        file: `./packages/${packageName}/releases/${format}.js`,
+        format,
+        sourcemap: 'inline',
 
-        output: [
-            { file: `./packages/${packageName}/releases/cjs.js`, format: 'cjs', ...extraOutputOptions },
-            { file: `./packages/${packageName}/releases/esm.js`, format: 'esm', ...extraOutputOptions }
-        ],
+        ...extraOutputOptions
+    })),
 
-        plugins: [
-            resolve({ extensions }),
+    plugins: [
+        resolve({ extensions }),
+        babel({ extensions, babelHelpers: 'runtime' })
+    ],
 
-            babel({
-                exclude: 'node_modules/**',
-                extensions,
-                babelHelpers: 'runtime'
-            })
-        ],
+    external: source => source.includes('node_modules')
+}));
 
-        external: source => source.includes('node_modules')
-    };
-}
-
-export default [
-    configurateRollup('alias-mapper', { exports: 'named' }),
-    configurateRollup('logger', { exports: 'auto' }),
-    configurateRollup('sass-bridge', { exports: 'auto' })
-];
+export default configurateRollup(
+    [ 'alias-mapper', { exports: 'named' } ],
+    [ 'logger' ],
+    [ 'sass-bridge' ]
+);
