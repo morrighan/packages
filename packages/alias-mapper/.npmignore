@@ -1,11 +1,10 @@
-# Unnecessary files
+# Unnecessary files.
 .*
 
-# Configuration files
+# Exclude source contents.
 tsconfig.json
-
-# Source contents
 sources
-
-# Test codes
 tests
+
+# Include type definitions.
+!types
