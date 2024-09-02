@@ -31,7 +31,7 @@ jobs:
         cache: 'npm'
 
     - name: Install, Build and Test
-      run: sh -f scripts/integration
+      run: bash scripts/integration
       env:
         CI: true
 
