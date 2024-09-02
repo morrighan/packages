@@ -1,8 +1,6 @@
-# Unnecessary files
+# Unnecessary files.
 .*
 
-# Local configurations
+# Exclude source contents.
 tsconfig.json
-
-# Not for production
 tests
