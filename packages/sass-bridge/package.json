@@ -1,7 +1,7 @@
 {
-    "name": "@cichol/logger",
+    "name": "@cichol/sass-bridge",
     "version": "4.3.0",
-    "description": "A logger based on `winston` for personal projects.",
+    "description": "A bridge interface to define Sass custom functions.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
         "url": "https://github.com/morrighan/packages/issues"
@@ -12,6 +12,7 @@
         "email": "contact@cichol.com",
         "url": "https://www.cichol.com/"
     },
+    "type": "module",
     "main": "releases/cjs.js",
     "module": "releases/esm.js",
     "types": "types/index.d.ts",
@@ -25,25 +26,16 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/morrighan/packages.git",
-        "directory": "packages/logger"
+        "directory": "packages/sass-bridge"
     },
     "scripts": {
         "build": "npm run build:tsc",
         "build:tsc": "npx tsc --project sources --outDir types"
     },
     "dependencies": {
-        "bluebird": "^3.7.2",
-        "chalk": "^5.3.0",
-        "cli-highlight": "^2.1.11",
-        "cls-rtracer": "^2.6.3",
-        "core-js-pure": "^3.38.1",
-        "lodash": "^4.17.21",
-        "luxon": "^3.5.0",
-        "morgan": "^1.10.0",
-        "pretty-bytes": "^6.1.1",
-        "pretty-ms": "^9.1.0",
+        "chroma-js": "^3.0.0",
         "reflect-metadata": "^0.2.2",
-        "winston": "^3.14.2"
+        "sass": "npm:sass-embedded@^1.77.8"
     },
     "engines": {
         "node": "^20.16.0",

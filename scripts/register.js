@@ -20,7 +20,7 @@ if (!globalThis[KeyOfRegister]) {
  * @param {(url: string) => Promise<any>} nextLoad
  * @returns {Promise<{ format: string; shortCircuit?: boolean; source: string; }>}
  */
-async function load(url, context, nextLoad) {
+export default async function load(url, context, nextLoad) {
     if (context.format === 'builtin') {
         return nextLoad(url);
     }
@@ -37,5 +37,4 @@ async function load(url, context, nextLoad) {
     return { format: 'module', shortCircuit: true, source: result.code };
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export { load };

@@ -1,12 +1,12 @@
-# `@cichol/logger`
+# `@cichol/sass-bridge`
 
-A logger based on `winston` for personal projects.
+A bridge interface to define Sass custom functions.
 
 [![Build Status][github actions badge]][github actions][![License][license badge]](LICENSE)[![Package Version][npm package version badge]][npm package]
 
 ## Table of Contents
 
-- [`@cichol/logger`](#cichollogger)
+- [`@cichol/sass-bridge`](#cicholsass-bridge)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -15,7 +15,7 @@ A logger based on `winston` for personal projects.
 ## Installation
 
 ```sh
-$ npm install --save @cichol/logger
+$ npm install --save @cichol/sass-bridge
 ```
 
 ## Usage
@@ -31,5 +31,5 @@ $ npm install --save @cichol/logger
 [github actions badge]: https://img.shields.io/github/actions/workflow/status/morrighan/packages/default.yml?branch=develop&style=flat-square
 [github actions]: https://github.com/morrighan/packages/actions
 [license badge]: https://img.shields.io/github/license/morrighan/packages.svg?style=flat-square
-[npm package version badge]: https://img.shields.io/npm/v/@cichol/logger.svg?style=flat-square
-[npm package]: https://www.npmjs.com/package/@cichol/logger
+[npm package version badge]: https://img.shields.io/npm/v/@cichol/sass-bridge.svg?style=flat-square
+[npm package]: https://www.npmjs.com/package/@cichol/sass-bridge

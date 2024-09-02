@@ -26,10 +26,12 @@
         "test": "npm run test:eslint && npm run test:mocha && npm run test:tsc",
         "test:eslint": "npx eslint .",
         "test:mocha": "npx mocha packages/*/tests/*.ts --require scripts/register.js --timeout 10000 --colors",
-        "test:tsc": "find packages/* -mindepth 0 -maxdepth 0 -type d -exec sh -c \"npx tsc --project {} --noEmit\" \\;"
+        "test:tsc": "find packages/* -mindepth 0 -maxdepth 0 -type d -exec sh -c \"npx tsc --project {} --noEmit\" \\;",
+        "version": "npm version \"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\" --workspaces"
     },
     "devDependencies": {
         "@babel/core": "^7.25.2",
+        "@babel/plugin-proposal-decorators": "^7.24.7",
         "@babel/plugin-transform-runtime": "^7.25.4",
         "@babel/preset-env": "^7.25.4",
         "@babel/preset-typescript": "^7.24.7",
@@ -43,6 +45,7 @@
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/bluebird": "^3.5.42",
         "@types/chai": "^4.3.17",
+        "@types/chroma-js": "^2.4.4",
         "@types/eslint": "^8.56.10",
         "@types/lodash": "^4.17.7",
         "@types/luxon": "^3.4.2",
@@ -58,7 +61,7 @@
         "typescript": "^5.5.4"
     },
     "engines": {
-        "node": "^20.13.1",
+        "node": "^20.16.0",
         "npm": "^10.8.0"
     }
 }
