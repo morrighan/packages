@@ -1,16 +1,23 @@
-flag_management:
+component_management:
   default_rules:
-    carryforward: true
+    statuses:
+      - type: project
+        target: auto
+        branches:
+          - "!master"
 
-  individual_flags:
-    - name: alias-mapper
+  individual_components:
+    - component_id: alias-mapper
+      name: alias-mapper
       paths:
-      - packages/alias-mapper
+        - packages/alias-mapper/**
 
-    - name: eslint-config
+    - component_id: eslint-config
+      name: eslint-config
       paths:
-      - packages/eslint-config
+        - packages/eslint-config/**
 
-    - name: sass-bridge
+    - component_id: sass-bridge
+      name: sass-bridge
       paths:
-      - packages/sass-bridge
+        - packages/sass-bridge/**
