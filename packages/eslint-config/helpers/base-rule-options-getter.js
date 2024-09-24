@@ -1,7 +1,11 @@
+// Node.js built-in APIs.
+import { createRequire } from 'module';
+
 /** @type {import('eslint').Linter.Config} */
-const baseConfig = require('eslint-config-airbnb-base');
+import baseConfig from 'eslint-config-airbnb-base';
 
 // Constants.
+const require = createRequire(import.meta.url);
 const optionsMap = new Map(mapOptionsOfBaseRules()); // eslint-disable-line no-use-before-define
 
 /**
@@ -11,7 +15,7 @@ function* getEntriesOfBaseRules() {
     const { extends: rulePaths } = baseConfig;
 
     for (const rulePath of rulePaths) {
-        const partialRules = require(rulePath).rules; // eslint-disable-line global-require
+        const partialRules = require(rulePath).rules;
 
         yield* Object.entries(partialRules);
     }
@@ -21,7 +25,7 @@ function* getEntriesOfBaseRules() {
  * @param {boolean} [useFullOptions]
  * @returns {Generator<[string, any], void, unknown>}
  */
-function* mapOptionsOfBaseRules(useFullOptions = false) {
+export function* mapOptionsOfBaseRules(useFullOptions = false) {
     for (const [ ruleName, ruleEntry ] of getEntriesOfBaseRules()) {
         if (!Array.isArray(ruleEntry)) {
             continue;
@@ -50,9 +54,6 @@ function* mapOptionsOfBaseRules(useFullOptions = false) {
  * @param {string} ruleName
  * @returns {Record<string, any> | Record<string, any>[]}
  */
-function getOptionsOfBaseRule(ruleName) {
+export function getOptionsOfBaseRule(ruleName) {
     return optionsMap.get(ruleName);
 }
-
-// Exporting.
-module.exports = { mapOptionsOfBaseRules, getOptionsOfBaseRule };

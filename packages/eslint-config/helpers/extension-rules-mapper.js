@@ -1,13 +1,15 @@
 // Third-party modules.
-const { rules: TSESLintRules } = require('@typescript-eslint/eslint-plugin');
+import TSESLint from 'typescript-eslint';
 
 // Local helpers.
-const { mapOptionsOfBaseRules } = require('./base-rule-options-getter');
+import { mapOptionsOfBaseRules } from './base-rule-options-getter.js';
 
 // Configuration fragments.
-const rulesForJavaScript = require('../rules/javascript');
+import { configuration } from '../fragments/javascript.js';
 
 // Constants.
+const [ { rules: rulesForJavaScript } ] = configuration;
+const { rules: TSESLintRules } = TSESLint.plugin;
 const optionsMap = new Map(mapOptionsOfBaseRules(true));
 
 /**
@@ -46,12 +48,11 @@ function* getEntriesOfExtendibleRules() {
  * @param {import('eslint').Linter.RulesRecord} [coreRules]
  * @returns {import('eslint').Linter.RulesRecord}
  */
-function mapExtensionRules(coreRules = {}) {
+export function mapExtensionRules(coreRules = {}) {
     return Object.assign(
         Object.fromEntries(getEntriesOfExtendibleRules()),
         Object.fromEntries(Object.entries(coreRules).flatMap(mapOverridenRule))
     );
 }
 
-// Exporting.
-module.exports = mapExtensionRules;
+export default mapExtensionRules;

@@ -1,0 +1,23 @@
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: auto
+        branches:
+          - "!master"
+
+  individual_components:
+    - component_id: alias-mapper
+      name: alias-mapper
+      paths:
+        - packages/alias-mapper/**
+
+    - component_id: eslint-config
+      name: eslint-config
+      paths:
+        - packages/eslint-config/**
+
+    - component_id: sass-bridge
+      name: sass-bridge
+      paths:
+        - packages/sass-bridge/**

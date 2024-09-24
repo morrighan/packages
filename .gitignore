@@ -8,6 +8,7 @@ yarn.lock
 # Dependency directory
 **/node_modules
 
-# Released contents
+# Generated contents
+coverage
 releases
 types

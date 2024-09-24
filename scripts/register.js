@@ -1,7 +1,7 @@
 // Node.js built-in APIs.
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { register } from 'module';
+import { register } from 'module'; // eslint-disable-line node/no-unsupported-features/node-builtins
 
 // Third-party modules.
 import * as Babel from '@babel/core';
@@ -21,7 +21,7 @@ if (!globalThis[KeyOfRegister]) {
  * @returns {Promise<{ format: string; shortCircuit?: boolean; source: string; }>}
  */
 export default async function load(url, context, nextLoad) {
-    if (context.format === 'builtin') {
+    if (context.format === 'builtin' || (!context.format && url.startsWith('node:'))) {
         return nextLoad(url);
     }
 

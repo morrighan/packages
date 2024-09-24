@@ -2,7 +2,7 @@
 
 An universal ESLint configuration for personal projects.
 
-[![Build Status][github actions badge]][github actions][![License][license badge]](LICENSE)[![Package Version][npm package version badge]][npm package]
+[![Build Status][github actions badge]][github actions][![Coverage Status][coverage badge]][coverage][![License][license badge]](LICENSE)[![Package Version][npm package version badge]][npm package]
 
 ## Table of Contents
 
@@ -16,8 +16,8 @@ An universal ESLint configuration for personal projects.
 
 ## Requisites
 
-- ESLint `^7.32.0`
-- TypeScript `^4.4.2`
+- ESLint `^9.10.0`
+- TypeScript `^5.4.5`
 
 ## Installation
 
@@ -27,10 +27,12 @@ $ npm install --save-dev @cichol/eslint-config
 
 ## Usage
 
-```json
-{
-    "extends": "@cichol/eslint-config"
-}
+```javascript
+import defineConfig from '@cichol/eslint-config';
+
+export default defineConfig(
+    /** ESLint configurations ... */
+);
 ```
 
 ## Contained presets and plugins
@@ -52,6 +54,8 @@ $ npm install --save-dev @cichol/eslint-config
 
 [github actions badge]: https://img.shields.io/github/actions/workflow/status/morrighan/packages/default.yml?branch=develop&style=flat-square
 [github actions]: https://github.com/morrighan/packages/actions
+[coverage badge]: https://img.shields.io/codecov/c/github/morrighan/packages?style=flat-square
+[coverage]: https://app.codecov.io/gh/morrighan/packages/tree/develop/packages%2Feslint-config
 [license badge]: https://img.shields.io/github/license/morrighan/packages.svg?style=flat-square
 [npm package version badge]: https://img.shields.io/npm/v/@cichol/eslint-config.svg?style=flat-square
 [npm package]: https://www.npmjs.com/package/@cichol/eslint-config

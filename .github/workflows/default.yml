@@ -31,3 +31,8 @@ jobs:
       run: bash scripts/integration
       env:
         CI: true
+
+    - name: Upload collected code coverage
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
