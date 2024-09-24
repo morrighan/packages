@@ -6,7 +6,7 @@ import { configurate } from '../helpers/configurator.js';
 import { mapExtensionRules } from '../helpers/extension-rules-mapper.js';
 
 export const configuration = configurate({
-    files: [ '**/*.ts', '**/*.tsx' ],
+    files: [ '**/*.ts?(x)' ],
 
     extends: [
         TSESLint.configs.eslintRecommended,

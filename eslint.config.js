@@ -13,7 +13,7 @@ const aliasMapper = path.resolve(dirname, 'packages/alias-mapper');
 export default defineConfig({
     ignores: [ 'coverage', 'packages/**/releases', 'packages/**/*.d.ts' ]
 }, {
-    files: [ '**/*.{js,ts}' ],
+    files: [ '**/*.[jt]s?(x)' ],
 
     languageOptions: {
         parserOptions: {

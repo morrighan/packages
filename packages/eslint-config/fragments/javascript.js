@@ -27,7 +27,7 @@ const compat = new FlatCompat({
 });
 
 export const configuration = configurate({
-    files: [ '**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx' ],
+    files: [ '**/*.[jt]s?(x)' ],
 
     extends: [
         ...compat.extends(

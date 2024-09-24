@@ -2,7 +2,7 @@
 import { configurate } from '../helpers/configurator.js';
 
 export const configuration = configurate({
-    files: [ '**/*.jsx', '**/*.tsx' ],
+    files: [ '**/*.[jt]sx' ],
 
     languageOptions: {
         parserOptions: {
