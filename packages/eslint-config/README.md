@@ -16,8 +16,8 @@ An universal ESLint configuration for personal projects.
 
 ## Requisites
 
-- ESLint `^7.32.0`
-- TypeScript `^4.4.2`
+- ESLint `^9.10.0`
+- TypeScript `^5.4.5`
 
 ## Installation
 
@@ -27,10 +27,12 @@ $ npm install --save-dev @cichol/eslint-config
 
 ## Usage
 
-```json
-{
-    "extends": "@cichol/eslint-config"
-}
+```javascript
+import defineConfig from '@cichol/eslint-config';
+
+export default defineConfig(
+    /** ESLint configurations ... */
+);
 ```
 
 ## Contained presets and plugins

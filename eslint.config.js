@@ -3,16 +3,16 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 // ESLint-relevant modules.
-import { FlatCompat } from '@eslint/eslintrc';
+import defineConfig from '@cichol/eslint-config';
 import globals from 'globals';
 
 // Constants.
 const dirname = import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url));
 const aliasMapper = path.resolve(dirname, 'packages/alias-mapper');
-const compat = new FlatCompat({ baseDirectory: dirname });
 
-/** @type {import('eslint').Linter.FlatConfig} */
-export default [ {
+export default defineConfig({
+    ignores: [ 'coverage', 'packages/**/releases', 'packages/**/*.d.ts' ]
+}, {
     files: [ '**/*.{js,ts}' ],
 
     languageOptions: {
@@ -22,8 +22,6 @@ export default [ {
         }
     }
 }, {
-    ignores: [ 'packages/**/releases', 'packages/**/*.d.ts' ]
-}, ...compat.extends('@cichol'), {
     rules: {
         'no-restricted-exports': 'off',
         'no-shadow': 'off'
@@ -73,6 +71,12 @@ export default [ {
     files: [ '*.config.js', 'scripts/register.js' ],
 
     rules: {
-        'node/no-unpublished-import': 'off'
+        // 'node/no-unpublished-import': 'off'
     }
-} ];
+}, {
+    files: [ 'packages/eslint-config/**/*.js' ],
+
+    rules: {
+        'import/extensions': 'off'
+    }
+});

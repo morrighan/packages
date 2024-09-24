@@ -6,7 +6,7 @@ import { Value } from 'sass';
 // Type definitions.
 export type Primitives = boolean | number | string;
 
-export type NumberWithUnit ={ value: number, unit: string };
+export type NumberWithUnit = { value: number, unit: string };
 
 export type JavaScriptType<Base = Primitives | Color | NumberWithUnit | null> =
     | Base

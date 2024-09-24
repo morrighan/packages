@@ -12,6 +12,7 @@
         "email": "contact@cichol.com",
         "url": "https://www.cichol.com/"
     },
+    "type": "module",
     "main": "index.js",
     "repository": {
         "type": "git",
@@ -19,22 +20,24 @@
         "directory": "packages/eslint-config"
     },
     "dependencies": {
-        "@typescript-eslint/eslint-plugin": "^7.18.0",
-        "@typescript-eslint/parser": "^7.18.0",
+        "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+        "@eslint/compat": "^1.1.1",
+        "@eslint/eslintrc": "^3.1.0",
+        "@stylistic/eslint-plugin": "^2.7.2",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-import-resolver-typescript": "^3.6.1",
-        "eslint-plugin-eslint-comments": "^3.2.0",
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-jsx-a11y": "^6.9.0",
-        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-n": "^17.10.2",
         "eslint-plugin-promise": "^7.1.0",
         "eslint-plugin-react": "^7.35.0",
         "eslint-plugin-react-hooks": "^4.6.2",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "typescript-eslint": "^8.4.0"
     },
     "peerDependencies": {
-        "eslint": "^8.57.0",
+        "eslint": "^8.57.0 || ^9.10.0",
         "typescript": "^5.4.5"
     },
     "engines": {
