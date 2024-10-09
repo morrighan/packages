@@ -6,10 +6,8 @@ import { fileURLToPath } from 'url';
 import lodash from 'lodash';
 
 // ESLint-relevant modules.
-import { fixupPluginRules } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc';
 import TSESLint from 'typescript-eslint';
-import importPlugin from 'eslint-plugin-import';
 import promisePlugin from 'eslint-plugin-promise';
 import nodePlugin from 'eslint-plugin-n';
 import commentsPlugin from '@eslint-community/eslint-plugin-eslint-comments';
@@ -30,14 +28,7 @@ export const configuration = configurate({
     files: [ '**/*.[jt]s?(x)' ],
 
     extends: [
-        ...compat.extends(
-            'airbnb',
-            'airbnb/hooks'
-        ).map(config => (
-            config.plugins
-                ? { ...config, plugins: lodash.omit(config.plugins, 'import') }
-                : config
-        )),
+        ...compat.extends('airbnb', 'airbnb/hooks'),
 
         promisePlugin.configs['flat/recommended'],
 
@@ -60,7 +51,6 @@ export const configuration = configurate({
     },
 
     plugins: {
-        import: fixupPluginRules(importPlugin),
         '@stylistic': stylisticPlugin
     },
 
