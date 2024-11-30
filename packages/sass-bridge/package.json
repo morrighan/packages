@@ -33,7 +33,7 @@
         "build:tsc": "npx tsc --project sources --outDir types"
     },
     "dependencies": {
-        "chroma-js": "^3.0.0",
+        "chroma-js": "^3.1.2",
         "core-js-pure": "^3.38.1",
         "reflect-metadata": "^0.2.2",
         "sass": "npm:sass-embedded@^1.77.8"
