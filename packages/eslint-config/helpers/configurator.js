@@ -7,6 +7,10 @@ import lodash from 'lodash';
 // Local helpers.
 import { mapStylisticRules } from './stylistic-rules-mapper.js';
 
+/**
+ * @param {import('eslint').Linter.Config[]} configurations
+ * @returns {import('eslint').Linter.Config[]}
+ */
 export function configurate(...configurations) {
     return TSESLint.config(...configurations).map(mapStylisticRules);
 }
