@@ -12,6 +12,7 @@
         "email": "contact@cichol.com",
         "url": "https://www.cichol.com/"
     },
+    "type": "module",
     "main": "releases/cjs.js",
     "module": "releases/esm.js",
     "types": "types/index.d.ts",
