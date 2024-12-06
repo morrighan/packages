@@ -21,7 +21,8 @@
     },
     "exports": {
         "import": "./releases/esm.js",
-        "require": "./releases/cjs.js"
+        "require": "./releases/cjs.js",
+        "types": "./types/index.d.ts"
     },
     "repository": {
         "type": "git",
