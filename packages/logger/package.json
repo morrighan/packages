@@ -1,6 +1,6 @@
 {
     "name": "@cichol/logger",
-    "version": "4.4.2",
+    "version": "4.4.3",
     "description": "A logger based on `winston` for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -20,7 +20,8 @@
     },
     "exports": {
         "import": "./releases/esm.js",
-        "require": "./releases/cjs.js"
+        "require": "./releases/cjs.js",
+        "types": "./types/index.d.ts"
     },
     "repository": {
         "type": "git",
