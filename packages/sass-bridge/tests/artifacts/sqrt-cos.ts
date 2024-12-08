@@ -1,5 +1,4 @@
-import type { BridgedFunction } from '../../types';
-import { sassFunction } from '../../releases/esm.js'; // eslint-disable-line import/extensions
+import { type BridgedFunction, sassFunction } from '@cichol/sass-bridge';
 
 @sassFunction('sqrt-cos($x)')
 export default class SquareRootCosine implements BridgedFunction {

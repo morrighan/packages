@@ -4,14 +4,13 @@ import { fileURLToPath } from 'url';
 
 // ESLint-relevant modules.
 import defineConfig from '@cichol/eslint-config';
-import globals from 'globals';
 
 // Constants.
 const dirname = import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url));
 const aliasMapper = path.resolve(dirname, 'packages/alias-mapper');
 
 export default defineConfig({
-    ignores: [ 'coverage', 'packages/**/releases', 'packages/**/*.d.ts' ]
+    ignores: [ 'coverage', 'packages/*/dists', 'packages/**/*.d.ts' ]
 }, {
     files: [ '**/*.[jt]s?(x)' ],
 
@@ -27,7 +26,7 @@ export default defineConfig({
         'no-shadow': 'off'
     }
 }, {
-    files: [ 'packages/*/tests/*.ts' ],
+    files: [ 'packages/*/tests/**/*.ts' ],
 
     rules: {
         'import/no-extraneous-dependencies': 'off',
@@ -42,7 +41,7 @@ export default defineConfig({
 
     settings: {
         'import/resolver': {
-            [aliasMapper]: {
+            '@cichol/alias-mapper': {
                 basePath: path.resolve(aliasMapper, 'tests/examples'),
 
                 rootDirs: [
@@ -60,18 +59,6 @@ export default defineConfig({
 
             node: { extensions: [ '.js', '.ts', '.json' ] }
         }
-    }
-}, {
-    files: [ 'packages/alias-mapper/tests/examples/babel.config.js', 'packages/eslint-config/**/*.js' ],
-
-    languageOptions: {
-        globals: { ...globals.commonjs, ...globals.node }
-    }
-}, {
-    files: [ '*.config.js', 'scripts/register.js' ],
-
-    rules: {
-        // 'node/no-unpublished-import': 'off'
     }
 }, {
     files: [ 'packages/eslint-config/**/*.js' ],

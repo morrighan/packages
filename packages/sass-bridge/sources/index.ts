@@ -13,7 +13,7 @@ export interface BridgedFunction {
 }
 
 export interface Constructor {
-    new (...args: JavaScriptType[]): BridgedFunction;
+    new (...args: any[]): BridgedFunction;
 }
 
 // Constants.

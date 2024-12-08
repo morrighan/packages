@@ -13,16 +13,21 @@
         "url": "https://www.cichol.com/"
     },
     "type": "module",
-    "main": "releases/cjs.js",
-    "module": "releases/esm.js",
-    "types": "types/index.d.ts",
-    "directories": {
-        "lib": "releases"
-    },
+    "main": "./dists/index.cjs",
+    "module": "./dists/index.js",
+    "types": "./dists/index.d.ts",
     "exports": {
-        "import": "./releases/esm.js",
-        "require": "./releases/cjs.js",
-        "types": "./types/index.d.ts"
+        ".": {
+            "import": {
+                "default": "./dists/index.js",
+                "types": "./dists/index.d.ts"
+            },
+            "require": {
+                "default": "./dists/index.cjs",
+                "types": "./dists/index.d.cts"
+            }
+        },
+        "./package.json": "./package.json"
     },
     "repository": {
         "type": "git",
@@ -31,13 +36,16 @@
     },
     "scripts": {
         "build": "npm run build:tsc",
-        "build:tsc": "npx tsc --project sources --outDir types"
+        "build:tsc": "npx tsc --project sources --outDir dists"
     },
     "dependencies": {
         "chroma-js": "^3.1.2",
         "core-js-pure": "^3.38.1",
         "reflect-metadata": "^0.2.2",
         "sass": "npm:sass-embedded@^1.77.8"
+    },
+    "devDependencies": {
+        "@cichol/sass-bridge": "file:."
     },
     "engines": {
         "node": "^20.18.0",

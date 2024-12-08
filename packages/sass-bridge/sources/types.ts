@@ -4,11 +4,11 @@ import * as sass from 'sass';
 import { Value } from 'sass';
 
 // Type definitions.
-export type Primitives = boolean | number | string;
+export type Primitives = boolean | number | string | null;
 
 export type NumberWithUnit = { value: number, unit: string };
 
-export type JavaScriptType<Base = Primitives | Color | NumberWithUnit | null> =
+export type JavaScriptType<Base = Primitives | Color | NumberWithUnit> =
     | Base
     | JavaScriptType<Base>[]
     | Map<JavaScriptType<Base>, JavaScriptType<Base>>;

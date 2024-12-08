@@ -7,7 +7,7 @@ import { expect } from 'chai';
 import * as sass from 'sass';
 
 // Testing target.
-import { getFunctions } from '../releases/esm.js';
+import { getFunctions } from '@cichol/sass-bridge';
 
 describe('@cichol/sass-bridge', () => {
     it('should be working properly', async () => {

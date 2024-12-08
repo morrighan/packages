@@ -20,9 +20,10 @@
         "packages/*"
     ],
     "scripts": {
-        "build": "npm run build:rollup && npm run build:packages",
+        "build": "npm run build:rollup && npm run build:packages && npm run build:postbuild",
         "build:rollup": "npx rollup --config",
         "build:packages": "npm run build --workspaces --if-present",
+        "build:postbuild": "node scripts/postbuild.js",
         "test": "npm run test:eslint && npm run test:tsc && npm run test:mocha",
         "test:eslint": "npx eslint .",
         "test:tsc": "find packages/* -mindepth 0 -maxdepth 0 -type d -exec sh -c \"npx tsc --project {} --noEmit\" \\;",
@@ -38,7 +39,6 @@
         "@babel/types": "^7.26.0",
         "@cichol/eslint-config": "file:./packages/eslint-config",
         "@rollup/plugin-babel": "^6.0.4",
-        "@rollup/plugin-json": "^6.1.0",
         "@rollup/plugin-node-resolve": "^15.3.0",
         "@types/babel__core": "^7.20.5",
         "@types/babel__helper-plugin-utils": "^7.10.3",
@@ -53,11 +53,12 @@
         "@types/morgan": "^1.9.9",
         "@types/node": "^20.12.12",
         "babel-plugin-polyfill-corejs3": "^0.11.0",
+        "bluebird": "^3.7.2",
         "c8": "^10.1.2",
         "chai": "^5.1.2",
         "chai-as-promised": "^8.0.1",
         "eslint": "^8.57.0",
-        "globals": "^15.12.0",
+        "glob": "^11.0.0",
         "mocha": "^10.8.2",
         "rollup": "^4.27.4",
         "typescript": "^5.7.2"

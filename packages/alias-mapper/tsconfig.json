@@ -12,7 +12,6 @@
         ]
     },
     "exclude": [
-        "releases",
-        "types"
+        "dists"
     ]
 }
