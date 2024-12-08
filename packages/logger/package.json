@@ -1,6 +1,6 @@
 {
     "name": "@cichol/logger",
-    "version": "4.4.4",
+    "version": "4.5.0",
     "description": "A logger based on `winston` for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -13,16 +13,21 @@
         "url": "https://www.cichol.com/"
     },
     "type": "module",
-    "main": "releases/cjs.js",
-    "module": "releases/esm.js",
-    "types": "types/index.d.ts",
-    "directories": {
-        "lib": "releases"
-    },
+    "main": "./dists/index.cjs",
+    "module": "./dists/index.js",
+    "types": "./dists/index.d.ts",
     "exports": {
-        "import": "./releases/esm.js",
-        "require": "./releases/cjs.js",
-        "types": "./types/index.d.ts"
+        ".": {
+            "import": {
+                "default": "./dists/index.js",
+                "types": "./dists/index.d.ts"
+            },
+            "require": {
+                "default": "./dists/index.cjs",
+                "types": "./dists/index.d.cts"
+            }
+        },
+        "./package.json": "./package.json"
     },
     "repository": {
         "type": "git",
@@ -31,14 +36,14 @@
     },
     "scripts": {
         "build": "npm run build:tsc",
-        "build:tsc": "npx tsc --project sources --outDir types"
+        "build:tsc": "npx tsc --project sources --outDir dists"
     },
     "dependencies": {
         "bluebird": "^3.7.2",
         "chalk": "^5.3.0",
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",
-        "core-js-pure": "^3.38.1",
+        "core-js-pure": "^3.39.0",
         "lodash": "^4.17.21",
         "luxon": "^3.5.0",
         "morgan": "^1.10.0",

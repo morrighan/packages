@@ -1,6 +1,6 @@
 {
     "name": "@cichol/alias-mapper",
-    "version": "4.4.4",
+    "version": "4.5.0",
     "description": "A resolver in order to shorten deeply nested relative path expression.",
     "keywords": [
         "babel",
@@ -28,17 +28,21 @@
         "url": "https://www.cichol.com/"
     },
     "type": "module",
-    "main": "releases/cjs.js",
-    "module": "releases/esm.js",
-    "types": "types/index.d.ts",
-    "directories": {
-        "lib": "releases",
-        "test": "tests"
-    },
+    "main": "./dists/index.cjs",
+    "module": "./dists/index.js",
+    "types": "./dists/index.d.ts",
     "exports": {
-        "import": "./releases/esm.js",
-        "require": "./releases/cjs.js",
-        "types": "./types/index.d.ts"
+        ".": {
+            "import": {
+                "default": "./dists/index.js",
+                "types": "./dists/index.d.ts"
+            },
+            "require": {
+                "default": "./dists/index.cjs",
+                "types": "./dists/index.d.cts"
+            }
+        },
+        "./package.json": "./package.json"
     },
     "repository": {
         "type": "git",
@@ -47,17 +51,17 @@
     },
     "scripts": {
         "build": "npm run build:tsc",
-        "build:tsc": "npx tsc --project sources --outDir types"
+        "build:tsc": "npx tsc --project sources --outDir dists"
     },
     "dependencies": {
-        "@babel/helper-plugin-utils": "^7.14.5",
+        "@babel/helper-plugin-utils": "^7.25.9",
         "core-js-pure": "^3.39.0",
-        "eslint-import-resolver-typescript": "^3.6.1",
+        "eslint-import-resolver-typescript": "^3.7.0",
         "lodash": "^4.17.21"
     },
     "peerDependencies": {
-        "@babel/core": "^7.16.7",
-        "eslint": "^8.57.0 || ^9.10.0"
+        "@babel/core": "^7.26.0",
+        "eslint": "^8.57.1 || ^9.16.0"
     },
     "engines": {
         "node": "^20.18.0",

@@ -1,14 +1,8 @@
-// Node.js built-in APIs.
-const path = require('path');
-
-// Constants.
-const aliasMapper = path.resolve(__dirname, '../..');
-
 /**
  * @param {import('@babel/core').ConfigAPI} API
  * @returns {import('@babel/core').TransformOptions}
  */
-function configurateBabel(API) {
+export default function configurateBabel(API) {
     API.assertVersion('^7.14.0');
     API.cache.forever();
 
@@ -20,8 +14,8 @@ function configurateBabel(API) {
     });
 
     const plugins = Object.entries({
-        [aliasMapper]: {
-            basePath: __dirname,
+        [import.meta.resolve('@cichol/alias-mapper')]: {
+            basePath: import.meta.dirname,
 
             rootDirs: [
                 'sources/frontend'
@@ -39,5 +33,3 @@ function configurateBabel(API) {
 
     return { presets, plugins };
 }
-
-module.exports = configurateBabel;
