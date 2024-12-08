@@ -6,5 +6,5 @@ tsconfig.json
 sources
 tests
 
-# Include type definitions.
-!types
+# Include distribution files.
+!dists
