@@ -34,10 +34,6 @@
         "url": "git+https://github.com/morrighan/packages.git",
         "directory": "packages/sass-bridge"
     },
-    "scripts": {
-        "build": "npm run build:tsc",
-        "build:tsc": "npx tsc --project sources --outDir dists"
-    },
     "dependencies": {
         "chroma-js": "^3.1.2",
         "core-js-pure": "^3.39.0",

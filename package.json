@@ -20,10 +20,9 @@
         "packages/*"
     ],
     "scripts": {
-        "build": "npm run build:rollup && npm run build:packages && npm run build:postbuild",
+        "build": "npm run build:rollup && npm run build:dts",
         "build:rollup": "npx rollup --config",
-        "build:packages": "npm run build --workspaces --if-present",
-        "build:postbuild": "node scripts/postbuild.js",
+        "build:dts": "node scripts/typings.js",
         "test": "npm run test:eslint && npm run test:tsc && npm run test:mocha",
         "test:eslint": "npx eslint .",
         "test:tsc": "find packages/* -mindepth 0 -maxdepth 0 -type d -exec sh -c \"npx tsc --project {} --noEmit\" \\;",
@@ -38,6 +37,7 @@
         "@babel/preset-typescript": "^7.26.0",
         "@babel/types": "^7.26.3",
         "@cichol/eslint-config": "file:./packages/eslint-config",
+        "@microsoft/api-extractor": "^7.48.0",
         "@rollup/plugin-babel": "^6.0.4",
         "@rollup/plugin-node-resolve": "^15.3.0",
         "@types/babel__core": "^7.20.5",
@@ -58,8 +58,10 @@
         "chai": "^5.1.2",
         "chai-as-promised": "^8.0.1",
         "eslint": "^8.57.1",
+        "execa": "^9.5.2",
         "glob": "^11.0.0",
         "mocha": "^10.8.2",
+        "ora": "^8.1.1",
         "rollup": "^4.28.1",
         "typescript": "^5.7.2"
     },

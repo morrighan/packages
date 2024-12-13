@@ -49,10 +49,6 @@
         "url": "git+https://github.com/morrighan/packages.git",
         "directory": "packages/alias-mapper"
     },
-    "scripts": {
-        "build": "npm run build:tsc",
-        "build:tsc": "npx tsc --project sources --outDir dists"
-    },
     "dependencies": {
         "@babel/helper-plugin-utils": "^7.25.9",
         "core-js-pure": "^3.39.0",
