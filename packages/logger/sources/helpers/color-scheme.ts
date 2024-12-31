@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-
 // Third-party modules.
 import chalk, { type ChalkInstance } from 'chalk';
 
@@ -72,5 +70,3 @@ export function getChalkOf(colorSet: ColorScheme): ChalkInstance {
 }
 
 export default ColorScheme;
-
-/* eslint-enable no-use-before-define */

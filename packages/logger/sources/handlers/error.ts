@@ -30,7 +30,7 @@ function mapLocationOfErrorThrown(filename: string): string {
     if (target.startsWith('node_modules')) {
         target = chalk.gray(target).replace(
             /node_modules[\\/]([^\\/]+)(.*)/,
-            (matches, moduleName: string, trailing: string) => `node_modules${path.sep}${chalk.bold.underline(moduleName)}${chalk.gray(trailing)}` // eslint-disable-line max-len
+            (matches, moduleName: string, trailing: string) => `node_modules${path.sep}${chalk.bold.underline(moduleName)}${chalk.gray(trailing)}`
         );
     } else {
         target = `${chalk.gray(path.dirname(target) + path.sep)}${chalk.bold.underline(path.basename(target))}`;
@@ -67,7 +67,7 @@ export default function handle(data: LoggingData): HandledData | undefined {
 
                     location = target + trailing;
                 } else {
-                    location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}#L${line}`); // eslint-disable-line max-len
+                    location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}#L${line}`);
                 }
             }
 

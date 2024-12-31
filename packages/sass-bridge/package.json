@@ -38,7 +38,7 @@
         "chroma-js": "^3.1.2",
         "core-js-pure": "^3.39.0",
         "reflect-metadata": "^0.2.2",
-        "sass": "npm:sass-embedded@^1.82.0"
+        "sass": "npm:sass-embedded@^1.83.0"
     },
     "devDependencies": {
         "@cichol/sass-bridge": "file:."

@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import lodash from 'lodash';
 
 // ESLint-relevant modules.
+import { fixupConfigRules } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc';
 import TSESLint from 'typescript-eslint';
 import promisePlugin from 'eslint-plugin-promise';
@@ -28,7 +29,9 @@ export const configuration = configurate({
     files: [ '**/*.[jt]s?(x)' ],
 
     extends: [
-        ...compat.extends('airbnb', 'airbnb/hooks'),
+        ...fixupConfigRules(
+            compat.extends('airbnb', 'airbnb/hooks')
+        ),
 
         promisePlugin.configs['flat/recommended'],
 
@@ -157,7 +160,8 @@ export const configuration = configurate({
         indent: [ 'error', 4, {
             ...getOptionsOfBaseRule('indent'),
 
-            SwitchCase: 0
+            SwitchCase: 0,
+            VariableDeclarator: 'first'
         } ],
 
         /**
