@@ -44,8 +44,8 @@
         "@cichol/sass-bridge": "file:."
     },
     "engines": {
-        "node": "^20.18.0",
-        "npm": "^10.9.0"
+        "node": "^20.18.1",
+        "npm": "^11.0.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
