@@ -16,7 +16,7 @@ export const level = LoggingLevel.Query
 export const label = decorateLabel('QUERY', ColorScheme.Query)
 
 export default function handle(data: LoggingData): HandledData | undefined {
-    const payload = highlight(data.message, { language: 'sql' })
+	const payload = highlight(data.message, { language: 'sql' })
 
-    return { label, payload }
+	return { label, payload }
 }

@@ -7,7 +7,7 @@ import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised)
 
 describe('@cichol/eslint-config', () => {
-    it('`index.js` should be parsed without an exception', () => {
-        expect(import('..')).not.to.eventually.throw()
-    })
+	it('`index.js` should be parsed without an exception', () => {
+		expect(import('..')).not.to.eventually.throw()
+	})
 })

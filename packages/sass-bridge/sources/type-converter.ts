@@ -3,132 +3,132 @@ import chroma from 'chroma-js'
 
 // Local helpers.
 import {
-    type SassType,
-    SassBoolean,
-    SassNumber,
-    SassString,
-    SassColor,
-    SassList,
-    SassMap,
-    SassTRUE,
-    SassFALSE,
-    SassNULL,
-    type JavaScriptType,
-    type NumberWithUnit,
+	type SassType,
+	SassBoolean,
+	SassNumber,
+	SassString,
+	SassColor,
+	SassList,
+	SassMap,
+	SassTRUE,
+	SassFALSE,
+	SassNULL,
+	type JavaScriptType,
+	type NumberWithUnit,
 } from './types'
 
 // Helper functions.
 function isObject(value?: unknown): value is object {
-    const type = typeof value
+	const type = typeof value
 
-    return !!value && (type === 'object' || type === 'function')
+	return !!value && (type === 'object' || type === 'function')
 }
 
 export function sassToJavaScriptType(sassValue: SassType): JavaScriptType {
-    switch (true) {
-    case sassValue instanceof SassBoolean: {
-        return sassValue.value
-    }
+	switch (true) {
+	case sassValue instanceof SassBoolean: {
+		return sassValue.value
+	}
 
-    case sassValue instanceof SassString: {
-        return sassValue.text
-    }
+	case sassValue instanceof SassString: {
+		return sassValue.text
+	}
 
-    case sassValue instanceof SassNumber: {
-        const { value, numeratorUnits, denominatorUnits } = sassValue
+	case sassValue instanceof SassNumber: {
+		const { value, numeratorUnits, denominatorUnits } = sassValue
 
-        const unit = sassValue.hasUnits
-            ? numeratorUnits.join('*') + (denominatorUnits.size > 0 ? `/${denominatorUnits.join('*')}` : '')
-            : ''
+		const unit = sassValue.hasUnits
+			? numeratorUnits.join('*') + (denominatorUnits.size > 0 ? `/${denominatorUnits.join('*')}` : '')
+			: ''
 
-        return unit ? { value, unit } : value
-    }
+		return unit ? { value, unit } : value
+	}
 
-    case sassValue instanceof SassColor: {
-        const { red, green, blue, alpha } = sassValue
+	case sassValue instanceof SassColor: {
+		const { red, green, blue, alpha } = sassValue
 
-        return chroma(red, green, blue, alpha)
-    }
+		return chroma(red, green, blue, alpha)
+	}
 
-    case sassValue instanceof SassList: {
-        const listValue = sassValue.asList
-        const length = listValue.size
-        const array = Array(length).fill(undefined) as SassType[]
+	case sassValue instanceof SassList: {
+		const listValue = sassValue.asList
+		const length = listValue.size
+		const array = Array(length).fill(undefined) as SassType[]
 
-        for (let index = 0; index < length; index += 1) {
-            array[index] = listValue.get(index) as SassType
-        }
+		for (let index = 0; index < length; index += 1) {
+			array[index] = listValue.get(index) as SassType
+		}
 
-        return array.map(value => sassToJavaScriptType(value))
-    }
+		return array.map(value => sassToJavaScriptType(value))
+	}
 
-    case sassValue instanceof SassMap: {
-        const mapValue = sassValue.contents
+	case sassValue instanceof SassMap: {
+		const mapValue = sassValue.contents
 
-        const entries = Array.from(mapValue.entries() as IterableIterator<[SassType, SassType]>)
-            .map(([ key, value ]) => [ sassToJavaScriptType(key), sassToJavaScriptType(value) ])
+		const entries = Array.from(mapValue.entries() as IterableIterator<[SassType, SassType]>)
+			.map(([ key, value ]) => [ sassToJavaScriptType(key), sassToJavaScriptType(value) ])
 
-        return new Map(entries as [JavaScriptType, JavaScriptType][])
-    }
+		return new Map(entries as [JavaScriptType, JavaScriptType][])
+	}
 
-    default: {
-        return null
-    }
-    }
+	default: {
+		return null
+	}
+	}
 }
 
 export function javaScriptToSassType(rawValue: JavaScriptType): SassType {
-    switch (true) {
-    case typeof rawValue === 'boolean': {
-        const booleanValue = rawValue
+	switch (true) {
+	case typeof rawValue === 'boolean': {
+		const booleanValue = rawValue
 
-        return booleanValue ? SassTRUE : SassFALSE
-    }
+		return booleanValue ? SassTRUE : SassFALSE
+	}
 
-    case typeof rawValue === 'number': {
-        const numberValue = rawValue
+	case typeof rawValue === 'number': {
+		const numberValue = rawValue
 
-        return new SassNumber(numberValue)
-    }
+		return new SassNumber(numberValue)
+	}
 
-    case isObject(rawValue) && [ 'value', 'unit' ].every(propertyKey => propertyKey in rawValue): {
-        const { value, unit } = rawValue as NumberWithUnit
+	case isObject(rawValue) && [ 'value', 'unit' ].every(propertyKey => propertyKey in rawValue): {
+		const { value, unit } = rawValue as NumberWithUnit
 
-        return new SassNumber(value, unit)
-    }
+		return new SassNumber(value, unit)
+	}
 
-    case typeof rawValue === 'string': {
-        const stringValue = rawValue
+	case typeof rawValue === 'string': {
+		const stringValue = rawValue
 
-        return new SassString(stringValue)
-    }
+		return new SassString(stringValue)
+	}
 
-    case isObject(rawValue) && '_rgb' in rawValue: {
-        const [ red, green, blue, alpha ] = rawValue.rgba() as number[]
+	case isObject(rawValue) && '_rgb' in rawValue: {
+		const [ red, green, blue, alpha ] = rawValue.rgba() as number[]
 
-        return new SassColor({ red, green, blue, alpha })
-    }
+		return new SassColor({ red, green, blue, alpha })
+	}
 
-    case Array.isArray(rawValue): {
-        return new SassList(rawValue.map(value => javaScriptToSassType(value)))
-    }
+	case Array.isArray(rawValue): {
+		return new SassList(rawValue.map(value => javaScriptToSassType(value)))
+	}
 
-    case rawValue instanceof Map: {
-        const mapValue = rawValue as Map<JavaScriptType, JavaScriptType>
-        const sassMap = new SassMap()
+	case rawValue instanceof Map: {
+		const mapValue = rawValue as Map<JavaScriptType, JavaScriptType>
+		const sassMap = new SassMap()
 
-        const converted = Array.from(mapValue.entries())
-            .map(entry => entry.map(javaScriptToSassType)) as [SassType, SassType][]
+		const converted = Array.from(mapValue.entries())
+			.map(entry => entry.map(javaScriptToSassType)) as [SassType, SassType][]
 
-        for (const [ key, value ] of converted) {
-            sassMap.contents.set(key, value)
-        }
+		for (const [ key, value ] of converted) {
+			sassMap.contents.set(key, value)
+		}
 
-        return sassMap
-    }
+		return sassMap
+	}
 
-    default: {
-        return SassNULL
-    }
-    }
+	default: {
+		return SassNULL
+	}
+	}
 }

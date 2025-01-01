@@ -9,14 +9,14 @@ import { configuration as fragmentForTSX } from './fragments/typescript-react.js
  * @returns {import('eslint').Linter.Config[]}
  */
 function defineConfig(...extraConfigs) {
-    const baseConfiguration = [
-        ...fragmentForJavaScript,
-        ...fragmentForJSX,
-        ...fragmentForTypeScript,
-        ...fragmentForTSX,
-    ]
+	const baseConfiguration = [
+		...fragmentForJavaScript,
+		...fragmentForJSX,
+		...fragmentForTypeScript,
+		...fragmentForTSX,
+	]
 
-    return [ ...baseConfiguration, ...extraConfigs ]
+	return [ ...baseConfiguration, ...extraConfigs ]
 }
 
 // Exporting.

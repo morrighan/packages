@@ -12,7 +12,7 @@ import * as Babel from '@babel/core'
 import { ESLint, loadESLint } from 'eslint'
 
 declare module 'eslint' {
-    function loadESLint(options?: ESLint.Options & { useFlatConfig?: boolean }): Promise<typeof ESLint>
+	function loadESLint(options?: ESLint.Options & { useFlatConfig?: boolean }): Promise<typeof ESLint>
 }
 
 // Constants.
@@ -24,22 +24,22 @@ const astFile = path.resolve(import.meta.dirname, 'artifacts/ast.json')
 const savedAst = fs.readFile(astFile, 'utf8').then(data => JSON.parse(data))
 
 describe('@cichol/alias-mapper', () => {
-    it(`ESLint v${ESLint.version} should lint without an error`, async () => {
-        const linter = await loadESLint().then(ESLint => new ESLint())
-        const [ { messages } ] = await linter.lintFiles([ targetFile ])
+	it(`ESLint v${ESLint.version} should lint without an error`, async () => {
+		const linter = await loadESLint().then(ESLint => new ESLint())
+		const [ { messages } ] = await linter.lintFiles([ targetFile ])
 
-        for (const { message, ruleId, line, column } of messages) {
-            console.error(`[${(ruleId ?? '?')}] ${message} (${line}:${column})`)
-        }
+		for (const { message, ruleId, line, column } of messages) {
+			console.error(`[${(ruleId ?? '?')}] ${message} (${line}:${column})`)
+		}
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        expect(messages, 'An error has to be not raised').to.be.empty
-    })
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+		expect(messages, 'An error has to be not raised').to.be.empty
+	})
 
-    it(`Babel v${Babel.version} should compile without an error`, async () => {
-        const fileResult = await Babel.transformFileAsync(targetFile, { root: examplesPath, code: false, ast: true })
-        const builtAst = fileResult && JSON.parse(JSON.stringify(fileResult.ast))
+	it(`Babel v${Babel.version} should compile without an error`, async () => {
+		const fileResult = await Babel.transformFileAsync(targetFile, { root: examplesPath, code: false, ast: true })
+		const builtAst = fileResult && JSON.parse(JSON.stringify(fileResult.ast))
 
-        expect(builtAst, 'The abstract syntax tree does not match').to.deep.equal(await savedAst)
-    })
+		expect(builtAst, 'The abstract syntax tree does not match').to.deep.equal(await savedAst)
+	})
 })

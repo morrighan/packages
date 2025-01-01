@@ -12,13 +12,13 @@ type ResolutionResult = ReturnType<typeof defaultResolve>
 export const interfaceVersion = 2
 
 export function resolve(
-    rawPath: string,
-    mentionedFile: string,
-    configuration: Configuration,
+	rawPath: string,
+	mentionedFile: string,
+	configuration: Configuration,
 ): ResolutionResult {
-    const [ mappedPath, defaultOptions ] = findAlias(rawPath, mentionedFile, configuration) ?? []
+	const [ mappedPath, defaultOptions ] = findAlias(rawPath, mentionedFile, configuration) ?? []
 
-    return mappedPath && defaultOptions
-        ? defaultResolve(mappedPath, mentionedFile, defaultOptions)
-        : { found: false }
+	return mappedPath && defaultOptions
+		? defaultResolve(mappedPath, mentionedFile, defaultOptions)
+		: { found: false }
 }

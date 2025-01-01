@@ -11,28 +11,28 @@ const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ]
  * @returns {import('rollup').RollupOptions[]}
  */
 const configurateRollup = (...definitions) => definitions.map((
-    [ packageName, extraOutputOptions = { exports: 'auto' } ],
+	[ packageName, extraOutputOptions = { exports: 'auto' } ],
 ) => ({
-    input: `./packages/${packageName}/sources/index.ts`,
+	input: `./packages/${packageName}/sources/index.ts`,
 
-    output: Object.entries(formats).map(([ format, extension ]) => ({
-        file: `./packages/${packageName}/dists/index.${extension}`,
-        format,
-        sourcemap: 'inline',
+	output: Object.entries(formats).map(([ format, extension ]) => ({
+		file: `./packages/${packageName}/dists/index.${extension}`,
+		format,
+		sourcemap: 'inline',
 
-        ...extraOutputOptions,
-    })),
+		...extraOutputOptions,
+	})),
 
-    plugins: [
-        resolve({ extensions }),
-        babel({ extensions, babelHelpers: 'runtime' }),
-    ],
+	plugins: [
+		resolve({ extensions }),
+		babel({ extensions, babelHelpers: 'runtime' }),
+	],
 
-    external: source => source.includes('node_modules'),
+	external: source => source.includes('node_modules'),
 }))
 
 export default configurateRollup(
-    [ 'alias-mapper', { exports: 'named' } ],
-    [ 'logger' ],
-    [ 'sass-bridge' ],
+	[ 'alias-mapper', { exports: 'named' } ],
+	[ 'logger' ],
+	[ 'sass-bridge' ],
 )

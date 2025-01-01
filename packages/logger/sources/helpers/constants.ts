@@ -5,18 +5,18 @@ import { isMainThread } from 'worker_threads'
 
 // Type definitions.
 export const ExecutionMode = {
-    DevelopmentMode: 'development',
-    ProductionMode: 'production',
+	DevelopmentMode: 'development',
+	ProductionMode: 'production',
 } as const
 
 export const ClusteringMode = {
-    MasterProcess: 0,
-    WorkerProcess: 1,
+	MasterProcess: 0,
+	WorkerProcess: 1,
 } as const
 
 export const ThreadingMode = {
-    MainThread: 0,
-    WorkerThread: 1,
+	MainThread: 0,
+	WorkerThread: 1,
 } as const
 
 export type ExecutionMode = typeof ExecutionMode[keyof typeof ExecutionMode]
@@ -27,9 +27,9 @@ export type ThreadingMode = typeof ThreadingMode[keyof typeof ThreadingMode]
 export const executionMode = environments.NODE_ENV as ExecutionMode ?? ExecutionMode.DevelopmentMode
 
 export const clusteringMode: ClusteringMode = cluster.isPrimary ?? cluster.isMaster
-    ? ClusteringMode.MasterProcess
-    : ClusteringMode.WorkerProcess
+	? ClusteringMode.MasterProcess
+	: ClusteringMode.WorkerProcess
 
 export const threadingMode: ThreadingMode = isMainThread
-    ? ThreadingMode.MainThread
-    : ThreadingMode.WorkerThread
+	? ThreadingMode.MainThread
+	: ThreadingMode.WorkerThread

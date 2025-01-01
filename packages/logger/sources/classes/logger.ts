@@ -34,106 +34,106 @@ const KeyOfInstance: unique symbol = Symbol('@cichol/logger::classes/logger::Ins
 const KeyOfPassport: unique symbol = Symbol('@cichol/logger::classes/logger::Passport')
 
 class Logger {
-    #logger: BaseLogger = winston.createLogger({
-        levels: lodash(handlers)
-            .map(({ name, level }) => [ name, level ])
-            .filter(([ , level ]) => typeof level === 'number')
-            .fromPairs()
-            .value(),
+	#logger: BaseLogger = winston.createLogger({
+		levels: lodash(handlers)
+			.map(({ name, level }) => [ name, level ])
+			.filter(([ , level ]) => typeof level === 'number')
+			.fromPairs()
+			.value(),
 
-        level: (executionMode === ExecutionMode.ProductionMode ? 'http' : 'verbose') as typeof LoggingLevel,
+		level: (executionMode === ExecutionMode.ProductionMode ? 'http' : 'verbose') as typeof LoggingLevel,
 
-        transports: [
-            new ConsoleTransport({ format: formatForCLI }),
-        ],
+		transports: [
+			new ConsoleTransport({ format: formatForCLI }),
+		],
 
-        exitOnError: false,
-    })
+		exitOnError: false,
+	})
 
-    #morgan: Morgan = morgan(formatForMorgan, {
-        stream: new PassThrough({ objectMode: true }).on('data', (data: string) => {
-            this.log('http', data.trim())
-        }),
-    }) as Morgan
+	#morgan: Morgan = morgan(formatForMorgan, {
+		stream: new PassThrough({ objectMode: true }).on('data', (data: string) => {
+			this.log('http', data.trim())
+		}),
+	}) as Morgan
 
-    private constructor(passport: typeof KeyOfPassport) {
-        if (passport !== KeyOfPassport) {
-            throw new ReferenceError('Logger class cannot be constructed in directly')
-        }
-    }
+	private constructor(passport: typeof KeyOfPassport) {
+		if (passport !== KeyOfPassport) {
+			throw new ReferenceError('Logger class cannot be constructed in directly')
+		}
+	}
 
-    public static get instance(): Logger {
-        if (this !== Logger) {
-            throw new ReferenceError('Logger class is not inheritable')
-        }
+	public static get instance(): Logger {
+		if (this !== Logger) {
+			throw new ReferenceError('Logger class is not inheritable')
+		}
 
-        if (Reflect.hasOwnMetadata(KeyOfInstance, Logger)) {
-            return Reflect.getOwnMetadata(KeyOfInstance, Logger)
-        }
+		if (Reflect.hasOwnMetadata(KeyOfInstance, Logger)) {
+			return Reflect.getOwnMetadata(KeyOfInstance, Logger)
+		}
 
-        const instance = new Logger(KeyOfPassport)
+		const instance = new Logger(KeyOfPassport)
 
-        try {
-            return instance
-        } finally {
-            Reflect.defineMetadata(KeyOfInstance, instance, Logger)
-        }
-    }
+		try {
+			return instance
+		} finally {
+			Reflect.defineMetadata(KeyOfInstance, instance, Logger)
+		}
+	}
 
-    /**
+	/**
      * Logging message with specific level.
      *
      * @param level
      * @param message
      * @param args Additional metadata.
      */
-    public log(level: LoggingLevelName, message: string, ...args: any[]): void
+	public log(level: LoggingLevelName, message: string, ...args: any[]): void
 
-    /**
+	/**
      * Logging HTTP I/O.
      *
      * @param request Node.js built-in `IncomingMessage` instance from `http` module.
      * @param response Node.js built-in `ServerResponse` instance from `http` module.
      */
-    public log(request: HttpRequest, response: HttpResponse): Promise<void>
+	public log(request: HttpRequest, response: HttpResponse): Promise<void>
 
-    /**
+	/**
      * Logging errors in detail.
      *
      * @param error
      */
-    public log(error: Error): void
+	public log(error: Error): void
 
-    public log(...args: any[]): void | Promise<void> {
-        const logger = this.#logger
-        const morgan = this.#morgan
+	public log(...args: any[]): void | Promise<void> {
+		const logger = this.#logger
+		const morgan = this.#morgan
 
-        switch (true) {
-        case (args.length >= 2 && args[0] instanceof HttpRequest && args[1] instanceof HttpResponse): {
-            const [ request, response ] = args as [ HttpRequest, HttpResponse ]
+		switch (true) {
+		case (args.length >= 2 && args[0] instanceof HttpRequest && args[1] instanceof HttpResponse): {
+			const [ request, response ] = args as [ HttpRequest, HttpResponse ]
 
-            return Promise.fromCallback<void>(callback => morgan(request, response, callback))
-        }
+			return Promise.fromCallback<void>(callback => morgan(request, response, callback))
+		}
 
-        case (args.length >= 1 && args[0] instanceof Error): {
-            const [ error, ...data ] = args as [ Error, ...any[] ]
+		case (args.length >= 1 && args[0] instanceof Error): {
+			const [ error, ...data ] = args as [ Error, ...any[] ]
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            logger.log('error', error.message, error, ...data)
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+			logger.log('error', error.message, error, ...data)
 
-            return undefined
-        }
+			return undefined
+		}
 
-        default: {
-            const [ level, message, ...data ] = args as [ typeof LoggingLevel, string, ...any[] ]
+		default: {
+			const [ level, message, ...data ] = args as [ typeof LoggingLevel, string, ...any[] ]
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            logger.log(level, message, ...data)
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+			logger.log(level, message, ...data)
 
-            return undefined
-        }
-        }
-    }
+			return undefined
+		}
+		}
+	}
 }
 
 export default Logger.instance

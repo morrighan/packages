@@ -10,15 +10,15 @@ import * as VerboseHandler from './verbose'
 import * as DebugHandler from './debug'
 
 const handlers = [
-    FatalHandler,
-    ErrorHandler,
-    WarningHandler,
-    NoticeHandler,
-    InfoHandler,
-    HttpHandler,
-    QueryHandler,
-    VerboseHandler,
-    DebugHandler,
+	FatalHandler,
+	ErrorHandler,
+	WarningHandler,
+	NoticeHandler,
+	InfoHandler,
+	HttpHandler,
+	QueryHandler,
+	VerboseHandler,
+	DebugHandler,
 ]
 
 export type LoggingLevelName = (typeof handlers extends (infer T)[] ? T : never)['name']

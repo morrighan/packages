@@ -18,12 +18,12 @@ type FilterSassPrefix<T extends string> = T extends `Sass${infer R}` ? R : never
 type SassTypes = Exclude<`Sass${FilterSassPrefix<keyof typeof sass>}`, `Sass${'Boolean' | 'Calculation'}`>
 
 const SassTypes = Object.fromEntries(
-    Object.keys(sass)
-        .filter(propertyKey => propertyKey.startsWith('Sass'))
-        .map(propertyKey => sass[propertyKey as SassTypes])
-        .filter(constructor => typeof constructor === 'function')
-        .filter(constructor => Object.prototype.isPrototypeOf.call(Value.prototype, constructor.prototype))
-        .map(constructor => [ constructor.name, constructor ] as [SassTypes, (typeof sass)[SassTypes]]),
+	Object.keys(sass)
+		.filter(propertyKey => propertyKey.startsWith('Sass'))
+		.map(propertyKey => sass[propertyKey as SassTypes])
+		.filter(constructor => typeof constructor === 'function')
+		.filter(constructor => Object.prototype.isPrototypeOf.call(Value.prototype, constructor.prototype))
+		.map(constructor => [ constructor.name, constructor ] as [SassTypes, (typeof sass)[SassTypes]]),
 ) as { [P in SassTypes]: (typeof sass)[P] }
 
 export const SassTRUE = sass.sassTrue

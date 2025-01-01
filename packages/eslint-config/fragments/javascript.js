@@ -22,396 +22,398 @@ import { getOptionsOfBaseRule } from '../helpers/base-rule-options-getter.js'
 const extensions = [ '.mjs', '.js', '.jsx', '.ts', '.tsx', '.json' ]
 
 const compat = new FlatCompat({
-    baseDirectory: import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url)),
+	baseDirectory: import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url)),
 })
 
 export const configuration = configurate({
-    files: [ '**/*.[jt]s?(x)' ],
+	files: [ '**/*.[jt]s?(x)' ],
 
-    extends: [
-        ...fixupConfigRules(
-            compat.extends('airbnb', 'airbnb/hooks'),
-        ),
+	extends: [
+		...fixupConfigRules(
+			compat.extends('airbnb', 'airbnb/hooks'),
+		),
 
-        promisePlugin.configs['flat/recommended'],
+		promisePlugin.configs['flat/recommended'],
 
-        getConfigWithAliasedPluginName(
-            nodePlugin.configs['flat/recommended'],
-            { originalName: 'n', aliasedName: 'node' },
-        ),
+		getConfigWithAliasedPluginName(
+			nodePlugin.configs['flat/recommended'],
+			{ originalName: 'n', aliasedName: 'node' },
+		),
 
-        getConfigWithAliasedPluginName(
-            commentsPlugin.configs.recommended,
-            { originalName: '@eslint-community/eslint-comments', aliasedName: 'eslint-comments' },
-            commentsPlugin,
-        ),
-    ],
+		getConfigWithAliasedPluginName(
+			commentsPlugin.configs.recommended,
+			{ originalName: '@eslint-community/eslint-comments', aliasedName: 'eslint-comments' },
+			commentsPlugin,
+		),
+	],
 
-    languageOptions: {
-        parser: TSESLint.parser,
-        ecmaVersion: 2024,
-        sourceType: 'module',
-    },
+	languageOptions: {
+		parser: TSESLint.parser,
+		ecmaVersion: 2024,
+		sourceType: 'module',
+	},
 
-    plugins: {
-        '@stylistic': stylisticPlugin,
-    },
+	plugins: {
+		'@stylistic': stylisticPlugin,
+	},
 
-    rules: {
-        /**
+	rules: {
+		/**
          * Enforces spaces inside of brackets.
          *
          * @see {@link https://eslint.org/docs/rules/array-bracket-spacing}
          */
-        'array-bracket-spacing': [ 'error', 'always' ],
+		'array-bracket-spacing': [ 'error', 'always' ],
 
-        /**
+		/**
          * Enforces parenthesis in arrow function arguments where they can't be omitted.
          *
          * @see {@link https://eslint.org/docs/rules/arrow-parens}
          */
-        'arrow-parens': [ 'error', 'as-needed', {
-            requireForBlockBody: false,
-        } ],
+		'arrow-parens': [ 'error', 'as-needed', {
+			requireForBlockBody: false,
+		} ],
 
-        /**
+		/**
          * @see {@link https://eslint.org/docs/rules/camelcase}
          */
-        camelcase: [ 'error', {
-            properties: 'never',
-        } ],
+		camelcase: [ 'error', {
+			properties: 'never',
+		} ],
 
-        /**
+		/**
          * Allows trailing commas.
          *
          * @see {@link https://eslint.org/docs/rules/comma-dangle}
          */
-        'comma-dangle': [ 'error', 'always-multiline' ],
+		'comma-dangle': [ 'error', 'always-multiline' ],
 
-        /**
+		/**
          * Enforces the consistent use of function declarations.
          *
          * @see {@link https://eslint.org/docs/rules/func-style}
          */
-        'func-style': [ 'error', 'declaration', {
-            allowArrowFunctions: true,
-        } ],
+		'func-style': [ 'error', 'declaration', {
+			allowArrowFunctions: true,
+		} ],
 
-        /**
+		/**
          * Enforces consistent use of file extension within the import path.
          *
          * @see {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/extensions.md}
          */
-        'import/extensions': [ 'error', 'ignorePackages', {
-            mjs: 'never',
-            js: 'never',
-            jsx: 'never',
-            ts: 'never',
-            tsx: 'never',
-        } ],
+		'import/extensions': [ 'error', 'ignorePackages', {
+			mjs: 'never',
+			js: 'never',
+			jsx: 'never',
+			ts: 'never',
+			tsx: 'never',
+		} ],
 
-        /**
+		/**
          * Allows modules to have too many dependencies.
          *
          * @see {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/max-dependencies.md}
          */
-        'import/max-dependencies': 'off',
+		'import/max-dependencies': 'off',
 
-        /**
+		/**
          * Forbids `require()` calls with expressions.
          *
          * @see {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-dynamic-require.md}
          */
-        'import/no-dynamic-require': 'off',
+		'import/no-dynamic-require': 'off',
 
-        /**
+		/**
          * Forbids the import of external modules that are not declared in the `package.json`.
          *
          * @see {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md}
          */
-        'import/no-extraneous-dependencies': [ 'error', {
-            devDependencies: [
-                ...getOptionsOfBaseRule('import/no-extraneous-dependencies').devDependencies,
+		'import/no-extraneous-dependencies': [ 'error', {
+			devDependencies: [
+				...getOptionsOfBaseRule('import/no-extraneous-dependencies').devDependencies,
 
-                'configs/**',
-                'scripts/**',
-                'tests/**',
+				'configs/**',
+				'scripts/**',
+				'tests/**',
 
-                '**/*.config.js',
-            ],
+				'**/*.config.js',
+			],
 
-            optionalDependencies: false,
-        } ],
+			optionalDependencies: false,
+		} ],
 
-        /**
+		/**
          * Enforces a convention in module import order.
          *
          * @see {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/order.md}
          */
-        'import/order': [ 'error', {
-            groups: [ 'builtin', 'external', [ 'internal', 'parent', 'sibling' ], 'index' ],
-        } ],
+		'import/order': [ 'error', {
+			groups: [ 'builtin', 'external', [ 'internal', 'parent', 'sibling' ], 'index' ],
+		} ],
 
-        /**
+		/**
          * Enforces consistent indentation.
          *
          * @see {@link https://eslint.org/docs/rules/indent}
          */
-        indent: [ 'error', 4, {
-            ...getOptionsOfBaseRule('indent'),
+		indent: [ 'error', 'tab', {
+			...getOptionsOfBaseRule('indent'),
 
-            SwitchCase: 0,
-            VariableDeclarator: 'first',
-        } ],
+			SwitchCase: 0,
+			VariableDeclarator: 'first',
+		} ],
 
-        /**
+		/**
          * Enforces a maximum line length.
          *
          * @see {@link https://eslint.org/docs/rules/max-len}
          */
-        'max-len': [ 'error', 120, 4, {
-            ...getOptionsOfBaseRule('max-len'),
+		'max-len': [ 'error', 120, 4, {
+			...getOptionsOfBaseRule('max-len'),
 
-            ignoreComments: true,
-            ignoreTrailingComments: true,
-        } ],
+			ignoreComments: true,
+			ignoreTrailingComments: true,
+		} ],
 
-        /**
+		/**
          * @see {@link https://eslint.org/docs/rules/max-statements}
          */
-        'max-statements': [ 'error', 100, {
-            ignoreTopLevelFunctions: true,
-        } ],
+		'max-statements': [ 'error', 100, {
+			ignoreTopLevelFunctions: true,
+		} ],
 
-        /**
+		/**
          * Allows `continue` statements.
          *
          * @see {@link https://eslint.org/docs/rules/no-continue}
          */
-        'no-continue': 'off',
+		'no-continue': 'off',
 
-        /**
+		/**
          * Forbids reassignment of function parameters.
          *
          * @see {@link https://eslint.org/docs/rules/no-param-reassign}
          */
-        'no-param-reassign': [ 'error', {
-            ignorePropertyModificationsFor: lodash.union([
-                ...getOptionsOfBaseRule('no-param-reassign').ignorePropertyModificationsFor,
+		'no-param-reassign': [ 'error', {
+			ignorePropertyModificationsFor: lodash.union([
+				...getOptionsOfBaseRule('no-param-reassign').ignorePropertyModificationsFor,
 
-                // For non-abbreviated naming style.
-                'event',
-                'context',
+				// For non-abbreviated naming style.
+				'event',
+				'context',
 
-                // For Fastify.
-                'reply',
-            ]),
+				// For Fastify.
+				'reply',
+			]),
 
-            props: true,
-        } ],
+			props: true,
+		} ],
 
-        /**
+		/**
          * Forbids certain object properties.
          *
          * @see {@link https://eslint.org/docs/rules/no-restricted-properties}
          */
-        'no-restricted-properties': [ 'error',
-            ...getOptionsOfBaseRule('no-restricted-properties'),
+		'no-restricted-properties': [ 'error',
+			...getOptionsOfBaseRule('no-restricted-properties'),
 
-            {
-                object: 'document',
-                property: 'cookie',
-                message: 'Do not use cookies.',
-            },
+			{
+				object: 'document',
+				property: 'cookie',
+				message: 'Do not use cookies.',
+			},
 
-            {
-                property: 'forEach',
-                message: 'Please use for..of loops instead.',
-            },
-        ],
+			{
+				property: 'forEach',
+				message: 'Please use for..of loops instead.',
+			},
+		],
 
-        /**
+		/**
          * Forbids specified syntax.
          *
          * @see {@link https://eslint.org/docs/rules/no-restricted-syntax}
          */
-        'no-restricted-syntax': [ 'error',
-            ...getOptionsOfBaseRule('no-restricted-syntax')
-                .filter(({ selector }) => selector !== 'ForOfStatement'),
+		'no-restricted-syntax': [ 'error',
+			...getOptionsOfBaseRule('no-restricted-syntax')
+				.filter(({ selector }) => selector !== 'ForOfStatement'),
 
-            {
-                message: 'Do not use the execScript functions.',
-                selector: 'CallExpression[name="execScript"]',
-            },
-        ],
+			{
+				message: 'Do not use the execScript functions.',
+				selector: 'CallExpression[name="execScript"]',
+			},
+		],
 
-        /**
+		'no-tabs': 'off',
+
+		/**
          * Forbids self assignment.
          *
          * @see {@link https://eslint.org/docs/rules/no-self-assign}
          */
-        'no-self-assign': [ 'error', {
-            props: false,
-        } ],
+		'no-self-assign': [ 'error', {
+			props: false,
+		} ],
 
-        /**
+		/**
          * Forbids warning comments.
          *
          * @see {@link https://eslint.org/docs/rules/no-warning-comments}
          */
-        'no-warning-comments': [ 'warn', {
-            location: 'anywhere',
-            terms: [ 'BUG', 'HACK', 'FIXME', 'LATER', 'LATER2', 'TODO' ],
-        } ],
+		'no-warning-comments': [ 'warn', {
+			location: 'anywhere',
+			terms: [ 'BUG', 'HACK', 'FIXME', 'LATER', 'LATER2', 'TODO' ],
+		} ],
 
-        /**
+		/**
          * Enforces to export with `module.exports`.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/exports-style.md}
          */
-        'node/exports-style': [ 'error', 'module.exports' ],
+		'node/exports-style': [ 'error', 'module.exports' ],
 
-        /**
+		/**
          * Forbids import declarations which import non-existence modules.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-missing-import.md}
          */
-        'node/no-missing-import': 'off',
+		'node/no-missing-import': 'off',
 
-        /**
+		/**
          * Forbids import declarations which import non-existence modules.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-missing-require.md}
          */
-        'node/no-missing-require': 'off',
+		'node/no-missing-require': 'off',
 
-        /**
+		/**
          * Forbids unsupported ECMAScript syntax on the specified version.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features/es-syntax.md}
          */
-        'node/no-unsupported-features/es-syntax': 'off',
+		'node/no-unsupported-features/es-syntax': 'off',
 
-        /**
+		/**
          * Enforces to use `Buffer` with `require('buffer')`.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/prefer-global/buffer.md}
          */
-        'node/prefer-global/buffer': [ 'error', 'never' ],
+		'node/prefer-global/buffer': [ 'error', 'never' ],
 
-        /**
+		/**
          * Enforces to use `console` with `require('console')`.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/prefer-global/console.md}
          */
-        'node/prefer-global/console': [ 'error', 'never' ],
+		'node/prefer-global/console': [ 'error', 'never' ],
 
-        /**
+		/**
          * Enforces to use `process` with `require('process')`.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/prefer-global/process.md}
          */
-        'node/prefer-global/process': [ 'error', 'never' ],
+		'node/prefer-global/process': [ 'error', 'never' ],
 
-        /**
+		/**
          * Enforces to use `TextDecoder` with `require('util')`.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/prefer-global/text-decoder.md}
          */
-        'node/prefer-global/text-decoder': [ 'error', 'never' ],
+		'node/prefer-global/text-decoder': [ 'error', 'never' ],
 
-        /**
+		/**
          * Enforces to use `TextEncoder` with `require('util')`.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/prefer-global/text-encoder.md}
          */
-        'node/prefer-global/text-encoder': [ 'error', 'never' ],
+		'node/prefer-global/text-encoder': [ 'error', 'never' ],
 
-        /**
+		/**
          * Enforces to use `URL` with `require('url')`.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/prefer-global/url.md}
          */
-        'node/prefer-global/url': [ 'error', 'never' ],
+		'node/prefer-global/url': [ 'error', 'never' ],
 
-        /**
+		/**
          * Enforces to use `URLSearchParams` with `require('url')`.
          *
          * @see {@link https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/prefer-global/url-search-params.md}
          */
-        'node/prefer-global/url-search-params': [ 'error', 'never' ],
+		'node/prefer-global/url-search-params': [ 'error', 'never' ],
 
-        /**
+		/**
          * Enforce consistent line breaks after opening and before closing braces.
          *
          * @see {@link https://eslint.org/docs/rules/object-curly-newline}
          */
-        'object-curly-newline': [ 'error', {
-            ExportDeclaration: { consistent: true, minProperties: Infinity, multiline: true },
-            ImportDeclaration: { consistent: true, minProperties: Infinity, multiline: true },
-            ObjectExpression: { consistent: true, minProperties: Infinity, multiline: true },
-            ObjectPattern: { consistent: true, minProperties: Infinity, multiline: true },
-        } ],
+		'object-curly-newline': [ 'error', {
+			ExportDeclaration: { consistent: true, minProperties: Infinity, multiline: true },
+			ImportDeclaration: { consistent: true, minProperties: Infinity, multiline: true },
+			ObjectExpression: { consistent: true, minProperties: Infinity, multiline: true },
+			ObjectPattern: { consistent: true, minProperties: Infinity, multiline: true },
+		} ],
 
-        // /**
-        //  * Allows just one var statement per function.
-        //  *
-        //  * @see {@link https://eslint.org/docs/rules/one-var}
-        //  */
-        // 'one-var': [ 'error', 'consecutive' ],
+		// /**
+		//  * Allows just one var statement per function.
+		//  *
+		//  * @see {@link https://eslint.org/docs/rules/one-var}
+		//  */
+		// 'one-var': [ 'error', 'consecutive' ],
 
-        /**
+		/**
          * Prefers destructuring from arrays and objects.
          *
          * @see {@link https://eslint.org/docs/rules/prefer-destructuring}
          */
-        'prefer-destructuring': [ 'error', {
-            AssignmentExpression: { array: true, object: true },
-            VariableDeclarator: { array: false, object: true },
-        }, {
-            enforceForRenamedProperties: false,
-        } ],
+		'prefer-destructuring': [ 'error', {
+			AssignmentExpression: { array: true, object: true },
+			VariableDeclarator: { array: false, object: true },
+		}, {
+			enforceForRenamedProperties: false,
+		} ],
 
-        /**
+		/**
          * Forbids to use of semicolons instead of ASI
          *
          * @see {@link https://eslint.org/docs/rules/semi}
          */
-        semi: [ 'error', 'never' ],
+		semi: [ 'error', 'never' ],
 
-        /**
+		/**
          * Requires a whitespace on comment.
          *
          * @see {@link https://eslint.org/docs/rules/spaced-comment}
          */
-        'spaced-comment': [ 'error', 'always', {
-            block: {
-                balanced: true,
-                exceptions: [ '-', '+' ],
-                markers: [ '=', '!' ],
-            },
+		'spaced-comment': [ 'error', 'always', {
+			block: {
+				balanced: true,
+				exceptions: [ '-', '+' ],
+				markers: [ '=', '!' ],
+			},
 
-            line: {
-                exceptions: [ '-', '+' ],
-                markers: [ '/', '=', '!' ],
-            },
-        } ],
-    },
+			line: {
+				exceptions: [ '-', '+' ],
+				markers: [ '/', '=', '!' ],
+			},
+		} ],
+	},
 
-    settings: {
-        'import/parsers': {
-            '@typescript-eslint/parser': [ '.ts', '.tsx' ],
-        },
+	settings: {
+		'import/parsers': {
+			'@typescript-eslint/parser': [ '.ts', '.tsx' ],
+		},
 
-        'import/extensions': extensions,
-        'import/ignore': [ 'node_modules', '\\.(scss|css|svg|json)$' ],
-        'import/core-modules': [],
+		'import/extensions': extensions,
+		'import/ignore': [ 'node_modules', '\\.(scss|css|svg|json)$' ],
+		'import/core-modules': [],
 
-        'import/resolver': {
-            typescript: { extensions },
-            node: { extensions },
-        },
-    },
+		'import/resolver': {
+			typescript: { extensions },
+			node: { extensions },
+		},
+	},
 })
 
 export default configuration

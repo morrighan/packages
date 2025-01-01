@@ -12,7 +12,7 @@ import { mapStylisticRules } from './stylistic-rules-mapper.js'
  * @returns {import('eslint').Linter.Config[]}
  */
 export function configurate(...configurations) {
-    return TSESLint.config(...configurations).map(mapStylisticRules)
+	return TSESLint.config(...configurations).map(mapStylisticRules)
 }
 
 /**
@@ -22,16 +22,16 @@ export function configurate(...configurations) {
  * @returns {import('eslint').Linter.Config}
  */
 export function getConfigWithAliasedPluginName(configuration, { originalName, aliasedName }, plugin) {
-    const rules = lodash.mapKeys(
-        configuration.rules,
-        (ruleEntry, ruleName) => (
-            ruleName.replace(new RegExp(`^${originalName}/`), `${aliasedName}/`)
-        ),
-    )
+	const rules = lodash.mapKeys(
+		configuration.rules,
+		(ruleEntry, ruleName) => (
+			ruleName.replace(new RegExp(`^${originalName}/`), `${aliasedName}/`)
+		),
+	)
 
-    const plugins = { [aliasedName]: configuration.plugins[originalName] ?? plugin }
+	const plugins = { [aliasedName]: configuration.plugins[originalName] ?? plugin }
 
-    return { ...configuration, rules, plugins }
+	return { ...configuration, rules, plugins }
 }
 
 export default configurate
