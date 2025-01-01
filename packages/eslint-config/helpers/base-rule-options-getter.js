@@ -1,7 +1,7 @@
 // Node.js built-in APIs.
 import { createRequire } from 'module'
 
-/** @type {import('eslint').Linter.Config} */
+// Third-party modules.
 import baseConfig from 'eslint-config-airbnb-base'
 
 // Constants.

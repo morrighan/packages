@@ -12,11 +12,11 @@ import { getFunctions } from '@cichol/sass-bridge'
 describe('@cichol/sass-bridge', () => {
 	it('should be working properly', async () => {
 		const source = `
-            body > *:first-child:after {
-                content: custom-function('HELLO', 'world');
-                line-height: sqrt-cos(${2 * Math.PI});
-            }
-        `
+			body > *:first-child:after {
+				content: custom-function('HELLO', 'world');
+				line-height: sqrt-cos(${2 * Math.PI});
+			}
+		`
 
 		const functions = await getFunctions(
 			import('./artifacts/custom-function.ts'),

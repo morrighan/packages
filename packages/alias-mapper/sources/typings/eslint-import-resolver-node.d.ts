@@ -1,7 +1,7 @@
 declare module 'eslint-import-resolver-node' {
     type ResolutionResult =
-        | { found: false }
-        | { found: true, path: string }
+	 	| { found: false }
+		| { found: true, path: string }
 
     const interfaceVersion: number
 

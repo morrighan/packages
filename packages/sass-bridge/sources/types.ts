@@ -9,9 +9,9 @@ export type Primitives = boolean | number | string | null
 export type NumberWithUnit = { value: number, unit: string }
 
 export type JavaScriptType<Base = Primitives | Color | NumberWithUnit> =
-    | Base
-    | JavaScriptType<Base>[]
-    | Map<JavaScriptType<Base>, JavaScriptType<Base>>
+	| Base
+	| JavaScriptType<Base>[]
+	| Map<JavaScriptType<Base>, JavaScriptType<Base>>
 
 type FilterSassPrefix<T extends string> = T extends `Sass${infer R}` ? R : never
 
@@ -54,5 +54,5 @@ export const SassBoolean = Object.getPrototypeOf(SassTRUE).constructor as typeof
 export type SassBoolean = sass.SassBoolean
 
 export type SassType =
-    | InstanceType<typeof SassTypes extends Record<any, infer R> ? R : never>
-    | SassBoolean
+	| InstanceType<typeof SassTypes extends Record<any, infer R> ? R : never>
+	| SassBoolean

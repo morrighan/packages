@@ -81,27 +81,27 @@ class Logger {
 	}
 
 	/**
-     * Logging message with specific level.
-     *
-     * @param level
-     * @param message
-     * @param args Additional metadata.
-     */
+	 * Logging message with specific level.
+	 *
+	 * @param level
+	 * @param message
+	 * @param args Additional metadata.
+	 */
 	public log(level: LoggingLevelName, message: string, ...args: any[]): void
 
 	/**
-     * Logging HTTP I/O.
-     *
-     * @param request Node.js built-in `IncomingMessage` instance from `http` module.
-     * @param response Node.js built-in `ServerResponse` instance from `http` module.
-     */
+	 * Logging HTTP I/O.
+	 *
+	 * @param request Node.js built-in `IncomingMessage` instance from `http` module.
+	 * @param response Node.js built-in `ServerResponse` instance from `http` module.
+	 */
 	public log(request: HttpRequest, response: HttpResponse): Promise<void>
 
 	/**
-     * Logging errors in detail.
-     *
-     * @param error
-     */
+	 * Logging errors in detail.
+	 *
+	 * @param error
+	 */
 	public log(error: Error): void
 
 	public log(...args: any[]): void | Promise<void> {
