@@ -1,18 +1,18 @@
 // ESLint-relevant modules.
-import TSESLint from 'typescript-eslint';
+import TSESLint from 'typescript-eslint'
 
 // Third-party modules.
-import lodash from 'lodash';
+import lodash from 'lodash'
 
 // Local helpers.
-import { mapStylisticRules } from './stylistic-rules-mapper.js';
+import { mapStylisticRules } from './stylistic-rules-mapper.js'
 
 /**
  * @param {import('eslint').Linter.Config[]} configurations
  * @returns {import('eslint').Linter.Config[]}
  */
 export function configurate(...configurations) {
-    return TSESLint.config(...configurations).map(mapStylisticRules);
+    return TSESLint.config(...configurations).map(mapStylisticRules)
 }
 
 /**
@@ -26,12 +26,12 @@ export function getConfigWithAliasedPluginName(configuration, { originalName, al
         configuration.rules,
         (ruleEntry, ruleName) => (
             ruleName.replace(new RegExp(`^${originalName}/`), `${aliasedName}/`)
-        )
-    );
+        ),
+    )
 
-    const plugins = { [aliasedName]: configuration.plugins[originalName] ?? plugin };
+    const plugins = { [aliasedName]: configuration.plugins[originalName] ?? plugin }
 
-    return { ...configuration, rules, plugins };
+    return { ...configuration, rules, plugins }
 }
 
-export default configurate;
+export default configurate

@@ -1,8 +1,8 @@
 // Configuration fragments.
-import { configuration as fragmentForJavaScript } from './fragments/javascript.js';
-import { configuration as fragmentForJSX } from './fragments/javascript-react.js';
-import { configuration as fragmentForTypeScript } from './fragments/typescript.js';
-import { configuration as fragmentForTSX } from './fragments/typescript-react.js';
+import { configuration as fragmentForJavaScript } from './fragments/javascript.js'
+import { configuration as fragmentForJSX } from './fragments/javascript-react.js'
+import { configuration as fragmentForTypeScript } from './fragments/typescript.js'
+import { configuration as fragmentForTSX } from './fragments/typescript-react.js'
 
 /**
  * @param {import('eslint').Linter.Config[]} extraConfigs
@@ -13,11 +13,11 @@ function defineConfig(...extraConfigs) {
         ...fragmentForJavaScript,
         ...fragmentForJSX,
         ...fragmentForTypeScript,
-        ...fragmentForTSX
-    ];
+        ...fragmentForTSX,
+    ]
 
-    return [ ...baseConfiguration, ...extraConfigs ];
+    return [ ...baseConfiguration, ...extraConfigs ]
 }
 
 // Exporting.
-export default defineConfig;
+export default defineConfig

@@ -16,9 +16,9 @@ const LoggingLevel = {
 
     // Loud levels.
     Verbose: 5,
-    Debug: 5
-} as const;
+    Debug: 5,
+} as const
 
-type LoggingLevel = typeof LoggingLevel[keyof typeof LoggingLevel];
+type LoggingLevel = typeof LoggingLevel[keyof typeof LoggingLevel]
 
-export default LoggingLevel;
+export default LoggingLevel

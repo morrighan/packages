@@ -1,16 +1,16 @@
 // Third-party modules.
-import TSESLint from 'typescript-eslint';
+import TSESLint from 'typescript-eslint'
 
 // Local helpers.
-import { mapOptionsOfBaseRules } from './base-rule-options-getter.js';
+import { mapOptionsOfBaseRules } from './base-rule-options-getter.js'
 
 // Configuration fragments.
-import { configuration } from '../fragments/javascript.js';
+import { configuration } from '../fragments/javascript.js'
 
 // Constants.
-const [ { rules: rulesForJavaScript } ] = configuration;
-const { rules: TSESLintRules } = TSESLint.plugin;
-const optionsMap = new Map(mapOptionsOfBaseRules(true));
+const [ { rules: rulesForJavaScript } ] = configuration
+const { rules: TSESLintRules } = TSESLint.plugin
+const optionsMap = new Map(mapOptionsOfBaseRules(true))
 
 /**
  * @param {[string, import('eslint').Linter.RuleEntry]} param0
@@ -19,8 +19,8 @@ const optionsMap = new Map(mapOptionsOfBaseRules(true));
 function mapOverridenRule([ ruleName, ruleEntry ]) {
     return [
         [ `@typescript-eslint/${ruleName}`, ruleEntry ],
-        [ ruleName, 'off' ]
-    ];
+        [ ruleName, 'off' ],
+    ]
 }
 
 /**
@@ -29,15 +29,15 @@ function mapOverridenRule([ ruleName, ruleEntry ]) {
 function* getEntriesOfExtendibleRules() {
     for (const ruleName of optionsMap.keys()) {
         if (ruleName in TSESLintRules) {
-            yield* mapOverridenRule([ ruleName, optionsMap.get(ruleName) ]);
+            yield* mapOverridenRule([ ruleName, optionsMap.get(ruleName) ])
         }
     }
 
     for (const localRule of Object.entries(rulesForJavaScript)) {
-        const [ ruleName ] = localRule;
+        const [ ruleName ] = localRule
 
         if (ruleName in TSESLintRules) {
-            yield* mapOverridenRule(localRule);
+            yield* mapOverridenRule(localRule)
         }
     }
 }
@@ -51,8 +51,8 @@ function* getEntriesOfExtendibleRules() {
 export function mapExtensionRules(coreRules = {}) {
     return Object.assign(
         Object.fromEntries(getEntriesOfExtendibleRules()),
-        Object.fromEntries(Object.entries(coreRules).flatMap(mapOverridenRule))
-    );
+        Object.fromEntries(Object.entries(coreRules).flatMap(mapOverridenRule)),
+    )
 }
 
-export default mapExtensionRules;
+export default mapExtensionRules

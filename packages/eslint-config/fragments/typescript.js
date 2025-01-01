@@ -1,9 +1,9 @@
 // ESLint-relevant modules.
-import TSESLint from 'typescript-eslint';
+import TSESLint from 'typescript-eslint'
 
 // Local helpers.
-import { configurate } from '../helpers/configurator.js';
-import { mapExtensionRules } from '../helpers/extension-rules-mapper.js';
+import { configurate } from '../helpers/configurator.js'
+import { mapExtensionRules } from '../helpers/extension-rules-mapper.js'
 
 export const configuration = configurate({
     files: [ '**/*.ts?(x)' ],
@@ -11,11 +11,11 @@ export const configuration = configurate({
     extends: [
         TSESLint.configs.eslintRecommended,
         ...TSESLint.configs.recommended,
-        ...TSESLint.configs.recommendedTypeChecked
+        ...TSESLint.configs.recommendedTypeChecked,
     ],
 
     plugins: {
-        '@typescript-eslint': TSESLint.plugin
+        '@typescript-eslint': TSESLint.plugin,
     },
 
     rules: Object.assign(mapExtensionRules({
@@ -25,7 +25,7 @@ export const configuration = configurate({
          * @see {@link https://eslint.org/docs/rules/no-empty-function}
          */
         'no-empty-function': [ 'error', {
-            allow: [ 'arrowFunctions', 'functions', 'methods' ]
+            allow: [ 'arrowFunctions', 'functions', 'methods' ],
         } ],
 
         /**
@@ -36,7 +36,7 @@ export const configuration = configurate({
         'no-unused-vars': [ 'error', {
             vars: 'all',
             args: 'after-used',
-            ignoreRestSiblings: true
+            ignoreRestSiblings: true,
         } ],
 
         /**
@@ -44,7 +44,7 @@ export const configuration = configurate({
          *
          * @see {@link https://eslint.org/docs/rules/require-await}
          */
-        'require-await': 'off'
+        'require-await': 'off',
 
     }), {
 
@@ -57,8 +57,8 @@ export const configuration = configurate({
             'error',
             {
                 assertionStyle: 'as',
-                objectLiteralTypeAssertions: 'allow'
-            }
+                objectLiteralTypeAssertions: 'allow',
+            },
         ],
 
         /**
@@ -67,14 +67,14 @@ export const configuration = configurate({
          * @see {@link https://typescript-eslint.io/rules/member-delimiter-style}
          */
         '@typescript-eslint/member-delimiter-style': [ 'error', {
-            multiline: { delimiter: 'semi', requireLast: true },
+            multiline: { delimiter: 'none', requireLast: true },
             singleline: { delimiter: 'semi', requireLast: false },
 
             overrides: {
                 typeLiteral: {
-                    singleline: { delimiter: 'comma', requireLast: false }
-                }
-            }
+                    singleline: { delimiter: 'comma', requireLast: false },
+                },
+            },
         } ],
 
         /**
@@ -92,7 +92,7 @@ export const configuration = configurate({
         '@typescript-eslint/naming-convention': [ 'error', {
             selector: 'interface',
             format: [ 'PascalCase' ],
-            custom: { regex: '^I[A-Z]', match: false }
+            custom: { regex: '^I[A-Z]', match: false },
         } ],
 
         /**
@@ -170,8 +170,8 @@ export const configuration = configurate({
          *
          * @see {@link https://typescript-eslint.io/rules/type-annotation-spacing}
          */
-        '@typescript-eslint/type-annotation-spacing': 'error'
-    })
-});
+        '@typescript-eslint/type-annotation-spacing': 'error',
+    }),
+})
 
-export default configuration;
+export default configuration

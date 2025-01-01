@@ -1,60 +1,60 @@
 // Node.js built-in APIs.
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 // Third-party modules.
-import lodash from 'lodash';
+import lodash from 'lodash'
 
 // ESLint-relevant modules.
-import { fixupConfigRules } from '@eslint/compat';
-import { FlatCompat } from '@eslint/eslintrc';
-import TSESLint from 'typescript-eslint';
-import promisePlugin from 'eslint-plugin-promise';
-import nodePlugin from 'eslint-plugin-n';
-import commentsPlugin from '@eslint-community/eslint-plugin-eslint-comments';
-import stylisticPlugin from '@stylistic/eslint-plugin';
+import { fixupConfigRules } from '@eslint/compat'
+import { FlatCompat } from '@eslint/eslintrc'
+import TSESLint from 'typescript-eslint'
+import promisePlugin from 'eslint-plugin-promise'
+import nodePlugin from 'eslint-plugin-n'
+import commentsPlugin from '@eslint-community/eslint-plugin-eslint-comments'
+import stylisticPlugin from '@stylistic/eslint-plugin'
 
 // Local helpers.
-import { configurate, getConfigWithAliasedPluginName } from '../helpers/configurator.js';
-import { getOptionsOfBaseRule } from '../helpers/base-rule-options-getter.js';
+import { configurate, getConfigWithAliasedPluginName } from '../helpers/configurator.js'
+import { getOptionsOfBaseRule } from '../helpers/base-rule-options-getter.js'
 
 // Constants.
-const extensions = [ '.mjs', '.js', '.jsx', '.ts', '.tsx', '.json' ];
+const extensions = [ '.mjs', '.js', '.jsx', '.ts', '.tsx', '.json' ]
 
 const compat = new FlatCompat({
-    baseDirectory: import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url))
-});
+    baseDirectory: import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url)),
+})
 
 export const configuration = configurate({
     files: [ '**/*.[jt]s?(x)' ],
 
     extends: [
         ...fixupConfigRules(
-            compat.extends('airbnb', 'airbnb/hooks')
+            compat.extends('airbnb', 'airbnb/hooks'),
         ),
 
         promisePlugin.configs['flat/recommended'],
 
         getConfigWithAliasedPluginName(
             nodePlugin.configs['flat/recommended'],
-            { originalName: 'n', aliasedName: 'node' }
+            { originalName: 'n', aliasedName: 'node' },
         ),
 
         getConfigWithAliasedPluginName(
             commentsPlugin.configs.recommended,
             { originalName: '@eslint-community/eslint-comments', aliasedName: 'eslint-comments' },
-            commentsPlugin
-        )
+            commentsPlugin,
+        ),
     ],
 
     languageOptions: {
         parser: TSESLint.parser,
         ecmaVersion: 2024,
-        sourceType: 'module'
+        sourceType: 'module',
     },
 
     plugins: {
-        '@stylistic': stylisticPlugin
+        '@stylistic': stylisticPlugin,
     },
 
     rules: {
@@ -71,22 +71,22 @@ export const configuration = configurate({
          * @see {@link https://eslint.org/docs/rules/arrow-parens}
          */
         'arrow-parens': [ 'error', 'as-needed', {
-            requireForBlockBody: false
+            requireForBlockBody: false,
         } ],
 
         /**
          * @see {@link https://eslint.org/docs/rules/camelcase}
          */
         camelcase: [ 'error', {
-            properties: 'never'
+            properties: 'never',
         } ],
 
         /**
-         * Forbids trailing commas.
+         * Allows trailing commas.
          *
          * @see {@link https://eslint.org/docs/rules/comma-dangle}
          */
-        'comma-dangle': [ 'error', 'never' ],
+        'comma-dangle': [ 'error', 'always-multiline' ],
 
         /**
          * Enforces the consistent use of function declarations.
@@ -94,7 +94,7 @@ export const configuration = configurate({
          * @see {@link https://eslint.org/docs/rules/func-style}
          */
         'func-style': [ 'error', 'declaration', {
-            allowArrowFunctions: true
+            allowArrowFunctions: true,
         } ],
 
         /**
@@ -107,7 +107,7 @@ export const configuration = configurate({
             js: 'never',
             jsx: 'never',
             ts: 'never',
-            tsx: 'never'
+            tsx: 'never',
         } ],
 
         /**
@@ -137,10 +137,10 @@ export const configuration = configurate({
                 'scripts/**',
                 'tests/**',
 
-                '**/*.config.js'
+                '**/*.config.js',
             ],
 
-            optionalDependencies: false
+            optionalDependencies: false,
         } ],
 
         /**
@@ -149,7 +149,7 @@ export const configuration = configurate({
          * @see {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/order.md}
          */
         'import/order': [ 'error', {
-            groups: [ 'builtin', 'external', [ 'internal', 'parent', 'sibling' ], 'index' ]
+            groups: [ 'builtin', 'external', [ 'internal', 'parent', 'sibling' ], 'index' ],
         } ],
 
         /**
@@ -161,7 +161,7 @@ export const configuration = configurate({
             ...getOptionsOfBaseRule('indent'),
 
             SwitchCase: 0,
-            VariableDeclarator: 'first'
+            VariableDeclarator: 'first',
         } ],
 
         /**
@@ -173,14 +173,14 @@ export const configuration = configurate({
             ...getOptionsOfBaseRule('max-len'),
 
             ignoreComments: true,
-            ignoreTrailingComments: true
+            ignoreTrailingComments: true,
         } ],
 
         /**
          * @see {@link https://eslint.org/docs/rules/max-statements}
          */
         'max-statements': [ 'error', 100, {
-            ignoreTopLevelFunctions: true
+            ignoreTopLevelFunctions: true,
         } ],
 
         /**
@@ -204,10 +204,10 @@ export const configuration = configurate({
                 'context',
 
                 // For Fastify.
-                'reply'
+                'reply',
             ]),
 
-            props: true
+            props: true,
         } ],
 
         /**
@@ -221,13 +221,13 @@ export const configuration = configurate({
             {
                 object: 'document',
                 property: 'cookie',
-                message: 'Do not use cookies.'
+                message: 'Do not use cookies.',
             },
 
             {
                 property: 'forEach',
-                message: 'Please use for..of loops instead.'
-            }
+                message: 'Please use for..of loops instead.',
+            },
         ],
 
         /**
@@ -241,8 +241,8 @@ export const configuration = configurate({
 
             {
                 message: 'Do not use the execScript functions.',
-                selector: 'CallExpression[name="execScript"]'
-            }
+                selector: 'CallExpression[name="execScript"]',
+            },
         ],
 
         /**
@@ -251,7 +251,7 @@ export const configuration = configurate({
          * @see {@link https://eslint.org/docs/rules/no-self-assign}
          */
         'no-self-assign': [ 'error', {
-            props: false
+            props: false,
         } ],
 
         /**
@@ -261,7 +261,7 @@ export const configuration = configurate({
          */
         'no-warning-comments': [ 'warn', {
             location: 'anywhere',
-            terms: [ 'BUG', 'HACK', 'FIXME', 'LATER', 'LATER2', 'TODO' ]
+            terms: [ 'BUG', 'HACK', 'FIXME', 'LATER', 'LATER2', 'TODO' ],
         } ],
 
         /**
@@ -350,8 +350,15 @@ export const configuration = configurate({
             ExportDeclaration: { consistent: true, minProperties: Infinity, multiline: true },
             ImportDeclaration: { consistent: true, minProperties: Infinity, multiline: true },
             ObjectExpression: { consistent: true, minProperties: Infinity, multiline: true },
-            ObjectPattern: { consistent: true, minProperties: Infinity, multiline: true }
+            ObjectPattern: { consistent: true, minProperties: Infinity, multiline: true },
         } ],
+
+        // /**
+        //  * Allows just one var statement per function.
+        //  *
+        //  * @see {@link https://eslint.org/docs/rules/one-var}
+        //  */
+        // 'one-var': [ 'error', 'consecutive' ],
 
         /**
          * Prefers destructuring from arrays and objects.
@@ -360,10 +367,17 @@ export const configuration = configurate({
          */
         'prefer-destructuring': [ 'error', {
             AssignmentExpression: { array: true, object: true },
-            VariableDeclarator: { array: false, object: true }
+            VariableDeclarator: { array: false, object: true },
         }, {
-            enforceForRenamedProperties: false
+            enforceForRenamedProperties: false,
         } ],
+
+        /**
+         * Forbids to use of semicolons instead of ASI
+         *
+         * @see {@link https://eslint.org/docs/rules/semi}
+         */
+        semi: [ 'error', 'never' ],
 
         /**
          * Requires a whitespace on comment.
@@ -374,19 +388,19 @@ export const configuration = configurate({
             block: {
                 balanced: true,
                 exceptions: [ '-', '+' ],
-                markers: [ '=', '!' ]
+                markers: [ '=', '!' ],
             },
 
             line: {
                 exceptions: [ '-', '+' ],
-                markers: [ '/', '=', '!' ]
-            }
-        } ]
+                markers: [ '/', '=', '!' ],
+            },
+        } ],
     },
 
     settings: {
         'import/parsers': {
-            '@typescript-eslint/parser': [ '.ts', '.tsx' ]
+            '@typescript-eslint/parser': [ '.ts', '.tsx' ],
         },
 
         'import/extensions': extensions,
@@ -395,9 +409,9 @@ export const configuration = configurate({
 
         'import/resolver': {
             typescript: { extensions },
-            node: { extensions }
-        }
-    }
-});
+            node: { extensions },
+        },
+    },
+})
 
-export default configuration;
+export default configuration

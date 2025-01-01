@@ -1,13 +1,13 @@
 // Local helpers.
-import { configurate } from '../helpers/configurator.js';
+import { configurate } from '../helpers/configurator.js'
 
 export const configuration = configurate({
     files: [ '**/*.[jt]sx' ],
 
     languageOptions: {
         parserOptions: {
-            ecmaFeatures: { jsx: true }
-        }
+            ecmaFeatures: { jsx: true },
+        },
     },
 
     rules: {
@@ -72,8 +72,8 @@ export const configuration = configurate({
          *
          * @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/static-property-placement.md}
          */
-        'react/static-property-placement': [ 'error', 'static public field' ]
-    }
-});
+        'react/static-property-placement': [ 'error', 'static public field' ],
+    },
+})
 
-export default configuration;
+export default configuration

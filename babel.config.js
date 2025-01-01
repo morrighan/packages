@@ -1,26 +1,26 @@
 // Node.js built-in APIs.
-import { createRequire } from 'module';
+import { createRequire } from 'module'
 
 /**
  * @param {import('@babel/core').ConfigAPI} API
  * @returns {import('@babel/core').TransformOptions}
  */
 export default function configurateBabel(API) {
-    API.assertVersion('^7.14.0');
-    API.cache.never();
+    API.assertVersion('^7.14.0')
+    API.cache.never()
 
-    const coreJsVersion = createRequire(import.meta.url)('core-js-pure/package.json').version;
+    const coreJsVersion = createRequire(import.meta.url)('core-js-pure/package.json').version
 
     return {
         presets: Object.entries({
             '@babel/preset-env': { bugfixes: true, targets: { node: 'current' }, modules: false },
-            '@babel/preset-typescript': {}
+            '@babel/preset-typescript': {},
         }),
 
         plugins: Object.entries({
             'babel-plugin-polyfill-corejs3': { method: 'usage-pure', version: coreJsVersion },
             '@babel/plugin-proposal-decorators': { version: '2023-11' },
-            '@babel/plugin-transform-runtime': { regenerator: false }
-        })
-    };
+            '@babel/plugin-transform-runtime': { regenerator: false },
+        }),
+    }
 }
