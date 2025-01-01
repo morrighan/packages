@@ -66,4 +66,10 @@ export default defineConfig({
 	rules: {
 		'import/extensions': 'off',
 	},
+}, {
+	settings: {
+		react: {
+			version: '19',
+		},
+	},
 })
