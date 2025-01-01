@@ -1,6 +1,6 @@
 {
     "name": "@cichol/logger",
-    "version": "4.5.0",
+    "version": "4.6.0",
     "description": "A logger based on `winston` for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -34,13 +34,9 @@
         "url": "git+https://github.com/morrighan/packages.git",
         "directory": "packages/logger"
     },
-    "scripts": {
-        "build": "npm run build:tsc",
-        "build:tsc": "npx tsc --project sources --outDir dists"
-    },
     "dependencies": {
         "bluebird": "^3.7.2",
-        "chalk": "^5.3.0",
+        "chalk": "^5.4.1",
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",
         "core-js-pure": "^3.39.0",
@@ -53,8 +49,8 @@
         "winston": "^3.17.0"
     },
     "engines": {
-        "node": "^20.18.0",
-        "npm": "^10.9.0"
+        "node": "^20.18.1",
+        "npm": "^11.0.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

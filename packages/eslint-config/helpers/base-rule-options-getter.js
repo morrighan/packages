@@ -1,24 +1,24 @@
 // Node.js built-in APIs.
-import { createRequire } from 'module';
+import { createRequire } from 'module'
 
-/** @type {import('eslint').Linter.Config} */
-import baseConfig from 'eslint-config-airbnb-base';
+// Third-party modules.
+import baseConfig from 'eslint-config-airbnb-base'
 
 // Constants.
-const require = createRequire(import.meta.url);
-const optionsMap = new Map(mapOptionsOfBaseRules()); // eslint-disable-line no-use-before-define
+const require = createRequire(import.meta.url)
+const optionsMap = new Map(mapOptionsOfBaseRules()) // eslint-disable-line no-use-before-define
 
 /**
  * @returns {Generator<[string, import('eslint').Linter.RuleEntry], void, unknown>}
  */
 function* getEntriesOfBaseRules() {
-    const { extends: rulePaths } = baseConfig;
+	const { extends: rulePaths } = baseConfig
 
-    for (const rulePath of rulePaths) {
-        const partialRules = require(rulePath).rules;
+	for (const rulePath of rulePaths) {
+		const partialRules = require(rulePath).rules
 
-        yield* Object.entries(partialRules);
-    }
+		yield* Object.entries(partialRules)
+	}
 }
 
 /**
@@ -26,27 +26,25 @@ function* getEntriesOfBaseRules() {
  * @returns {Generator<[string, any], void, unknown>}
  */
 export function* mapOptionsOfBaseRules(useFullOptions = false) {
-    for (const [ ruleName, ruleEntry ] of getEntriesOfBaseRules()) {
-        if (!Array.isArray(ruleEntry)) {
-            continue;
-        }
+	for (const [ ruleName, ruleEntry ] of getEntriesOfBaseRules()) {
+		if (!Array.isArray(ruleEntry)) continue
 
-        const [ , ...baseOptions ] = ruleEntry;
+		const [ , ...baseOptions ] = ruleEntry
 
-        if (useFullOptions) {
-            yield [ ruleName, ruleEntry ];
+		if (useFullOptions) {
+			yield [ ruleName, ruleEntry ]
 
-            continue;
-        }
+			continue
+		}
 
-        const ruleOptions = [ ...baseOptions ];
+		const ruleOptions = [ ...baseOptions ]
 
-        while (ruleOptions.length > 0 && typeof ruleOptions[0] !== 'object') {
-            ruleOptions.shift();
-        }
+		while (ruleOptions.length > 0 && typeof ruleOptions[0] !== 'object') {
+			ruleOptions.shift()
+		}
 
-        yield [ ruleName, ruleOptions.length === 1 ? ruleOptions[0] : ruleOptions ];
-    }
+		yield [ ruleName, ruleOptions.length === 1 ? ruleOptions[0] : ruleOptions ]
+	}
 }
 
 /**
@@ -55,5 +53,5 @@ export function* mapOptionsOfBaseRules(useFullOptions = false) {
  * @returns {Record<string, any> | Record<string, any>[]}
  */
 export function getOptionsOfBaseRule(ruleName) {
-    return optionsMap.get(ruleName);
+	return optionsMap.get(ruleName)
 }

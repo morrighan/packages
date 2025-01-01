@@ -1,69 +1,75 @@
 // Node.js built-in APIs.
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 // ESLint-relevant modules.
-import defineConfig from '@cichol/eslint-config';
+import defineConfig from '@cichol/eslint-config'
 
 // Constants.
-const dirname = import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url));
-const aliasMapper = path.resolve(dirname, 'packages/alias-mapper');
+const dirname = import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url))
+const aliasMapper = path.resolve(dirname, 'packages/alias-mapper')
 
 export default defineConfig({
-    ignores: [ 'coverage', 'packages/*/dists', 'packages/**/*.d.ts' ]
+	ignores: [ 'coverage', 'packages/*/dists', 'packages/**/*.d.ts' ],
 }, {
-    files: [ '**/*.[jt]s?(x)' ],
+	files: [ '**/*.[jt]s?(x)' ],
 
-    languageOptions: {
-        parserOptions: {
-            project: 'tsconfig.json',
-            tsconfigRootDir: '.'
-        }
-    }
+	languageOptions: {
+		parserOptions: {
+			project: 'tsconfig.json',
+			tsconfigRootDir: '.',
+		},
+	},
 }, {
-    rules: {
-        'no-restricted-exports': 'off',
-        'no-shadow': 'off'
-    }
+	rules: {
+		'no-restricted-exports': 'off',
+		'no-shadow': 'off',
+	},
 }, {
-    files: [ 'packages/*/tests/**/*.ts' ],
+	files: [ 'packages/*/tests/**/*.ts' ],
 
-    rules: {
-        'import/no-extraneous-dependencies': 'off',
-        'node/no-extraneous-import': 'off'
-    }
+	rules: {
+		'import/no-extraneous-dependencies': 'off',
+		'node/no-extraneous-import': 'off',
+	},
 }, {
-    files: [ 'packages/alias-mapper/tests/examples/**/*.js' ],
+	files: [ 'packages/alias-mapper/tests/examples/**/*.js' ],
 
-    rules: {
-        'import/extensions': [ 'error', 'never' ]
-    },
+	rules: {
+		'import/extensions': [ 'error', 'never' ],
+	},
 
-    settings: {
-        'import/resolver': {
-            '@cichol/alias-mapper': {
-                basePath: path.resolve(aliasMapper, 'tests/examples'),
+	settings: {
+		'import/resolver': {
+			'@cichol/alias-mapper': {
+				basePath: path.resolve(aliasMapper, 'tests/examples'),
 
-                rootDirs: [
-                    'sources/frontend'
-                ],
+				rootDirs: [
+					'sources/frontend',
+				],
 
-                aliases: {
-                    common: 'sources/common',
-                    backend: 'sources/backend',
-                    models: 'sources/backend/models'
-                },
+				aliases: {
+					common: 'sources/common',
+					backend: 'sources/backend',
+					models: 'sources/backend/models',
+				},
 
-                extensions: [ '.js', '.ts', '.json' ]
-            },
+				extensions: [ '.js', '.ts', '.json' ],
+			},
 
-            node: { extensions: [ '.js', '.ts', '.json' ] }
-        }
-    }
+			node: { extensions: [ '.js', '.ts', '.json' ] },
+		},
+	},
 }, {
-    files: [ 'packages/eslint-config/**/*.js' ],
+	files: [ 'packages/eslint-config/**/*.js' ],
 
-    rules: {
-        'import/extensions': 'off'
-    }
-});
+	rules: {
+		'import/extensions': 'off',
+	},
+}, {
+	settings: {
+		react: {
+			version: '19',
+		},
+	},
+})

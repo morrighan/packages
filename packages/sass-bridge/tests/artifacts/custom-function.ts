@@ -1,17 +1,17 @@
-import { type BridgedFunction, sassFunction } from '@cichol/sass-bridge';
+import { type BridgedFunction, sassFunction } from '@cichol/sass-bridge'
 
 @sassFunction('custom-function($a, $b)')
 export default class CustomFunction implements BridgedFunction {
-    #a: string;
+	#a: string
 
-    #b: string;
+	#b: string
 
-    public constructor(A: string, B: string) {
-        this.#a = A;
-        this.#b = B;
-    }
+	public constructor(A: string, B: string) {
+		this.#a = A
+		this.#b = B
+	}
 
-    public async execute() {
-        return this.#a.toLowerCase() + this.#b.toUpperCase();
-    }
+	public async execute() {
+		return this.#a.toLowerCase() + this.#b.toUpperCase()
+	}
 }

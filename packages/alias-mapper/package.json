@@ -1,6 +1,6 @@
 {
     "name": "@cichol/alias-mapper",
-    "version": "4.5.0",
+    "version": "4.6.0",
     "description": "A resolver in order to shorten deeply nested relative path expression.",
     "keywords": [
         "babel",
@@ -49,10 +49,6 @@
         "url": "git+https://github.com/morrighan/packages.git",
         "directory": "packages/alias-mapper"
     },
-    "scripts": {
-        "build": "npm run build:tsc",
-        "build:tsc": "npx tsc --project sources --outDir dists"
-    },
     "dependencies": {
         "@babel/helper-plugin-utils": "^7.25.9",
         "core-js-pure": "^3.39.0",
@@ -61,11 +57,11 @@
     },
     "peerDependencies": {
         "@babel/core": "^7.26.0",
-        "eslint": "^8.57.1 || ^9.16.0"
+        "eslint": "^9.17.0"
     },
     "engines": {
-        "node": "^20.18.0",
-        "npm": "^10.9.0"
+        "node": "^20.18.1",
+        "npm": "^11.0.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

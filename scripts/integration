@@ -6,7 +6,6 @@ function bootstrap() {
 
     npm install --global npm || exit 1
     npm ci --ignore-scripts || exit 1
-    npm install react --no-save --no-package-lock || exit 1
     npm ls --depth=0 || exit 1
     npm run build || exit 1
     npm test || exit 1
