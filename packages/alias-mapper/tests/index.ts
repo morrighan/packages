@@ -2,6 +2,7 @@
 import console from 'console'
 import fs from 'fs/promises'
 import path from 'path'
+import { serialize } from 'v8'
 
 // Third-party modules.
 import { describe, it } from 'mocha'
@@ -18,10 +19,10 @@ declare module 'eslint' {
 // Constants.
 const examplesPath = path.resolve(import.meta.dirname, 'examples')
 const targetFile = path.resolve(examplesPath, 'sources/frontend/components/button/index.js')
-const astFile = path.resolve(import.meta.dirname, 'artifacts/ast.json')
+const astFile = path.resolve(import.meta.dirname, 'artifacts/ast.data')
 
 // Artifacts.
-const savedAst = fs.readFile(astFile, 'utf8').then(data => JSON.parse(data))
+const savedAst = fs.readFile(astFile)
 
 describe('@cichol/alias-mapper', () => {
 	it(`ESLint v${ESLint.version} should lint without an error`, async () => {
@@ -38,8 +39,8 @@ describe('@cichol/alias-mapper', () => {
 
 	it(`Babel v${Babel.version} should compile without an error`, async () => {
 		const fileResult = await Babel.transformFileAsync(targetFile, { root: examplesPath, code: false, ast: true })
-		const builtAst = fileResult && JSON.parse(JSON.stringify(fileResult.ast))
+		const builtAst = fileResult && serialize(fileResult.ast)
 
-		expect(builtAst, 'The abstract syntax tree does not match').to.deep.equal(await savedAst)
+		expect(builtAst?.compare(await savedAst), 'The abstract syntax tree does not match').to.equal(0)
 	})
 })
