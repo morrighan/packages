@@ -6,12 +6,21 @@ import merge from 'deepmerge'
 import { getOptionsOfBaseRule } from './base-rule-options-getter.js'
 
 /**
+ * @template T
+ * @param {T[]} options
+ * @returns {T[] | void}
+ */
+function defaultAftermath(options) {
+	return options
+}
+/**
+ * @template T
  * @param {string} ruleName
- * @param {any[]} options
- * @param {(options: any[]) => (any[] | void)} [aftermath]
+ * @param {T[]} options
+ * @param {(options: T[]) => (T[] | void)} [aftermath]
  * @returns {Record<string, any> | Record<string, any>[]}
  */
-export function extendsBaseRule(ruleName, options, aftermath = options => options) {
+export function extendsBaseRule(ruleName, options, aftermath = defaultAftermath) {
 	const baseRule = getOptionsOfBaseRule(ruleName)
 	const mergedRule = merge(structuredClone(baseRule), options)
 

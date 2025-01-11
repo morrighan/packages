@@ -12,10 +12,6 @@ import { expect } from 'chai'
 import * as Babel from '@babel/core'
 import { ESLint, loadESLint } from 'eslint'
 
-declare module 'eslint' {
-	function loadESLint(options?: ESLint.Options & { useFlatConfig?: boolean }): Promise<typeof ESLint>
-}
-
 // Constants.
 const examplesPath = path.resolve(import.meta.dirname, 'examples')
 const targetFile = path.resolve(examplesPath, 'sources/frontend/components/button/index.js')
@@ -26,7 +22,7 @@ const savedAst = fs.readFile(astFile)
 
 describe('@cichol/alias-mapper', () => {
 	it(`ESLint v${ESLint.version} should lint without an error`, async () => {
-		const linter = await loadESLint().then(ESLint => new ESLint())
+		const linter = await loadESLint().then(Linter => new Linter())
 		const [ { messages } ] = await linter.lintFiles([ targetFile ])
 
 		for (const { message, ruleId, line, column } of messages) {

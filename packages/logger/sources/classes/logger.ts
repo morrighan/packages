@@ -106,13 +106,13 @@ class Logger {
 
 	public log(...args: any[]): void | Promise<void> {
 		const logger = this.#logger
-		const morgan = this.#morgan
+		const format = this.#morgan
 
 		switch (true) {
 		case (args.length >= 2 && args[0] instanceof HttpRequest && args[1] instanceof HttpResponse): {
 			const [ request, response ] = args as [ HttpRequest, HttpResponse ]
 
-			return Promise.fromCallback<void>(callback => morgan(request, response, callback))
+			return Promise.fromCallback<void>(callback => format(request, response, callback))
 		}
 
 		case (args.length >= 1 && args[0] instanceof Error): {

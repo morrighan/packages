@@ -1,1 +1,1 @@
-export { default } from './classes/logger'
+export { default } from './classes/logger' // eslint-disable-line no-restricted-exports
