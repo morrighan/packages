@@ -33,7 +33,7 @@ export async function getFunctions(
 	const modules = await Promise.all(
 		moduleImports.map(module => (
 			Promise.resolve(module)
-				.then(module => module.default)
+				.then(({ default: Constructor }) => Constructor)
 		)),
 	)
 

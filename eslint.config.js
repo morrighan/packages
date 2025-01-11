@@ -21,11 +21,6 @@ export default defineConfig({
 		},
 	},
 }, {
-	rules: {
-		'no-restricted-exports': 'off',
-		'no-shadow': 'off',
-	},
-}, {
 	files: [ 'packages/*/tests/**/*.ts' ],
 
 	rules: {

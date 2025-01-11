@@ -1,6 +1,6 @@
 {
     "name": "@cichol/logger",
-    "version": "4.6.0",
+    "version": "4.6.1",
     "description": "A logger based on `winston` for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -39,7 +39,7 @@
         "chalk": "^5.4.1",
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",
-        "core-js-pure": "^3.39.0",
+        "core-js-pure": "^3.40.0",
         "lodash": "^4.17.21",
         "luxon": "^3.5.0",
         "morgan": "^1.10.0",

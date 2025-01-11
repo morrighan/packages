@@ -46,28 +46,28 @@ export default function handle(data: LoggingData): HandledData | undefined {
 		return undefined
 	}
 
-	const { name, message, stack: rawStack = '' } = error
+	const { name: errorName, message, stack: rawStack = '' } = error
 
 	const stack = rawStack
-		.slice(name.length + message.length + 3)
+		.slice(errorName.length + message.length + 3)
 		.split('\n')
 		.map(line => line.replace(/^\s+at /g, ''))
 		.map(line => (path.isAbsolute(line) ? `<anonymous>${conjunction}${mapLocationOfErrorThrown(line)}` : line))
 		.map(line => line.replace(/^(.+) \((.+)\)$/, (matches, contextName: string, rawLocation: string) => {
-			let location
+			let location = ''
 
 			if (rawLocation === '<anonymous>') {
 				location = chalk.gray(rawLocation)
 			} else {
-				const [ filename, line, column ] = rawLocation.split(':')
+				const [ filename, occurredLine, occurredColumn ] = rawLocation.split(':')
 
 				if (path.isAbsolute(filename)) {
 					const target = mapLocationOfErrorThrown(path.relative(rootPath, filename))
-					const trailing = chalk.gray(`:${line}:${column}`)
+					const trailing = chalk.gray(`:${occurredLine}:${occurredColumn}`)
 
 					location = target + trailing
-				} else {
-					location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}#L${line}`)
+				} else if (!filename.startsWith('data:')) {
+					location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}#L${occurredLine}`)
 				}
 			}
 
@@ -75,8 +75,8 @@ export default function handle(data: LoggingData): HandledData | undefined {
 		}))
 		.join('\n')
 
-	const label = decorateLabel(name, ColorScheme.Critical)
+	const decoratedLabel = decorateLabel(errorName, ColorScheme.Critical)
 	const payload = `${message}\n\n${stack}\n`
 
-	return { label, payload }
+	return { label: decoratedLabel, payload }
 }

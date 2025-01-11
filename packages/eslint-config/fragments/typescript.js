@@ -40,6 +40,13 @@ export const configuration = configurate({
 		} ],
 
 		/**
+		 * Forbids variable declarations from shadowing variables declared in the outer scope.
+		 *
+		 * @see {@link https://eslint.org/docs/rules/no-shadow}
+		 */
+		'no-shadow': 'error',
+
+		/**
 		 * Allows async functions which have no await expression.
 		 *
 		 * @see {@link https://eslint.org/docs/rules/require-await}
