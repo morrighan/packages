@@ -24,13 +24,37 @@ export const name = 'error'
 export const level = LoggingLevel.Error
 export const label = decorateLabel('ERROR', ColorScheme.Critical)
 
+function simplifyDataURI(dataURI: string): string {
+	const [ , actualContent ] = dataURI.split(':')
+	const pivot = actualContent.indexOf(',') + 1
+	const mimeIndicator = actualContent.slice(0, pivot)
+	const contentPrefix = actualContent.slice(pivot, pivot + 4)
+	const contentSuffix = actualContent.slice(-4)
+
+	return `data:${mimeIndicator + contentPrefix}...${contentSuffix}`
+}
+
+function isDataURI(filename: string): boolean {
+	return filename.startsWith('data:')
+}
+
+function isAbsoluteOrDataURI(filename: string): boolean {
+	return path.isAbsolute(filename) || isDataURI(filename)
+}
+
 function mapLocationOfErrorThrown(filename: string): string {
 	let target = path.relative(rootPath, filename)
 
-	if (target.startsWith('node_modules')) {
-		target = chalk.gray(target).replace(
-			/node_modules[\\/]([^\\/]+)(.*)/,
-			(matches, moduleName: string, trailing: string) => `node_modules${path.sep}${chalk.bold.underline(moduleName)}${chalk.gray(trailing)}`,
+	if (isDataURI(filename)) {
+		target = chalk.gray(simplifyDataURI(filename))
+	} else if (target.includes('node_modules')) {
+		target = chalk.gray(
+			target.slice(target.lastIndexOf('node_modules')),
+		).replace(
+			/node_modules[\\/]((?:@[^\\/]+[\\/])?[^\\/]+)(.*)/,
+			(_, moduleName: string, trailing: string) => (
+				`node_modules${path.sep}${chalk.bold.underline(moduleName)}${chalk.gray(trailing)}`
+			),
 		)
 	} else {
 		target = `${chalk.gray(path.dirname(target) + path.sep)}${chalk.bold.underline(path.basename(target))}`
@@ -52,8 +76,8 @@ export default function handle(data: LoggingData): HandledData | undefined {
 		.slice(errorName.length + message.length + 3)
 		.split('\n')
 		.map(line => line.replace(/^\s+at /g, ''))
-		.map(line => (path.isAbsolute(line) ? `<anonymous>${conjunction}${mapLocationOfErrorThrown(line)}` : line))
-		.map(line => line.replace(/^(.+) \((.+)\)$/, (matches, contextName: string, rawLocation: string) => {
+		.map(line => (isAbsoluteOrDataURI(line) ? `<anonymous>${conjunction}${mapLocationOfErrorThrown(line)}` : line))
+		.map(line => line.replace(/^(.+) \((.+)\)$/, (_, contextName: string, rawLocation: string) => {
 			let location = ''
 
 			switch (true) {
@@ -63,22 +87,16 @@ export default function handle(data: LoggingData): HandledData | undefined {
 				break
 			}
 
-			case (rawLocation.startsWith('node:')): {
-				const [ filename, occurredLine ] = rawLocation.slice(5).split(':')
-
-				location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}.js#L${occurredLine}`)
+			case (isDataURI(rawLocation)): {
+				location = chalk.gray(simplifyDataURI(rawLocation))
 
 				break
 			}
 
-			case (rawLocation.startsWith('data:')): {
-				const [ dataURI ] = rawLocation.slice(5).split(':')
-				const contentsPivot = dataURI.indexOf(',') + 1
-				const dataURIPrefix = dataURI.slice(0, contentsPivot)
-				const contentPrefix = dataURI.slice(contentsPivot, contentsPivot + 4)
-				const contentSuffix = dataURI.slice(-4)
+			case (rawLocation.startsWith('node:')): {
+				const [ filename, occurredLine ] = rawLocation.slice(5).split(':')
 
-				location = chalk.gray(`data:${dataURIPrefix + contentPrefix}...${contentSuffix}`)
+				location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}.js#L${occurredLine}`)
 
 				break
 			}
