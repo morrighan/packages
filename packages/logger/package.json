@@ -1,6 +1,6 @@
 {
     "name": "@cichol/logger",
-    "version": "4.6.3",
+    "version": "4.6.4",
     "description": "A logger based on `winston` for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
