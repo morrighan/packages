@@ -1,6 +1,6 @@
 {
     "name": "@cichol/alias-mapper",
-    "version": "4.6.3",
+    "version": "4.6.4",
     "description": "A resolver in order to shorten deeply nested relative path expression.",
     "keywords": [
         "babel",
@@ -68,7 +68,7 @@
         }
     },
     "engines": {
-        "node": "^20.18.1",
+        "node": "^20.18.2",
         "npm": "^11.0.0"
     },
     "publishConfig": {

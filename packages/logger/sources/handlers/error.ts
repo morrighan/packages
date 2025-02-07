@@ -56,19 +56,42 @@ export default function handle(data: LoggingData): HandledData | undefined {
 		.map(line => line.replace(/^(.+) \((.+)\)$/, (matches, contextName: string, rawLocation: string) => {
 			let location = ''
 
-			if (rawLocation === '<anonymous>') {
+			switch (true) {
+			case (rawLocation === '<anonymous>'): {
 				location = chalk.gray(rawLocation)
-			} else {
+
+				break
+			}
+
+			case (rawLocation.startsWith('node:')): {
+				const [ filename, occurredLine ] = rawLocation.slice(5).split(':')
+
+				location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}#L${occurredLine}`)
+
+				break
+			}
+
+			case (rawLocation.startsWith('data:')): {
+				const actualDataPivot = rawLocation.indexOf(',') + 1
+				const dataURIPrefix = rawLocation.slice(0, actualDataPivot)
+				const contentPrefix = rawLocation.slice(actualDataPivot, actualDataPivot + 4)
+				const contentSuffix = rawLocation.slice(-4)
+
+				location = chalk.gray(`${dataURIPrefix + contentPrefix}...${contentSuffix}`)
+
+				break
+			}
+
+			default: {
 				const [ filename, occurredLine, occurredColumn ] = rawLocation.split(':')
 
-				if (path.isAbsolute(filename)) {
-					const target = mapLocationOfErrorThrown(path.relative(rootPath, filename))
-					const trailing = chalk.gray(`:${occurredLine}:${occurredColumn}`)
+				if (!path.isAbsolute(filename)) break
 
-					location = target + trailing
-				} else if (!filename.startsWith('data:')) {
-					location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}#L${occurredLine}`)
-				}
+				const target = mapLocationOfErrorThrown(path.relative(rootPath, filename))
+				const trailing = chalk.gray(`:${occurredLine}:${occurredColumn}`)
+
+				location = target + trailing
+			}
 			}
 
 			return `${contextName}${conjunction}${location}`
