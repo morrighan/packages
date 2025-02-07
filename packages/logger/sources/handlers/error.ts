@@ -56,42 +56,29 @@ export default function handle(data: LoggingData): HandledData | undefined {
 		.map(line => line.replace(/^(.+) \((.+)\)$/, (matches, contextName: string, rawLocation: string) => {
 			let location = ''
 
-			switch (true) {
-			case (rawLocation === '<anonymous>'): {
+			if (rawLocation === '<anonymous>') {
 				location = chalk.gray(rawLocation)
-
-				break
-			}
-
-			case (rawLocation.startsWith('node:')): {
+			} else if (rawLocation.startsWith('node:')) {
 				const [ filename, occurredLine ] = rawLocation.slice(5).split(':')
 
-				location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}#L${occurredLine}`)
-
-				break
-			}
-
-			case (rawLocation.startsWith('data:')): {
-				const actualDataPivot = rawLocation.indexOf(',') + 1
-				const dataURIPrefix = rawLocation.slice(0, actualDataPivot)
-				const contentPrefix = rawLocation.slice(actualDataPivot, actualDataPivot + 4)
-				const contentSuffix = rawLocation.slice(-4)
+				location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}.js#L${occurredLine}`)
+			} else if (rawLocation.startsWith('data:')) {
+				const [ dataURI ] = rawLocation.split(':')
+				const contentsPivot = dataURI.indexOf(',') + 1
+				const dataURIPrefix = dataURI.slice(0, contentsPivot)
+				const contentPrefix = dataURI.slice(contentsPivot, contentsPivot + 4)
+				const contentSuffix = dataURI.slice(-4)
 
 				location = chalk.gray(`${dataURIPrefix + contentPrefix}...${contentSuffix}`)
-
-				break
-			}
-
-			default: {
+			} else {
 				const [ filename, occurredLine, occurredColumn ] = rawLocation.split(':')
 
-				if (!path.isAbsolute(filename)) break
+				if (path.isAbsolute(filename)) {
+					const target = mapLocationOfErrorThrown(path.relative(rootPath, filename))
+					const trailing = chalk.gray(`:${occurredLine}:${occurredColumn}`)
 
-				const target = mapLocationOfErrorThrown(path.relative(rootPath, filename))
-				const trailing = chalk.gray(`:${occurredLine}:${occurredColumn}`)
-
-				location = target + trailing
-			}
+					location = target + trailing
+				}
 			}
 
 			return `${contextName}${conjunction}${location}`
