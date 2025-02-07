@@ -72,13 +72,13 @@ export default function handle(data: LoggingData): HandledData | undefined {
 			}
 
 			case (rawLocation.startsWith('data:')): {
-				const [ dataURI ] = rawLocation.split(':')
+				const [ dataURI ] = rawLocation.slice(5).split(':')
 				const contentsPivot = dataURI.indexOf(',') + 1
 				const dataURIPrefix = dataURI.slice(0, contentsPivot)
 				const contentPrefix = dataURI.slice(contentsPivot, contentsPivot + 4)
 				const contentSuffix = dataURI.slice(-4)
 
-				location = chalk.gray(`${dataURIPrefix + contentPrefix}...${contentSuffix}`)
+				location = chalk.gray(`data:${dataURIPrefix + contentPrefix}...${contentSuffix}`)
 
 				break
 			}
