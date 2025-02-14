@@ -24,6 +24,10 @@ function isObject(value?: unknown): value is object {
 	return !!value && (type === 'object' || type === 'function')
 }
 
+function isMap(value?: unknown): value is Map<unknown, unknown> {
+	return isObject(value) && Symbol.toStringTag in value && value[Symbol.toStringTag] === 'Map'
+}
+
 export function sassToJavaScriptType(sassValue: SassType): JavaScriptType {
 	switch (true) {
 	case sassValue instanceof SassBoolean: {
@@ -113,7 +117,7 @@ export function javaScriptToSassType(rawValue: JavaScriptType): SassType {
 		return new SassList(rawValue.map(value => javaScriptToSassType(value)))
 	}
 
-	case rawValue instanceof Map: {
+	case isMap(rawValue): {
 		const mapValue = rawValue as Map<JavaScriptType, JavaScriptType>
 		const sassMap = new SassMap()
 
