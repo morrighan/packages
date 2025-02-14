@@ -1,5 +1,6 @@
 // Third-party modules.
 import chroma from 'chroma-js'
+import * as Immutable from 'immutable'
 
 // Local helpers.
 import {
@@ -114,21 +115,17 @@ export function javaScriptToSassType(rawValue: JavaScriptType): SassType {
 	}
 
 	case Array.isArray(rawValue): {
-		return new SassList(rawValue.map(value => javaScriptToSassType(value)))
+		return new SassList(rawValue.map(javaScriptToSassType))
 	}
 
 	case isMap(rawValue): {
 		const mapValue = rawValue as Map<JavaScriptType, JavaScriptType>
-		const sassMap = new SassMap()
 
-		const converted = Array.from(mapValue.entries())
-			.map(entry => entry.map(javaScriptToSassType)) as [SassType, SassType][]
+		const iterable = mapValue.entries().map(entry => (
+			entry.map(javaScriptToSassType) as [ SassType, SassType ]
+		))
 
-		for (const [ key, value ] of converted) {
-			sassMap.contents.set(key, value)
-		}
-
-		return sassMap
+		return new SassMap(Immutable.OrderedMap(iterable))
 	}
 
 	default: {
