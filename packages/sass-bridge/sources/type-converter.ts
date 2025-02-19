@@ -51,8 +51,9 @@ export function sassToJavaScriptType(sassValue: SassType): JavaScriptType {
 	}
 
 	case sassValue instanceof SassColor: {
-		const { alpha, space } = sassValue.toSpace('rgb')
-		const channels = [ ...sassValue.channels ] as [ number, number, number, number ]
+		const sassColor = sassValue.toSpace('rgb')
+		const { alpha, space } = sassColor
+		const channels = [ ...sassColor.channels ] as [ number, number, number, number ]
 
 		if (alpha) {
 			channels.push(alpha)
