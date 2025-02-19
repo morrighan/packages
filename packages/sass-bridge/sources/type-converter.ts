@@ -16,6 +16,7 @@ import {
 	SassNULL,
 	type JavaScriptType,
 	type NumberWithUnit,
+	type StringWithQuotes,
 } from './types'
 
 // Helper functions.
@@ -50,9 +51,14 @@ export function sassToJavaScriptType(sassValue: SassType): JavaScriptType {
 	}
 
 	case sassValue instanceof SassColor: {
-		const { red, green, blue, alpha } = sassValue
+		const { alpha, space } = sassValue.toSpace('rgb')
+		const channels = [ ...sassValue.channels ] as [ number, number, number, number ]
 
-		return chroma(red, green, blue, alpha)
+		if (alpha) {
+			channels.push(alpha)
+		}
+
+		return chroma(...channels, space as 'rgb')
 	}
 
 	case sassValue instanceof SassList: {
@@ -106,6 +112,12 @@ export function javaScriptToSassType(rawValue: JavaScriptType): SassType {
 		const stringValue = rawValue
 
 		return new SassString(stringValue)
+	}
+
+	case isObject(rawValue) && [ 'value', 'quotes' ].every(propertyKey => propertyKey in rawValue): {
+		const { value: stringValue, quotes } = rawValue as StringWithQuotes
+
+		return new SassString(stringValue, { quotes })
 	}
 
 	case isObject(rawValue) && '_rgb' in rawValue: {
