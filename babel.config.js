@@ -18,7 +18,7 @@ export default function configurateBabel(API) {
 		}),
 
 		plugins: Object.entries({
-			'babel-plugin-polyfill-corejs3': { method: 'usage-pure', version: coreJsVersion },
+			'babel-plugin-polyfill-corejs3': { method: 'usage-pure', version: coreJsVersion, proposals: true },
 			'@babel/plugin-proposal-decorators': { version: '2023-11' },
 			'@babel/plugin-transform-runtime': { regenerator: false },
 		}),

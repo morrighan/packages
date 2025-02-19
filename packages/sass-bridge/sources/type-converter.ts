@@ -134,9 +134,10 @@ export function javaScriptToSassType(rawValue: JavaScriptType): SassType {
 	case isMap(rawValue): {
 		const mapValue = rawValue as Map<JavaScriptType, JavaScriptType>
 
-		const iterable = mapValue.entries().map(entry => (
-			entry.map(javaScriptToSassType) as [ SassType, SassType ]
-		))
+		const iterable = Array.from(mapValue.entries())
+			.map(entry => (
+				entry.map(javaScriptToSassType) as [ SassType, SassType ]
+			))
 
 		return new SassMap(Immutable.OrderedMap(iterable))
 	}
