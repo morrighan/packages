@@ -18,10 +18,12 @@ export interface Constructor {
 
 // Constants.
 const KeyOfSignature = Symbol('@cichol/sass-bridge::KeyOfSignature')
+const signatureStore = new WeakMap<Constructor, string>()
 
 export function sassFunction(definition: string): ClassDecorator {
 	return (<T extends Constructor>(target: T) => {
 		Reflect.defineMetadata(KeyOfSignature, definition, target)
+		signatureStore.set(target, definition)
 
 		return target
 	}) as ClassDecorator
@@ -38,7 +40,7 @@ export async function getFunctions(
 	)
 
 	const entries = modules.map(module => {
-		const signature = Reflect.getMetadata(KeyOfSignature, module) as string
+		const signature = Reflect.getMetadata(KeyOfSignature, module) as string ?? signatureStore.get(module)
 
 		async function customFunction(rawArgs: SassType[]): Promise<SassType> {
 			const args = rawArgs.map(sassToJavaScriptType)
