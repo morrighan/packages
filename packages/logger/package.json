@@ -39,12 +39,10 @@
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",
         "core-js-pure": "^3.41.0",
-        "lodash": "^4.17.21",
         "luxon": "^3.5.0",
         "morgan": "^1.10.0",
         "pretty-bytes": "^6.1.1",
         "pretty-ms": "^9.2.0",
-        "reflect-metadata": "^0.2.2",
         "winston": "^3.17.0"
     },
     "engines": {
