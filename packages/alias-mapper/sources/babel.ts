@@ -9,8 +9,7 @@ import type { Visitor, types as t } from '@babel/core'
 import { declare } from '@babel/helper-plugin-utils'
 
 // Local helpers.
-import type { Configuration } from './helpers/alias-finder'
-import findAlias from './helpers/alias-finder'
+import findAlias, { type Configuration } from './helpers/alias-finder'
 import findRelativePath from './helpers/relative-path-finder'
 
 // Type definitions.

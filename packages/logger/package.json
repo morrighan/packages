@@ -35,7 +35,6 @@
         "directory": "packages/logger"
     },
     "dependencies": {
-        "bluebird": "^3.7.2",
         "chalk": "^5.4.1",
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",

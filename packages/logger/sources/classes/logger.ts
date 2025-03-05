@@ -3,9 +3,9 @@ import 'reflect-metadata'
 // Node.js built-in APIs.
 import { IncomingMessage as HttpRequest, ServerResponse as HttpResponse } from 'http'
 import { PassThrough } from 'stream'
+import { promisify } from 'util'
 
 // Third-party modules.
-import Promise from 'bluebird'
 import { flow, map, filter, fromPairs } from 'lodash/fp'
 import morgan from 'morgan'
 import type { level as LoggingLevel } from 'winston'
@@ -112,7 +112,7 @@ class Logger {
 		case (args.length >= 2 && args[0] instanceof HttpRequest && args[1] instanceof HttpResponse): {
 			const [ request, response ] = args as [ HttpRequest, HttpResponse ]
 
-			return Promise.fromCallback<void>(callback => format(request, response, callback))
+			return promisify(format)(request, response)
 		}
 
 		case (args.length >= 1 && args[0] instanceof Error): {

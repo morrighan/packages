@@ -5,8 +5,7 @@ import path from 'path'
 import { serialize } from 'v8'
 
 // Third-party modules.
-import { describe, it } from 'mocha'
-import { expect } from 'chai'
+import { test, expect } from 'vitest'
 
 // Target modules.
 import * as Babel from '@babel/core'
@@ -20,23 +19,21 @@ const astFile = path.resolve(import.meta.dirname, 'artifacts/ast.data')
 // Artifacts.
 const savedAst = fs.readFile(astFile)
 
-describe('@cichol/alias-mapper', () => {
-	it(`ESLint v${ESLint.version} should lint without an error`, async () => {
-		const linter = await loadESLint().then(Linter => new Linter())
-		const [ { messages } ] = await linter.lintFiles([ targetFile ])
+test(`ESLint v${ESLint.version} should lint without an error`, async () => {
+	const linter = await loadESLint().then(Linter => new Linter())
+	const [ { messages } ] = await linter.lintFiles([ targetFile ])
 
-		for (const { message, ruleId, line, column } of messages) {
-			console.error(`[${(ruleId ?? '?')}] ${message} (${line}:${column})`)
-		}
+	for (const { message, ruleId, line, column } of messages) {
+		console.error(`[${(ruleId ?? '?')}] ${message} (${line}:${column})`)
+	}
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-		expect(messages, 'An error has to be not raised').to.be.empty
-	})
+	// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+	expect(messages, 'An error has to be not raised').to.be.empty
+})
 
-	it(`Babel v${Babel.version} should compile without an error`, async () => {
-		const fileResult = await Babel.transformFileAsync(targetFile, { root: examplesPath, code: false, ast: true })
-		const builtAst = fileResult && serialize(fileResult.ast)
+test(`Babel v${Babel.version} should compile without an error`, async () => {
+	const fileResult = await Babel.transformFileAsync(targetFile, { root: examplesPath, code: false, ast: true })
+	const builtAst = fileResult && serialize(fileResult.ast)
 
-		expect(builtAst?.compare(await savedAst), 'The abstract syntax tree does not match').to.equal(0)
-	})
+	expect(builtAst?.compare(await savedAst), 'The abstract syntax tree does not match').to.equal(0)
 })
