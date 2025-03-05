@@ -51,6 +51,7 @@
     },
     "dependencies": {
         "@babel/helper-plugin-utils": "^7.26.5",
+        "@babel/runtime-corejs3": "^7.26.9",
         "core-js-pure": "^3.41.0",
         "eslint-import-resolver-typescript": "^3.8.3",
         "lodash.curryright": "^4.1.1"

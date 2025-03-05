@@ -1,5 +1,6 @@
-// Node.js built-in APIs.
-import { createRequire } from 'module'
+// Constants.
+const { default: { version: CORE_JS_VERSION } } = await import('core-js-pure/package.json', { with: { type: 'json' } })
+const { default: { version: RUNTIME_VERSION } } = await import('@babel/runtime-corejs3/package.json', { with: { type: 'json' } })
 
 /**
  * @param {import('@babel/core').ConfigAPI} API
@@ -9,8 +10,6 @@ export default function configurateBabel(API) {
 	API.assertVersion('^7.26.9')
 	API.cache.never()
 
-	const coreJsVersion = createRequire(import.meta.url)('core-js-pure/package.json').version
-
 	return {
 		presets: Object.entries({
 			'@babel/preset-env': { bugfixes: true, targets: { node: 'current' }, modules: false },
@@ -18,9 +17,9 @@ export default function configurateBabel(API) {
 		}),
 
 		plugins: Object.entries({
-			'babel-plugin-polyfill-corejs3': { method: 'usage-pure', version: coreJsVersion, proposals: true },
+			'babel-plugin-polyfill-corejs3': { method: 'usage-pure', version: CORE_JS_VERSION, proposals: true },
 			'@babel/plugin-proposal-decorators': { version: '2023-11' },
-			'@babel/plugin-transform-runtime': { regenerator: false },
+			'@babel/plugin-transform-runtime': { regenerator: false, version: RUNTIME_VERSION },
 		}),
 	}
 }
