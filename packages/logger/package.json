@@ -39,7 +39,7 @@
         "chalk": "^5.4.1",
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",
-        "core-js-pure": "^3.40.0",
+        "core-js-pure": "^3.41.0",
         "lodash": "^4.17.21",
         "luxon": "^3.5.0",
         "morgan": "^1.10.0",
@@ -49,7 +49,7 @@
         "winston": "^3.17.0"
     },
     "engines": {
-        "node": "^20.18.2",
+        "node": "^20.18.3",
         "npm": "^11.0.0"
     },
     "publishConfig": {

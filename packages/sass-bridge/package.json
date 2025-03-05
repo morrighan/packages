@@ -36,16 +36,16 @@
     },
     "dependencies": {
         "chroma-js": "^3.1.2",
-        "core-js-pure": "^3.40.0",
+        "core-js-pure": "^3.41.0",
         "immutable": "^5.0.3",
         "reflect-metadata": "^0.2.2",
-        "sass": "npm:sass-embedded@^1.83.4"
+        "sass": "npm:sass-embedded@^1.85.1"
     },
     "devDependencies": {
         "@cichol/sass-bridge": "file:."
     },
     "engines": {
-        "node": "^20.18.2",
+        "node": "^20.18.3",
         "npm": "^11.0.0"
     },
     "publishConfig": {

@@ -51,13 +51,13 @@
     },
     "dependencies": {
         "@babel/helper-plugin-utils": "^7.26.5",
-        "core-js-pure": "^3.40.0",
-        "eslint-import-resolver-typescript": "^3.7.0",
-        "lodash": "^4.17.21"
+        "core-js-pure": "^3.41.0",
+        "eslint-import-resolver-typescript": "^3.8.3",
+        "lodash.curryright": "^4.1.1"
     },
     "peerDependencies": {
-        "@babel/core": "^7.26.7",
-        "eslint": "^9.19.0"
+        "@babel/core": "^7.26.9",
+        "eslint": "^9.21.0"
     },
     "peerDependenciesMeta": {
         "@babel/core": {
@@ -68,7 +68,7 @@
         }
     },
     "engines": {
-        "node": "^20.18.2",
+        "node": "^20.18.3",
         "npm": "^11.0.0"
     },
     "publishConfig": {

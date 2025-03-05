@@ -6,7 +6,7 @@ import { PassThrough } from 'stream'
 
 // Third-party modules.
 import Promise from 'bluebird'
-import lodash from 'lodash'
+import { flow, map, filter, fromPairs } from 'lodash/fp'
 import morgan from 'morgan'
 import type { level as LoggingLevel } from 'winston'
 import * as winston from 'winston'
@@ -35,11 +35,11 @@ const KeyOfPassport: unique symbol = Symbol('@cichol/logger::classes/logger::Pas
 
 class Logger {
 	#logger: BaseLogger = winston.createLogger({
-		levels: lodash(handlers)
-			.map(({ name, level }) => [ name, level ])
-			.filter(([ , level ]) => typeof level === 'number')
-			.fromPairs()
-			.value(),
+		levels: flow(
+			map(({ name, level }) => [ name, level ]),
+			filter(([ , level ]) => typeof level === 'number'),
+			fromPairs,
+		)(handlers),
 
 		level: (executionMode === ExecutionMode.ProductionMode ? 'http' : 'verbose') as typeof LoggingLevel,
 

@@ -6,7 +6,7 @@ import { createRequire } from 'module'
  * @returns {import('@babel/core').TransformOptions}
  */
 export default function configurateBabel(API) {
-	API.assertVersion('^7.14.0')
+	API.assertVersion('^7.26.9')
 	API.cache.never()
 
 	const coreJsVersion = createRequire(import.meta.url)('core-js-pure/package.json').version

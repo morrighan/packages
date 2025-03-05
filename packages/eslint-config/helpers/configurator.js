@@ -1,29 +1,43 @@
 // ESLint-relevant modules.
 import TSESLint from 'typescript-eslint'
 
-// Third-party modules.
-import lodash from 'lodash'
-
 // Local helpers.
 import { mapStylisticRules } from './stylistic-rules-mapper.js'
 
+// Type definitions.
+/** @typedef {import('eslint').Linter.Config} ESLintConfig */
+/** @typedef {import('eslint').Linter.Plugin} ESLintPlugin */
+
 /**
- * @param {import('eslint').Linter.Config[]} configurations
- * @returns {import('eslint').Linter.Config[]}
+ * @template T
+ * @param {T} object
+ * @param {(value: T[keyof T], key: string, object: T) => string} [iteratee]
+ * @returns {Record<string, T[keyof T]>}
+ */
+function mapKeys(object, iteratee) {
+	return Object.entries(object)
+		.reduce((mapped, [ key, value ]) => (
+			Object.assign(mapped, iteratee ? { [iteratee(value, key, object)]: value } : {})
+		), {})
+}
+
+/**
+ * @param {ESLintConfig[]} configurations
+ * @returns {ESLintConfig[]}
  */
 export function configurate(...configurations) {
 	return TSESLint.config(...configurations).map(mapStylisticRules)
 }
 
 /**
- * @param {import('eslint').Linter.Config} configuration
+ * @param {ESLintConfig} configuration
  * @param {{ originalName: string; aliasedName: string; }} arg1
- * @param {import('eslint').ESLint.Plugin} [plugin]
- * @returns {import('eslint').Linter.Config}
+ * @param {ESLintPlugin} [plugin]
+ * @returns {ESLintConfig}
  */
 export function getConfigWithAliasedPluginName(configuration, { originalName, aliasedName }, plugin) {
-	const rules = lodash.mapKeys(
-		configuration.rules,
+	const rules = mapKeys(
+		configuration.rules ?? {},
 		(ruleEntry, ruleName) => (
 			ruleName.replace(new RegExp(`^${originalName}/`), `${aliasedName}/`)
 		),
