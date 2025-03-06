@@ -5,9 +5,8 @@ import process from 'process'
 import { Worker, isMainThread, workerData } from 'worker_threads'
 
 // Third-party modules.
-import Promise from 'bluebird'
 import { execa } from 'execa'
-import { glob } from 'glob'
+import { globSync as glob } from 'glob'
 import { oraPromise as ora } from 'ora'
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor'
 
@@ -54,9 +53,8 @@ async function removeTemporaryFiles(projectFolder = workerData) {
 export default async function main() {
 	if (isMainThread) {
 		const pattern = path.resolve(import.meta.dirname, '../packages/*')
-		const folderPaths = await glob(pattern)
 
-		const tasks = Promise.resolve(folderPaths)
+		const tasks = glob(pattern)
 			.filter(projectFolder => (
 				path.basename(projectFolder) !== 'eslint-config'
 			))
@@ -72,7 +70,7 @@ export default async function main() {
 				})
 			}))
 
-		await ora(tasks, 'Generating type declarations ...')
+		await ora(Promise.all(tasks), 'Generating type declarations ...')
 	} else {
 		await generateDeclarations()
 		await mergeAllDeclarations()

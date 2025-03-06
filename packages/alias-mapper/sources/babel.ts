@@ -2,16 +2,14 @@
 import path from 'path'
 
 // Third-party modules.
-import lodash from 'lodash'
+import curryRight from 'lodash.curryright'
 
 // Babel modules.
-import type { Visitor } from '@babel/core'
-import type { StringLiteral } from '@babel/types' // eslint-disable-line node/no-extraneous-import
+import type { Visitor, types as t } from '@babel/core'
 import { declare } from '@babel/helper-plugin-utils'
 
 // Local helpers.
-import type { Configuration } from './helpers/alias-finder'
-import findAlias from './helpers/alias-finder'
+import findAlias, { type Configuration } from './helpers/alias-finder'
 import findRelativePath from './helpers/relative-path-finder'
 
 // Type definitions.
@@ -20,10 +18,10 @@ interface State extends Record<string, any> {
 }
 
 function createReplacer(configuration: Configuration, basePath: string) {
-	const curriedFind = lodash.curryRight(findAlias)
+	const curriedFind = curryRight(findAlias)
 	const performFind = curriedFind({ ...configuration, basePath: configuration.basePath ?? basePath })
 
-	return (source: StringLiteral, state: State) => {
+	return (source: t.StringLiteral, state: State) => {
 		const rawPath = source.value
 
 		if (!state.filename) return
@@ -38,7 +36,7 @@ function createReplacer(configuration: Configuration, basePath: string) {
 }
 
 export default declare((API, options, configuredDirectory) => {
-	API.assertVersion('^7.14.0')
+	API.assertVersion('^7.26.9')
 
 	const performReplace = createReplacer(options, configuredDirectory)
 

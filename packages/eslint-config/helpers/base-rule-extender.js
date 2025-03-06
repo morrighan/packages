@@ -1,4 +1,3 @@
-import {} from 'util'
 // Third-party modules.
 import merge from 'deepmerge'
 

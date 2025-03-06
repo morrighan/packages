@@ -1,16 +1,12 @@
-import 'reflect-metadata'
-
 // Node.js built-in APIs.
 import { IncomingMessage as HttpRequest, ServerResponse as HttpResponse } from 'http'
 import { PassThrough } from 'stream'
+import { promisify } from 'util'
 
 // Third-party modules.
-import Promise from 'bluebird'
-import lodash from 'lodash'
 import morgan from 'morgan'
-import type { level as LoggingLevel } from 'winston'
 import * as winston from 'winston'
-import { Logger as BaseLogger } from 'winston'
+import type { level as LoggingLevel, Logger as BaseLogger } from 'winston'
 
 // Formatters.
 import formatForCLI from '../formatters/command-line'
@@ -29,17 +25,15 @@ type Morgan = (req: HttpRequest, res: HttpResponse, next: (error?: Error) => voi
 // Transports.
 const { Console: ConsoleTransport } = winston.transports
 
-// Keys in order to access private properties.
-const KeyOfInstance: unique symbol = Symbol('@cichol/logger::classes/logger::Instance')
-const KeyOfPassport: unique symbol = Symbol('@cichol/logger::classes/logger::Passport')
-
 class Logger {
+	static #instance?: Logger
+
 	#logger: BaseLogger = winston.createLogger({
-		levels: lodash(handlers)
-			.map(({ name, level }) => [ name, level ])
-			.filter(([ , level ]) => typeof level === 'number')
-			.fromPairs()
-			.value(),
+		levels: Object.fromEntries(
+			handlers
+				.map(({ name, level }) => [ name, level ] as const)
+				.filter(([ , level ]) => typeof level === 'number'),
+		),
 
 		level: (executionMode === ExecutionMode.ProductionMode ? 'http' : 'verbose') as typeof LoggingLevel,
 
@@ -56,28 +50,16 @@ class Logger {
 		}),
 	}) as Morgan
 
-	private constructor(passport: typeof KeyOfPassport) {
-		if (passport !== KeyOfPassport) {
-			throw new ReferenceError('Logger class cannot be constructed in directly')
-		}
-	}
-
-	public static get instance(): Logger {
-		if (this !== Logger) {
+	private constructor() {
+		if (new.target !== Logger) {
 			throw new ReferenceError('Logger class is not inheritable')
 		}
 
-		if (Reflect.hasOwnMetadata(KeyOfInstance, Logger)) {
-			return Reflect.getOwnMetadata(KeyOfInstance, Logger)
+		if (Logger.#instance) {
+			throw new ReferenceError('Logger class cannot be constructed in directly')
 		}
 
-		const instance = new Logger(KeyOfPassport)
-
-		try {
-			return instance
-		} finally {
-			Reflect.defineMetadata(KeyOfInstance, instance, Logger)
-		}
+		Logger.#instance = this
 	}
 
 	/**
@@ -112,7 +94,7 @@ class Logger {
 		case (args.length >= 2 && args[0] instanceof HttpRequest && args[1] instanceof HttpResponse): {
 			const [ request, response ] = args as [ HttpRequest, HttpResponse ]
 
-			return Promise.fromCallback<void>(callback => format(request, response, callback))
+			return promisify(format)(request, response)
 		}
 
 		case (args.length >= 1 && args[0] instanceof Error): {
@@ -136,4 +118,4 @@ class Logger {
 	}
 }
 
-export default Logger.instance
+export default Reflect.construct(Logger, [], Logger) as Logger

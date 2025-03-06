@@ -2,8 +2,7 @@
 import { resolve as defaultResolve } from 'eslint-import-resolver-typescript'
 
 // Local helpers.
-import type { Configuration } from './helpers/alias-finder'
-import findAlias from './helpers/alias-finder'
+import findAlias, { type Configuration } from './helpers/alias-finder'
 
 // Type definitions.
 type ResolutionResult = ReturnType<typeof defaultResolve>

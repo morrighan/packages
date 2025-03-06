@@ -62,6 +62,12 @@ export default defineConfig({
 		'import/extensions': 'off',
 	},
 }, {
+	files: [ 'packages/sass-bridge/tests/artifacts/*.ts' ],
+
+	rules: {
+		'@typescript-eslint/class-methods-use-this': 'off',
+	},
+}, {
 	settings: {
 		react: {
 			version: '19',

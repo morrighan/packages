@@ -3,7 +3,7 @@
  * @returns {import('@babel/core').TransformOptions}
  */
 export default function configurateBabel(API) {
-	API.assertVersion('^7.14.0')
+	API.assertVersion('^7.26.9')
 	API.cache.forever()
 
 	// Configuration fragments.
