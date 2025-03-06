@@ -1,6 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable import/extensions */
-
 // Third-party modules.
 import { test, expect } from 'vitest'
 import * as sass from 'sass'
@@ -17,8 +14,8 @@ test('should be working properly', async () => {
 	`
 
 	const functions = await getFunctions(
-		import('./artifacts/custom-function.ts'),
-		import('./artifacts/sqrt-cos.ts'),
+		import('./artifacts/custom-function'),
+		import('./artifacts/sqrt-cos'),
 	)
 
 	const { css: result } = await sass.compileStringAsync(source, { functions })
