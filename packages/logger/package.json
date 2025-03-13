@@ -35,7 +35,7 @@
         "directory": "packages/logger"
     },
     "dependencies": {
-        "@babel/runtime-corejs3": "^7.26.9",
+        "@babel/runtime-corejs3": "^7.26.10",
         "chalk": "^5.4.1",
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",
@@ -48,7 +48,7 @@
     },
     "engines": {
         "node": "^20.18.3",
-        "npm": "^11.0.0"
+        "npm": "^11.2.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

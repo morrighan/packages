@@ -51,14 +51,13 @@
     },
     "dependencies": {
         "@babel/helper-plugin-utils": "^7.26.5",
-        "@babel/runtime-corejs3": "^7.26.9",
+        "@babel/runtime-corejs3": "^7.26.10",
         "core-js-pure": "^3.41.0",
-        "eslint-import-resolver-typescript": "^3.8.3",
-        "lodash.curryright": "^4.1.1"
+        "eslint-import-resolver-typescript": "^3.8.6"
     },
     "peerDependencies": {
-        "@babel/core": "^7.26.9",
-        "eslint": "^9.21.0"
+        "@babel/core": "^7.26.10",
+        "eslint": "^9.22.0"
     },
     "peerDependenciesMeta": {
         "@babel/core": {
@@ -70,7 +69,7 @@
     },
     "engines": {
         "node": "^20.18.3",
-        "npm": "^11.0.0"
+        "npm": "^11.2.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
