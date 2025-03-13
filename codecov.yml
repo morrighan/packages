@@ -12,6 +12,11 @@ component_management:
       paths:
         - packages/alias-mapper/**
 
+    - component_id: cryptography
+      name: cryptography
+      paths:
+        - packages/cryptography/**
+
     - component_id: eslint-config
       name: eslint-config
       paths:

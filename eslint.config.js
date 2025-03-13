@@ -56,6 +56,12 @@ export default defineConfig({
 		},
 	},
 }, {
+	files: [ 'packages/cryptography/sources/**/*.ts' ],
+
+	rules: {
+		'node/no-unsupported-features/node-builtins': 'off',
+	},
+}, {
 	files: [ 'packages/eslint-config/**/*.js' ],
 
 	rules: {

@@ -33,6 +33,7 @@ const configurateRollup = (...definitions) => definitions.map((
 
 export default configurateRollup(
 	[ 'alias-mapper', { exports: 'named' } ],
+	[ 'cryptography' ],
 	[ 'logger' ],
 	[ 'sass-bridge' ],
 )
