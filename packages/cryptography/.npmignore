@@ -1,0 +1,10 @@
+# Unnecessary files.
+.*
+
+# Exclude source contents.
+tsconfig.json
+sources
+tests
+
+# Include distribution files.
+!dists

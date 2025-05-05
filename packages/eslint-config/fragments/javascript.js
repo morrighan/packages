@@ -95,16 +95,29 @@ export const configuration = configurate({
 		} ],
 
 		/**
+		 * @see {@link https://typescript-eslint.io/troubleshooting/typed-linting/performance/#eslint-plugin-import}
+		 */
+		'import/named': 'off',
+		'import/namespace': 'off',
+		'import/default': 'off',
+		'import/no-named-as-default-member': 'off',
+		'import/no-unresolved': 'off',
+
+		/**
 		 * Enforces consistent use of file extension within the import path.
 		 *
 		 * @see {@link https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/extensions.md}
 		 */
 		'import/extensions': [ 'error', 'ignorePackages', {
-			mjs: 'never',
-			js: 'never',
-			jsx: 'never',
-			ts: 'never',
-			tsx: 'never',
+			checkTypeImports: true,
+
+			pattern: {
+				mjs: 'never',
+				js: 'never',
+				jsx: 'never',
+				ts: 'never',
+				tsx: 'never',
+			},
 		} ],
 
 		/**

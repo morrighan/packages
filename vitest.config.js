@@ -13,13 +13,16 @@ export default defineConfig({
 			reporter: [ 'lcov' ],
 		},
 
+		include: [ 'tests/**/*.ts', 'sources/**/*.spec.ts' ],
+		exclude: [ 'tests/(artifacts|examples)/**/*.ts' ],
+
 		workspace: glob('packages/*')
 			.map(projectFolder => /** @type {import('vitest/config').TestProjectConfiguration} */ ({
 				extends: true,
 
 				test: {
 					name: `@cichol/${path.basename(projectFolder)}`,
-					include: [ path.resolve(projectFolder, 'tests/*.ts') ],
+					dir: projectFolder,
 				},
 			})),
 

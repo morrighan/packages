@@ -1,9 +1,6 @@
 // Node.js built-in APIs.
 import path from 'path'
 
-// Third-party modules.
-import curryRight from 'lodash.curryright'
-
 // Babel modules.
 import type { Visitor, types as t } from '@babel/core'
 import { declare } from '@babel/helper-plugin-utils'
@@ -18,7 +15,10 @@ interface State extends Record<string, any> {
 }
 
 function createReplacer(configuration: Configuration, basePath: string) {
-	const curriedFind = curryRight(findAlias)
+	const curriedFind = (curriedConfiguration: Configuration) => (
+		(rawPath: string, mentionedFile: string) => findAlias(rawPath, mentionedFile, curriedConfiguration)
+	)
+
 	const performFind = curriedFind({ ...configuration, basePath: configuration.basePath ?? basePath })
 
 	return (source: t.StringLiteral, state: State) => {
