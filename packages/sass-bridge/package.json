@@ -1,6 +1,6 @@
 {
     "name": "@cichol/sass-bridge",
-    "version": "5.0.0",
+    "version": "5.1.0",
     "description": "A bridge interface to define Sass custom functions.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
