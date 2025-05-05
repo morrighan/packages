@@ -25,9 +25,7 @@ export function sassFunction(signature: string) {
 			throw new TypeError('Not supported on private methods.')
 		}
 
-		if (!context.metadata.functionMap) {
-			context.metadata.functionMap = new Map<string, BridgedFunction>()
-		}
+		context.metadata.functionMap ??= new Map<string, BridgedFunction>()
 
 		const { functionMap } = context.metadata as { functionMap: BridgedFunctionMap }
 
