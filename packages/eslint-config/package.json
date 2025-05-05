@@ -21,25 +21,25 @@
         "directory": "packages/eslint-config"
     },
     "dependencies": {
-        "@eslint-community/eslint-plugin-eslint-comments": "^4.4.1",
-        "@eslint/compat": "^1.2.7",
-        "@eslint/eslintrc": "^3.3.0",
+        "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
+        "@eslint/compat": "^1.2.9",
+        "@eslint/eslintrc": "^3.3.1",
         "@stylistic/eslint-plugin": "^4.2.0",
         "deepmerge": "^4.3.1",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-airbnb-base": "^15.0.0",
-        "eslint-import-resolver-typescript": "^3.8.6",
+        "eslint-import-resolver-typescript": "^4.3.4",
         "eslint-plugin-import": "^2.31.0",
         "eslint-plugin-jsx-a11y": "^6.10.2",
-        "eslint-plugin-n": "^17.16.2",
+        "eslint-plugin-n": "^17.17.0",
         "eslint-plugin-promise": "^7.2.1",
-        "eslint-plugin-react": "^7.37.4",
+        "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^5.2.0",
-        "typescript-eslint": "^8.26.1"
+        "typescript-eslint": "^8.31.1"
     },
     "peerDependencies": {
-        "eslint": "^9.22.0",
-        "typescript": "^5.8.2"
+        "eslint": "^9.26.0",
+        "typescript": "^5.8.3"
     },
     "peerDependenciesMeta": {
         "eslint": {
@@ -62,8 +62,8 @@
         }
     },
     "engines": {
-        "node": "^20.18.3",
-        "npm": "^11.2.0"
+        "node": "^20.19.1 || ^22.15.0",
+        "npm": "^11.3.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
