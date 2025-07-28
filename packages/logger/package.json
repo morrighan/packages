@@ -35,20 +35,20 @@
         "directory": "packages/logger"
     },
     "dependencies": {
-        "@babel/runtime-corejs3": "^7.27.1",
+        "@babel/runtime-corejs3": "^7.28.2",
         "chalk": "^5.4.1",
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",
-        "core-js-pure": "^3.42.0",
-        "luxon": "^3.6.1",
-        "morgan": "^1.10.0",
+        "core-js-pure": "^3.44.0",
+        "luxon": "^3.7.1",
+        "morgan": "^1.10.1",
         "pretty-bytes": "^7.0.0",
         "pretty-ms": "^9.2.0",
         "winston": "^3.17.0"
     },
     "engines": {
-        "node": "^20.19.1 || ^22.15.0",
-        "npm": "^11.3.0"
+        "node": "^20.19.4 || ^22.17.1",
+        "npm": "^11.5.1"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
