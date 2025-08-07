@@ -362,6 +362,15 @@ export const configuration = configurate({
 			ObjectPattern: { consistent: true, minProperties: Infinity, multiline: true },
 		} ],
 
+		/**
+		 * Enforce consistent linebreak style for operators.
+		 *
+		 * @see {@link https://eslint.org/docs/rules/operator-linebreak}
+		 */
+		'operator-linebreak': [ 'error', 'before', ...extendsBaseRule('operator-linebreak', [
+			{ overrides: { '=': 'ignore' } },
+		]) ],
+
 		// /**
 		//  * Allows just one var statement per function.
 		//  *
