@@ -16,7 +16,7 @@ export default defineConfig({
 		include: [ 'tests/**/*.ts', 'sources/**/*.spec.ts' ],
 		exclude: [ 'tests/(artifacts|examples)/**/*.ts' ],
 
-		workspace: glob('packages/*')
+		projects: glob('packages/*')
 			.map(projectFolder => /** @type {import('vitest/config').TestProjectConfiguration} */ ({
 				extends: true,
 
