@@ -1,5 +1,5 @@
 // Third-party modules.
-import { CustomFunction } from 'sass'
+import type { CustomFunction } from 'sass'
 
 // Local helpers.
 import type { SassType, JavaScriptType } from './types'

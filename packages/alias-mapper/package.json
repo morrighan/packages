@@ -51,13 +51,13 @@
     },
     "dependencies": {
         "@babel/helper-plugin-utils": "^7.27.1",
-        "@babel/runtime-corejs3": "^7.28.2",
-        "core-js-pure": "^3.44.0",
+        "@babel/runtime-corejs3": "^7.28.3",
+        "core-js-pure": "^3.45.1",
         "eslint-import-resolver-typescript": "^4.4.4"
     },
     "peerDependencies": {
-        "@babel/core": "^7.28.0",
-        "eslint": "^9.32.0"
+        "@babel/core": "^7.28.3",
+        "eslint": "^9.34.0"
     },
     "peerDependenciesMeta": {
         "@babel/core": {
