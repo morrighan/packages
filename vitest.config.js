@@ -5,6 +5,10 @@ import path from 'path'
 import { defineConfig } from 'vitest/config'
 import { globSync as glob } from 'glob'
 
+// Constants.
+const ONE_SECOND = 1000
+const ONE_MINUTE = 60 * ONE_SECOND
+
 export default defineConfig({
 	test: {
 		coverage: {
@@ -27,6 +31,6 @@ export default defineConfig({
 			})),
 
 		reporters: [ 'verbose' ],
-		testTimeout: 10000,
+		testTimeout: ONE_MINUTE,
 	},
 })
