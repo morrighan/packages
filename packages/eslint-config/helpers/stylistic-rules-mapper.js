@@ -4,6 +4,7 @@ import stylisticPlugin from '@stylistic/eslint-plugin'
 // Constants.
 const deprecatedRuleNames = [
 	'jsx-indent',
+	'jsx-props-no-multi-spaces',
 ]
 
 /**
