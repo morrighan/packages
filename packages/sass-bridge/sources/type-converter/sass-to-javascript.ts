@@ -60,7 +60,7 @@ export default function sassToJavaScriptType(sassValue: SassType): JavaScriptTyp
 	case sassValue instanceof SassMap: {
 		const mapValue = sassValue.contents
 
-		const entries = Array.from(mapValue.entries() as IterableIterator<[SassType, SassType]>)
+		const entries = Array.from(mapValue.entries())
 			.map(([ key, value ]) => [ sassToJavaScriptType(key), sassToJavaScriptType(value) ])
 
 		return new Map(entries as [JavaScriptType, JavaScriptType][])
