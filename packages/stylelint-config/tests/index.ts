@@ -1,6 +1,5 @@
 // Third-party modules.
 import { test, expect } from 'vitest'
-import postcss from 'postcss'
 import stylelint from 'stylelint'
 import { version } from 'stylelint/package.json' with { type: 'json' }
 
@@ -29,7 +28,8 @@ test('should have a properties list sorted as designed', () => {
 })
 
 test(`should work properly w/ Stylelint v${version}`, async () => {
-	const result = postcss([ stylelint(config) ]).process('', { from: 'test.css' })
+	const result = stylelint.lint({ code: '', config })
 
-	await expect(result).resolves.to.have.own.property('css')
+	await expect(result).resolves.not.toThrow()
+	expect(await result).to.have.own.property('errored', false)
 })
