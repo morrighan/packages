@@ -56,7 +56,7 @@ export default async function main() {
 
 		const tasks = glob(pattern)
 			.filter(projectFolder => (
-				path.basename(projectFolder) !== 'eslint-config'
+				!/^(es|style)lint-config$/.test(path.basename(projectFolder))
 			))
 			.map(projectFolder => new Promise((resolve, reject) => {
 				const worker = new Worker(import.meta.filename, { workerData: projectFolder })
