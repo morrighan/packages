@@ -44,8 +44,8 @@
         "sass": "^1.92.1"
     },
     "engines": {
-        "node": "^20.19.4 || ^22.17.1",
-        "npm": "^11.5.1"
+        "node": "^20.19.5 || ^22.20.0",
+        "npm": "^11.6.1"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
