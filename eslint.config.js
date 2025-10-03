@@ -62,10 +62,10 @@ export default defineConfig({
 		'node/no-unsupported-features/node-builtins': 'off',
 	},
 }, {
-	files: [ 'packages/eslint-config/**/*.js' ],
+	files: [ 'packages/eslint-config/**/*.js', 'packages/stylelint-config/**/*.js' ],
 
 	rules: {
-		'import/extensions': 'off',
+		'import/extensions': [ 'error', 'always' ],
 	},
 }, {
 	files: [ 'packages/sass-bridge/tests/artifacts/*.ts' ],

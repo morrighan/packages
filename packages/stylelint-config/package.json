@@ -1,0 +1,38 @@
+{
+    "name": "@cichol/stylelint-config",
+    "version": "5.3.0",
+    "description": "An universal Stylelint configuration for personal projects.",
+    "homepage": "https://github.com/morrighan/packages",
+    "bugs": {
+        "url": "https://github.com/morrighan/packages/issues"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Yongbin Min",
+        "email": "contact@cichol.com",
+        "url": "https://www.cichol.com/"
+    },
+    "type": "module",
+    "main": "index.js",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/morrighan/packages.git",
+        "directory": "packages/stylelint-config"
+    },
+    "dependencies": {
+        "stylelint-config-sass-guidelines": "^12.1.0",
+        "stylelint-order": "^7.0.0"
+    },
+    "peerDependencies": {
+        "stylelint": "^16.24.0"
+    },
+    "engines": {
+        "node": "^20.19.5 || ^22.20.0",
+        "npm": "^11.6.1"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    }
+}
