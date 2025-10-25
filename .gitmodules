@@ -1,0 +1,9 @@
+[submodule "packages/shader-compressor/artifacts/emsdk"]
+	path = packages/shader-compressor/artifacts/emsdk
+	url = git@github.com:emscripten-core/emsdk.git
+[submodule "packages/shader-compressor/artifacts/glsl-optimizer"]
+	path = packages/shader-compressor/artifacts/glsl-optimizer
+	url = git@github.com:aras-p/glsl-optimizer.git
+[submodule "packages/shader-compressor/artifacts/shader-minifier"]
+	path = packages/shader-compressor/artifacts/shader-minifier
+	url = git@github.com:laurentlb/shader-minifier.git

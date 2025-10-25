@@ -65,7 +65,7 @@ export default defineConfig({
 	files: [ 'packages/eslint-config/**/*.js', 'packages/stylelint-config/**/*.js' ],
 
 	rules: {
-		'import/extensions': [ 'error', 'always' ],
+		'import/extensions': [ 'error', 'ignorePackages' ],
 	},
 }, {
 	files: [ 'packages/sass-bridge/tests/artifacts/*.ts' ],

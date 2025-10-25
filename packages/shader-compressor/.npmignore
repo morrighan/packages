@@ -1,0 +1,7 @@
+# Unnecessary files.
+.*
+
+# Exclude source contents.
+tsconfig.json
+artifacts
+tests

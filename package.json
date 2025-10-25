@@ -20,7 +20,8 @@
         "packages/*"
     ],
     "scripts": {
-        "build": "npm run build:rollup && npm run build:dts",
+        "build": "npm run build:individual && npm run build:rollup && npm run build:dts",
+        "build:individual": "npm run build --workspaces --if-present",
         "build:rollup": "npx rollup --config",
         "build:dts": "node scripts/typings.js",
         "test": "npm run test:eslint && npm run test:tsc && npm run test:vitest",
