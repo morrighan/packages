@@ -13,7 +13,8 @@ export default defineConfig({
 	test: {
 		coverage: {
 			enabled: true,
-			include: [ 'packages' ],
+			include: [ 'packages/**.{js,ts}' ],
+			exclude: [ '**/artifacts' ],
 			reporter: [ 'lcov' ],
 		},
 
