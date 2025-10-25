@@ -31,32 +31,32 @@
         "version": "npm version \"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\" --workspaces"
     },
     "devDependencies": {
-        "@babel/core": "^7.28.4",
+        "@babel/core": "^7.28.5",
         "@babel/plugin-proposal-decorators": "^7.28.0",
-        "@babel/plugin-transform-runtime": "^7.28.3",
-        "@babel/preset-env": "^7.28.3",
-        "@babel/preset-typescript": "^7.27.1",
+        "@babel/plugin-transform-runtime": "^7.28.5",
+        "@babel/preset-env": "^7.28.5",
+        "@babel/preset-typescript": "^7.28.5",
         "@babel/runtime-corejs3": "^7.28.4",
         "@cichol/eslint-config": "file:./packages/eslint-config",
-        "@microsoft/api-extractor": "^7.52.15",
-        "@rollup/plugin-babel": "^6.0.4",
-        "@rollup/plugin-node-resolve": "^16.0.1",
+        "@microsoft/api-extractor": "^7.53.3",
+        "@rollup/plugin-babel": "^6.1.0",
+        "@rollup/plugin-node-resolve": "^16.0.3",
         "@types/babel__core": "^7.20.5",
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/chroma-js": "^3.1.1",
         "@types/luxon": "^3.7.1",
         "@types/morgan": "^1.9.10",
-        "@types/node": "^20.19.19",
-        "@vitest/coverage-v8": "^3.2.4",
+        "@types/node": "^20.19.23",
+        "@vitest/coverage-v8": "^4.0.3",
         "babel-plugin-polyfill-corejs3": "^0.13.0",
-        "core-js-pure": "^3.45.1",
-        "eslint": "^9.36.0",
+        "core-js-pure": "^3.46.0",
+        "eslint": "^9.38.0",
         "execa": "^9.6.0",
         "glob": "^11.0.3",
         "ora": "^9.0.0",
-        "rollup": "^4.52.3",
+        "rollup": "^4.52.5",
         "typescript": "^5.9.3",
-        "vitest": "^3.2.4"
+        "vitest": "^4.0.3"
     },
     "overrides": {
         "@cichol/eslint-config": {
@@ -65,7 +65,7 @@
                 "eslint-config-airbnb-base": {
                     "eslint": "$eslint"
                 },
-                "eslint-plugin-react-hooks": "^6.1.0"
+                "eslint-plugin-react-hooks": "^7.0.1"
             },
             "eslint-config-airbnb-base": {
                 "eslint": "$eslint"

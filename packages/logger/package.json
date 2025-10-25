@@ -39,7 +39,7 @@
         "chalk": "^5.6.2",
         "cli-highlight": "^2.1.11",
         "cls-rtracer": "^2.6.3",
-        "core-js-pure": "^3.45.1",
+        "core-js-pure": "^3.46.0",
         "luxon": "^3.7.2",
         "morgan": "^1.10.1",
         "pretty-bytes": "^7.1.0",
