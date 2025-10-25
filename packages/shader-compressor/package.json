@@ -34,6 +34,9 @@
         "url": "git+https://github.com/morrighan/packages.git",
         "directory": "packages/shader-compressor"
     },
+    "scripts": {
+        "build": "bash scripts/build"
+    },
     "dependencies": {},
     "engines": {
         "node": "^20.19.5 || ^22.20.0",

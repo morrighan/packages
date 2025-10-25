@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+function bootstrap() {
+    unset -f bootstrap
+
+    echo "CMake v$(cmake --version | head -n 1 | cut -d' ' -f3)"
+    echo "Ninja v$(ninja --version)"
+
+    if ! test "$(command -v emcc)"; then
+        cd artifacts/emsdk
+
+        ./emsdk install latest > /dev/null
+        ./emsdk activate latest > /dev/null
+
+        EMSDK_QUIET=1 \
+        source ./emsdk_env.sh > /dev/null
+
+        cd ../..
+    fi
+
+    set -euxo pipefail
+
+    emcmake cmake -S . -B dists -G Ninja
+    cmake --build dists
+}
+
+bootstrap "$@"
