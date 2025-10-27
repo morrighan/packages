@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 4.1.2)
 project(@cichol/shader-compressor)
 
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+    set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+endif()
+
 set(GLSLOPT_SRC artifacts/glsl-optimizer/src)
 file(GLOB_RECURSE glslopt_files
     ${GLSLOPT_SRC}/*.c

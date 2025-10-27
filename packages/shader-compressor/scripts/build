@@ -3,11 +3,8 @@
 function bootstrap() {
     unset -f bootstrap
 
-    if ! test "$(command -v emcc)"; then
-        cd artifacts/emsdk
-
-        ./emsdk install latest > /dev/null
-        ./emsdk activate latest > /dev/null
+    if ! test "$(command -v emsdk)"; then
+        cd artifacts/emsdk || exit 1
 
         EMSDK_QUIET=1 \
         source ./emsdk_env.sh > /dev/null
@@ -15,9 +12,9 @@ function bootstrap() {
         cd ../..
     fi
 
-    set -euxo pipefail
+    emcmake \
+    cmake -S . -B dists -G Ninja
 
-    emcmake cmake -S . -B dists -G Ninja
     cmake --build dists
 }
 

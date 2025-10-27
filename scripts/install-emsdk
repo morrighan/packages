@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+function bootstrap() {
+    unset -f bootstrap
+
+    if test "$(command -v emsdk)"; then
+        return
+    fi
+
+    cd packages/shader-compressor/artifacts/emsdk || exit 1
+
+    EMSDK_KEEP_DOWNLOADS=1 \
+    ./emsdk install latest
+    ./emsdk activate latest
+
+    cd ../../../..
+}
+
+bootstrap "$@"
