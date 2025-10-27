@@ -29,6 +29,16 @@
         },
         "./package.json": "./package.json"
     },
+    "imports": {
+        "#*": [
+            "./dists/*",
+            "./dists/*.d.ts",
+            "./dists/*/index.d.js",
+            "./sources/*",
+            "./sources/*.ts",
+            "./sources/*/index.ts"
+        ]
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/morrighan/packages.git",
