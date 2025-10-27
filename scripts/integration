@@ -4,6 +4,7 @@ function bootstrap() {
     unset -f bootstrap
     set -euxo pipefail
 
+    npm config delete always-auth || exit 1
     npm install --global npm || exit 1
     npm ci --ignore-scripts || exit 1
     npm ls --depth=0 || exit 1
