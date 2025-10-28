@@ -12,10 +12,23 @@ function bootstrap() {
         cd ../..
     fi
 
+    if [ -v GITHUB_ACTIONS ]; then
+        echo "::group::Configure CMake"
+    fi
+
     emcmake \
     cmake -S . -B dists -G Ninja
 
+    if [ -v GITHUB_ACTIONS ]; then
+        echo "::endgroup::"
+        echo "::group::Build with Ninja"
+    fi
+
     cmake --build dists
+
+    if [ -v GITHUB_ACTIONS ]; then
+        echo "::endgroup::"
+    fi
 }
 
 bootstrap "$@"
