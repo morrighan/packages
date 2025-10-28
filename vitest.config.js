@@ -1,5 +1,6 @@
 // Node.js built-in APIs.
 import path from 'path'
+import process from 'process'
 
 // Third-party modules.
 import { defineConfig } from 'vitest/config'
@@ -31,7 +32,7 @@ export default defineConfig({
 				},
 			})),
 
-		reporters: [ 'verbose' ],
+		reporters: [ process.env.GITHUB_ACTIONS ? 'github-actions' : 'default' ],
 		testTimeout: ONE_MINUTE,
 	},
 })
