@@ -28,7 +28,7 @@ const configurateRollup = (...definitions) => definitions.map((
 		babel({ extensions, babelHelpers: 'runtime' }),
 	],
 
-	external: source => source.includes('node_modules'),
+	external: source => /node_modules|dists/.test(source),
 }))
 
 export default configurateRollup(
@@ -36,4 +36,5 @@ export default configurateRollup(
 	[ 'cryptography' ],
 	[ 'logger' ],
 	[ 'sass-bridge' ],
+	[ 'shader-compressor' ],
 )

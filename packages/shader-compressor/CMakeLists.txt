@@ -48,6 +48,8 @@ target_link_options(optimizer PRIVATE
     -flto
     -lembind
     -sSTRICT=1
+    -sEMBIND_AOT=1
+    -sDYNAMIC_EXECUTION=0
     -sALLOW_MEMORY_GROWTH=1
     -sFILESYSTEM=0
     -sMODULARIZE=1

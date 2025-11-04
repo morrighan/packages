@@ -11,5 +11,8 @@ tests
 
 # Include distribution files.
 dists/*
+!dists/*.cjs
 !dists/*.js
+!dists/*.d.cts
+!dists/*.d.ts
 !dists/*.wasm

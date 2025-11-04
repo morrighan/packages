@@ -6,7 +6,3 @@ IndentWidth: 3
 ContinuationIndentWidth: 3
 PPIndentWidth: -3
 AccessModifierOffset: -3
-Cpp11BracedListStyle: false
-AlignAfterOpenBracket: BlockIndent
-BinPackArguments: false
-BinPackParameters: false

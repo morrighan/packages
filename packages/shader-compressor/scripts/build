@@ -1,34 +1,19 @@
 #!/usr/bin/env bash
 
 function bootstrap() {
-    unset -f bootstrap
+	unset -f bootstrap
 
-    if ! test "$(command -v emsdk)"; then
-        cd artifacts/emsdk || exit 1
+	if ! test "$(command -v emsdk)"; then
+		cd artifacts/emsdk || exit 1
 
-        EMSDK_QUIET=1 \
-        source ./emsdk_env.sh > /dev/null
+		EMSDK_QUIET=1 \
+		source ./emsdk_env.sh > /dev/null
 
-        cd ../..
-    fi
+		cd ../..
+	fi
 
-    if [ -v GITHUB_ACTIONS ]; then
-        echo "::group::Configure CMake"
-    fi
-
-    emcmake \
-    cmake -S . -B dists -G Ninja
-
-    if [ -v GITHUB_ACTIONS ]; then
-        echo "::endgroup::"
-        echo "::group::Build with Ninja"
-    fi
-
-    cmake --build dists
-
-    if [ -v GITHUB_ACTIONS ]; then
-        echo "::endgroup::"
-    fi
+	emcmake cmake -S . -B dists -G Ninja
+	cmake --build dists
 }
 
 bootstrap "$@"

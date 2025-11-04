@@ -31,12 +31,9 @@
     },
     "imports": {
         "#*": [
-            "./dists/*",
+            "./dists/*.js",
             "./dists/*.d.ts",
-            "./dists/*/index.d.js",
-            "./sources/*",
-            "./sources/*.ts",
-            "./sources/*/index.ts"
+            "./dists/*/index.d.js"
         ]
     },
     "repository": {
@@ -47,7 +44,9 @@
     "scripts": {
         "build": "bash scripts/build"
     },
-    "dependencies": {},
+    "dependencies": {
+        "shader-minifier-wasm": "^0.2.1"
+    },
     "engines": {
         "node": "^20.19.5 || ^22.20.0",
         "npm": "^11.6.1"
