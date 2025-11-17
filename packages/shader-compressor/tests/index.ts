@@ -6,7 +6,7 @@ import path from 'path'
 import { test, expect } from 'vitest'
 
 // Testing target.
-const { ShaderType, Optimizer } = await import('#optimizer').then(module => module.default())
+import compress, { ShaderType } from '@cichol/shader-compressor'
 
 // Constants.
 const SHADER_DIRECTORY = path.resolve(import.meta.dirname, '../artifacts/glsl-optimizer/tests')
@@ -19,7 +19,7 @@ async function loadArtifact(targetPath: string): Promise<string> {
 		))
 }
 
-test('should work properly in optimization phase', async () => {
+test('should be working properly', async () => {
 	const VERTEX_SHADER_SOURCE = await loadArtifact('vertex/MF-GodRays-inES3.txt')
 	const VERTEX_SHADER_OPTIMIZED = await loadArtifact('vertex/MF-GodRays-outES3.txt')
 	const FRAGMENT_SHADER_SOURCE = await loadArtifact('fragment/global-struct-constant-init-metal-inES3.txt')
@@ -29,10 +29,12 @@ test('should work properly in optimization phase', async () => {
 		[ ShaderType.VERTEX, VERTEX_SHADER_SOURCE, VERTEX_SHADER_OPTIMIZED ],
 		[ ShaderType.FRAGMENT, FRAGMENT_SHADER_SOURCE, FRAGMENT_SHADER_OPTIMIZED ],
 	] as const) {
-		using optimizer = new Optimizer(shaderType, shaderSource)
-		const [ isCompleted, optimizedCode = '' ] = (optimizer.result ?? []) as [ boolean, string | void, string | void ]
+		const compressedCode = await compress(shaderType, shaderSource) // eslint-disable-line no-await-in-loop
 
-		expect(isCompleted).to.equal(true)
-		expect(optimizedCode.trimEnd()).to.equal(expectedOutput)
+		try {
+			expect(compressedCode).to.equal(expectedOutput)
+		} finally {
+			//
+		}
 	}
 })
