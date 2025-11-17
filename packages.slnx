@@ -1,0 +1,3 @@
+<Solution>
+  <Project Path="packages/shader-compressor/minifier.fsproj" />
+</Solution>

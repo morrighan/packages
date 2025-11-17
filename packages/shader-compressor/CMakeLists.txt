@@ -17,7 +17,7 @@ file(GLOB glslopt_ignores
     ${GLSLOPT_SRC}/node/*.cpp)
 list(REMOVE_ITEM glslopt_files ${glslopt_ignores})
 
-add_library(glslopt)
+add_library(glslopt OBJECT)
 target_include_directories(glslopt PRIVATE
     ${GLSLOPT_SRC}/../include
     ${GLSLOPT_SRC}/mesa
@@ -27,37 +27,20 @@ target_sources(glslopt PRIVATE ${glslopt_files})
 target_compile_features(glslopt PRIVATE cxx_std_14)
 target_compile_options(glslopt PRIVATE
     -O3
-    -flto
+    -fwasm-exceptions
     -fno-strict-aliasing
     -msimd128
     -Wno-deprecated-register
-    -sSTRICT=1)
+    -Wno-return-type)
 
-add_executable(optimizer)
-target_include_directories(optimizer PRIVATE .)
-target_sources(optimizer PRIVATE sources/optimizer.cpp)
-target_compile_features(optimizer PRIVATE cxx_std_23)
-target_compile_options(optimizer PRIVATE
+add_library(bindings STATIC)
+target_include_directories(bindings PRIVATE .)
+target_sources(bindings PRIVATE
+    $<TARGET_OBJECTS:glslopt>
+    sources/bindings.cpp)
+target_compile_features(bindings PRIVATE cxx_std_23)
+target_compile_options(bindings PRIVATE
     -O3
-    -flto
-    -fno-strict-aliasing
-    -msimd128
-    -sSTRICT=1)
-target_link_options(optimizer PRIVATE
-    -O3
-    -flto
-    -lembind
-    -sSTRICT=1
-    -sEMBIND_AOT=1
-    -sDYNAMIC_EXECUTION=0
-    -sALLOW_MEMORY_GROWTH=1
-    -sFILESYSTEM=0
-    -sMODULARIZE=1
-    -sEXPORT_ES6=1
-    -sENVIRONMENT=node
-    --no-entry
-    --closure=1
-    --closure-args="--compilation_level=ADVANCED"
-    --closure-args="--formatting=PRETTY_PRINT"
-    --emit-tsd=optimizer.d.ts)
-target_link_libraries(optimizer glslopt)
+    -fwasm-exceptions
+    -msimd128)
+set_target_properties(bindings PROPERTIES PREFIX "")

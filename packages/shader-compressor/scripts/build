@@ -1,19 +1,33 @@
 #!/usr/bin/env bash
 
-function bootstrap() {
+bootstrap() {
 	unset -f bootstrap
 
-	if ! test "$(command -v emsdk)"; then
-		cd artifacts/emsdk || exit 1
-
-		EMSDK_QUIET=1 \
-		source ./emsdk_env.sh > /dev/null
-
-		cd ../..
+	if [ "$(uname -s)" = "Darwin" ]; then
+		dotnet() {
+			docker run --rm -it --platform linux/amd64 -v ~/.nuget:/root/.nuget -v .:/sources dotnet:10.0 dotnet "$@"
+		}
 	fi
 
+	if ! test "$(command -v emsdk)"; then
+		EMSDK_QUIET=1 \
+		source "artifacts/emsdk/emsdk_env.sh" > /dev/null
+	fi
+
+	git -C artifacts/shader-minifier apply --check < patches/shader-minifier.patch 2> /dev/null && \
+	git -C artifacts/shader-minifier apply < patches/shader-minifier.patch
+
+	[ ! -f "dists/build.ninja" ] && \
 	emcmake cmake -S . -B dists -G Ninja
+
 	cmake --build dists
+	dotnet publish -r browser-wasm -o dists
+}
+
+aftermath() {
+	unset -f aftermath
+	[ "$(uname -s)" = "Darwin" ] && unset -f dotnet
 }
 
 bootstrap "$@"
+aftermath

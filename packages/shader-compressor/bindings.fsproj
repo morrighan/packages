@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="artifacts/shader-minifier/Minifier/builtin.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/options.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/ast.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/printer.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/formatter.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/analyzer.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/inlining.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/renamer.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/rewriter.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/preprocessor.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/parse.fs" />
+    <Compile Include="artifacts/shader-minifier/Minifier/api.fs" />
+    <Compile Include="sources/minifier.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FParsec" Version="1.1.1" />
+  </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(RuntimeIdentifier)' == 'browser-wasm' and '$(Configuration)' == 'Release'">
+      <PropertyGroup>
+        <PublishTrimmed>true</PublishTrimmed>
+        <SelfContained>true</SelfContained>
+        <MSBuildEnableWorkloadResolver>false</MSBuildEnableWorkloadResolver>
+        <DebugType>none</DebugType>
+        <InvariantTimezone>true</InvariantTimezone>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <StackTraceSupport>false</StackTraceSupport>
+        <UseSystemResourceKeys>true</UseSystemResourceKeys>
+        <RestoreAdditionalProjectSources>
+          https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-experimental/nuget/v3/index.json;
+        </RestoreAdditionalProjectSources>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <PackageReference Include="Microsoft.DotNet.ILCompiler.LLVM" Version="10.0.0-*" />
+        <PackageReference Include="runtime.$(NETCoreSdkPortableRuntimeIdentifier).Microsoft.DotNet.ILCompiler.LLVM" Version="10.0.0-*" />
+      </ItemGroup>
+
+      <ItemGroup>
+        <LinkerArg Include="-O3" />
+        <LinkerArg Include="-fwasm-exceptions" />
+        <LinkerArg Include="-Wl,--whole-archive dists/bindings.a -Wl,--no-whole-archive" />
+        <LinkerArg Include="-lembind" />
+        <LinkerArg Include="-sEXPORTED_FUNCTIONS=''" />
+        <LinkerArg Include="-sFILESYSTEM=0" />
+        <LinkerArg Include="-sEMBIND_AOT=1" />
+        <LinkerArg Include="-sDYNAMIC_EXECUTION=0" />
+        <LinkerArg Include="-sMODULARIZE=1" />
+        <LinkerArg Include="-sEXPORT_ES6=1" />
+        <LinkerArg Include="-sENVIRONMENT=node" />
+        <LinkerArg Include="--emit-tsd=bindings.d.ts" />
+        <LinkerArg Include="--js-transform='sed -i s/Module.HEAP/HEAP/g'" />
+        <LinkerArg Include="--closure=1" />
+        <LinkerArg Include="--closure-args='--compilation_level=ADVANCED'" />
+      </ItemGroup>
+    </When>
+  </Choose>
+
+  <Target Name="CopyDeclarationFile" AfterTargets="CopyNativeBinary">
+    <Delete Files="$(PublishDir)\$(TargetName).d.ts" />
+    <Copy SourceFiles="$(NativeOutputPath)$(TargetName).d.ts" DestinationFolder="$(PublishDir)" />
+  </Target>
+
+</Project>

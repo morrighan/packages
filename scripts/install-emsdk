@@ -13,7 +13,6 @@ function bootstrap() {
         echo "::group::Install and activate Emsdk"
     fi
 
-    EMSDK_KEEP_DOWNLOADS=1 \
     ./emsdk install latest
     ./emsdk activate latest
 

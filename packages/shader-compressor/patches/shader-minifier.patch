@@ -1,0 +1,723 @@
+diff --git i/Minifier/api.fs w/Minifier/api.fs
+index fd8a6c0..607f5e7 100644
+--- i/Minifier/api.fs
++++ w/Minifier/api.fs
+@@ -8,16 +8,16 @@ type Minifier(options, files) =
+ 
+     let minify (options: Options.Options) (files: (string*string)[]) =
+         // like printfn when verbose option is set
+-        let vprintf fmt = fprintf (if options.verbose then stdout else TextWriter.Null) fmt
++        let vprintf (str: string) = (if options.verbose then stdout else TextWriter.Null).Write str
+ 
+         let printSize (shaders: Ast.Shader[]) =
+             if options.verbose then
+                 let length = getSize shaders
+-                vprintf "Shader size is: %d\n" length
++                vprintf $"Shader size is: {length}\n"
+ 
+         let names = String.concat "," [for n, c in files -> $"'{n}' ({c.Length}b)"]
+         options.trace $"----- minifying {names}"
+-        vprintf "Input file size is: %d\n" (files |> Array.sumBy (fun (_, s) -> s.Length))
++        vprintf $"Input file size is: {files |> Array.sumBy (fun (_, s) -> s.Length)}\n"
+ 
+         let parseAndRewrite (filename, content) =
+             let shader = Parse.runParser options filename content
+@@ -39,8 +39,8 @@ type Minifier(options, files) =
+ 
+     let shaders, exportedNames = minify options files
+ 
+-    static member ParseOptions(flags) = Options.init flags
+-    static member ParseOptionsWithFiles(flags) = Options.initFiles flags
++    // static member ParseOptions(flags) = Options.init flags
++    // static member ParseOptionsWithFiles(flags) = Options.initFiles flags
+ 
+     member _.GetSize = getSize shaders
+     member _.GetShaders = shaders
+diff --git i/Minifier/builtin.fs w/Minifier/builtin.fs
+index aeab90c..22d6c9d 100644
+--- i/Minifier/builtin.fs
++++ w/Minifier/builtin.fs
+@@ -112,4 +112,4 @@ let swizzleIndex = function
+     | 'g' | 'y' | 't' -> 1
+     | 'b' | 'z' | 'p' -> 2
+     | 'a' | 'w' | 'q' -> 3
+-    | c -> failwithf "not a swizzle (%c) " c
++    | c -> failwith $"not a swizzle ({c}) "
+diff --git i/Minifier/formatter.fs w/Minifier/formatter.fs
+index c1f829d..d27bfd3 100644
+--- i/Minifier/formatter.fs
++++ w/Minifier/formatter.fs
+@@ -38,61 +38,61 @@ type private Impl(options: Options.Options, withLocations) =
+     let escape (str: string) =
+         str.Replace("\"", "\\\"").Replace("\n", "\\n")
+ 
+-    let printCVariables out (shaders: Ast.Shader[]) exportedNames =
++    let printCVariables (out: TextWriter) (shaders: Ast.Shader[]) exportedNames =
+         let fileName =
+             if options.outputName = "" || options.outputName = "-" then "shader_code.h"
+             else Path.GetFileName options.outputName
+         let macroName = Ast.mangleToAscii(Path.GetFileName fileName).ToUpper() + "_"
+ 
+-        fprintfn out "// Generated with Shader Minifier %s (https://github.com/laurentlb/Shader_Minifier/)" Options.version
++        out.WriteLine $"// Generated with Shader Minifier {Options.version} (https://github.com/laurentlb/Shader_Minifier/)"
+ 
+-        fprintfn out "#ifndef %s" macroName
+-        fprintfn out "# define %s" macroName
++        out.WriteLine $"#ifndef {macroName}"
++        out.WriteLine $"# define {macroName}"
+ 
+         for value: Ast.ExportedName in Seq.sort exportedNames do
+-            fprintfn out "# define %s_%s \"%s\"" ((formatPrefix value.prefix).ToUpper()) value.name value.newName
++            out.WriteLine $"# define {(formatPrefix value.prefix).ToUpper()}_{value.name} \"{value.newName}\""
+ 
+-        fprintfn out ""
++        out.WriteLine ""
+         for shader in shaders do
+-            fprintfn out "const char *%s =" (Ast.mangleToAscii shader.mangledFilename)
++            out.WriteLine $"const char *{Ast.mangleToAscii shader.mangledFilename} ="
+             let lines = String.concat Environment.NewLine [
+                 for indent, line in getLines shader do
+-                    sprintf " %s\"%s\"" indent (escape line)]
+-            fprintfn out "%s;" lines
+-            fprintfn out ""
++                    $" {indent}\"{escape line}\""]
++            out.WriteLine $"{lines};"
++            out.WriteLine ""
+ 
+-        fprintfn out "#endif // %s" macroName
++        out.WriteLine $"#endif // {macroName}"
+ 
+-    let printCArray out (shaders: Ast.Shader[]) exportedNames =
+-        fprintfn out "// Generated with Shader Minifier %s (https://github.com/laurentlb/Shader_Minifier/)" Options.version
++    let printCArray (out: TextWriter) (shaders: Ast.Shader[]) exportedNames =
++        out.WriteLine $"// Generated with Shader Minifier {Options.version} (https://github.com/laurentlb/Shader_Minifier/)"
+ 
+-        fprintfn out "#ifndef SHADER_MINIFIER_IMPL"
+-        fprintfn out "#ifndef SHADER_MINIFIER_HEADER"
+-        fprintfn out "# define SHADER_MINIFIER_HEADER"
++        out.WriteLine "#ifndef SHADER_MINIFIER_IMPL"
++        out.WriteLine "#ifndef SHADER_MINIFIER_HEADER"
++        out.WriteLine "# define SHADER_MINIFIER_HEADER"
+ 
+         for value: Ast.ExportedName in Seq.sort exportedNames do
+-            fprintfn out "# define %s_%s \"%s\"" ((formatPrefix value.prefix).ToUpper()) value.name value.newName
++            out.WriteLine $"# define {(formatPrefix value.prefix).ToUpper()}_{value.name} \"{value.newName}\""
+ 
+-        fprintfn out "#endif"
+-        fprintfn out ""
+-        fprintfn out "#else // if SHADER_MINIFIER_IMPL"
++        out.WriteLine "#endif"
++        out.WriteLine ""
++        out.WriteLine "#else // if SHADER_MINIFIER_IMPL"
+ 
+-        fprintfn out ""
++        out.WriteLine ""
+         for shader in shaders do
+-            fprintfn out "// %s" shader.filename
++            out.WriteLine $"// {shader.filename}"
+             let lines = String.concat Environment.NewLine [
+                 for indent, line in getLines shader do
+-                    sprintf " %s\"%s\"" indent (escape line)]
+-            fprintfn out "%s," lines
+-            fprintfn out ""
++                    $" {indent}\"{escape line}\""]
++            out.WriteLine $"{lines},"
++            out.WriteLine ""
+ 
+-        fprintfn out "#endif"
++        out.WriteLine "#endif"
+ 
+-    let printNoHeader out (shaders: Ast.Shader[]) =
++    let printNoHeader (out: TextWriter) (shaders: Ast.Shader[]) =
+         let str = [for shader in shaders -> minify shader] |> String.concat "\n"
+-        fprintf out "%s" str
++        out.Write str
+ 
+-    let printIndented out (shaders: Ast.Shader[]) =
++    let printIndented (out: TextWriter) (shaders: Ast.Shader[]) =
+         [for shader in shaders do
+             if shaders.Length > 1 then
+                 yield "// " + shader.filename
+@@ -101,62 +101,62 @@ type private Impl(options: Options.Options, withLocations) =
+             yield Environment.NewLine
+         ]
+         |> String.concat ""
+-        |> fprintf out "%s"
++        |> out.Write
+ 
+-    let printJSHeader out (shaders: Ast.Shader[]) exportedNames =
+-        fprintfn out "// Generated with Shader Minifier %s (https://github.com/laurentlb/Shader_Minifier/)" Options.version
++    let printJSHeader (out: TextWriter) (shaders: Ast.Shader[]) exportedNames =
++        out.WriteLine $"// Generated with Shader Minifier {Options.version} (https://github.com/laurentlb/Shader_Minifier/)"
+ 
+         for value: Ast.ExportedName in Seq.sort exportedNames do
+-            fprintfn out "var %s_%s = \"%s\"" (formatPrefix value.prefix) (value.name.ToUpper()) value.newName
++            out.WriteLine $"var {formatPrefix value.prefix}_{value.name.ToUpper()} = \"{value.newName}\""
+ 
+-        fprintfn out ""
++        out.WriteLine ""
+         for shader in shaders do
+-            fprintfn out "var %s = `%s`" shader.mangledFilename (minify shader)
+-            fprintfn out ""
++            out.WriteLine $"var {shader.mangledFilename} = `{minify shader}`"
++            out.WriteLine ""
+ 
+-    let printNasmHeader out (shaders: Ast.Shader[]) exportedNames =
++    let printNasmHeader (out: TextWriter) (shaders: Ast.Shader[]) exportedNames =
+         let escape (str: string) =
+             str.Replace("\"", "\\\"").Replace("\n", "', 10, '")
+ 
+-        fprintfn out "; Generated with Shader Minifier %s (https://github.com/laurentlb/Shader_Minifier/)" Options.version
++        out.WriteLine $"; Generated with Shader Minifier {Options.version} (https://github.com/laurentlb/Shader_Minifier/)"
+ 
+         for value: Ast.ExportedName in Seq.sort exportedNames do
+-            fprintfn out "_%s_%s: db '%s', 0" (formatPrefix value.prefix) (value.name.ToUpper()) value.newName
++            out.WriteLine $"_{formatPrefix value.prefix}_{value.name.ToUpper()}: db '{value.newName}', 0"
+ 
+-        fprintfn out ""
++        out.WriteLine ""
+         for shader in shaders do
+             // fprintfn out "_%s:%s\tdb '%s', 0" shader.mangledFilename Environment.NewLine (minify shader)
+ 
+-            fprintfn out "_%s:" (Ast.mangleToAscii shader.mangledFilename) // \tdb '%s', 0" shader.mangledFilename Environment.NewLine (minify shader)
++            out.WriteLine $"_{Ast.mangleToAscii shader.mangledFilename}:" // \tdb '%s', 0" shader.mangledFilename Environment.NewLine (minify shader)
+             let lines = String.concat Environment.NewLine [
+                 for indent, line in getLines shader do
+-                    sprintf "\tdb %s'%s'" indent (escape line)]
+-            fprintfn out "%s, 0" lines
++                    $"\tdb {indent}'{escape line}'"]
++            out.WriteLine $"{lines}, 0"
+ 
+-            fprintfn out ""
++            out.WriteLine ""
+ 
+-    let printRustHeader out (shaders: Ast.Shader[]) exportedNames =
+-        fprintfn out "// Generated with Shader Minifier %s (https://github.com/laurentlb/Shader_Minifier/)" Options.version
++    let printRustHeader (out: TextWriter) (shaders: Ast.Shader[]) exportedNames =
++        out.WriteLine $"// Generated with Shader Minifier {Options.version} (https://github.com/laurentlb/Shader_Minifier/)"
+ 
+         for value: Ast.ExportedName in Seq.sort exportedNames do
+-            fprintfn out "pub const %s_%s: &'static [u8] = b\"%s\\0\";" ((formatPrefix value.prefix).ToUpper()) (value.name.ToUpper()) value.newName
++            out.WriteLine $"pub const {(formatPrefix value.prefix).ToUpper()}_{value.name.ToUpper()}: &'static [u8] = b\"{value.newName}\\0\";"
+ 
+         for shader in shaders do
+-            fprintfn out ""
+-            fprintfn out "pub const %s: &'static [u8] = b\"\\" (shader.mangledFilename.ToUpper())
++            out.WriteLine ""
++            out.WriteLine $"pub const {shader.mangledFilename.ToUpper()}: &'static [u8] = b\"\\"
+             let lines = String.concat Environment.NewLine [
+                 for indent, line in getLines shader do
+-                    sprintf " %s%s\\" indent (escape line)]
+-            fprintfn out "%s0\";" lines
++                    $" {indent}{escape line}\\"]
++            out.WriteLine $"{lines}0\";"
+ 
+-    let printJsonHeader out (shaders: Ast.Shader[]) (exportedNames: Ast.ExportedName[]) =
++    let printJsonHeader (out: TextWriter) (shaders: Ast.Shader[]) (exportedNames: Ast.ExportedName[]) =
+         let printMap (map: Map<string, string>) =
+-            let str = [for kvp in map -> sprintf "\"%s\":\"%s\"" (escape kvp.Key) (escape kvp.Value)] |> String.concat ","
++            let str = [for kvp in map -> $"\"{escape kvp.Key}\":\"{escape kvp.Value}\""] |> String.concat ","
+             $"{{{str}}}"
+ 
+         let namesMap = exportedNames |> Seq.map (fun value -> value.name, value.newName) |> Map.ofSeq |> printMap
+         let shadersMap = shaders |> Seq.map (fun shader -> shader.filename, minify shader) |> Map.ofSeq |> printMap
+-        fprintfn out "{\"mappings\":%s,\"shaders\":%s}" namesMap shadersMap
++        out.WriteLine $"{{\"mappings\":{namesMap},\"shaders\":{shadersMap}}}"
+ 
+     member this.Format out shaders exportedNames =
+         match options.outputFormat with
+diff --git i/Minifier/options.fs w/Minifier/options.fs
+index bc54370..c6f9cbe 100644
+--- i/Minifier/options.fs
++++ w/Minifier/options.fs
+@@ -1,20 +1,20 @@
+ ﻿module Options
+ 
+-open Argu
++// open Argu
+ open System
+ 
+ let version = "1.5.1" // Shader Minifier version
+ let debugMode = false
+ 
+ type OutputFormat =
+-    | [<CustomCommandLine("text")>] Text
+-    | [<CustomCommandLine("indented")>] IndentedText
+-    | [<CustomCommandLine("c-variables")>] CVariables
+-    | [<CustomCommandLine("c-array")>] CArray
+-    | [<CustomCommandLine("js")>] JS
+-    | [<CustomCommandLine("nasm")>] Nasm
+-    | [<CustomCommandLine("rust")>] Rust
+-    | [<CustomCommandLine("json")>] Json
++    | Text
++    | IndentedText
++    | CVariables
++    | CArray
++    | JS
++    | Nasm
++    | Rust
++    | Json
+ 
+ type FieldSet =
+     | RGBA
+@@ -22,28 +22,28 @@ type FieldSet =
+     | STPQ
+ 
+ type CliArguments =
+-    | [<CustomCommandLine("--version")>] Version
+-    | [<CustomCommandLine("-o")>] OutputName of string
+-    | [<CustomCommandLine("-v")>] Verbose
+-    | [<CustomCommandLine("--debug")>] Debug
+-    | [<CustomCommandLine("--hlsl")>] Hlsl
+-    | [<CustomCommandLine("--format")>] FormatArg of OutputFormat
+-    | [<CustomCommandLine("--field-names")>] FieldNames of FieldSet
+-    | [<CustomCommandLine("--preserve-externals")>] PreserveExternals
+-    | [<CustomCommandLine("--preserve-all-globals")>] PreserveAllGlobals
+-    | [<CustomCommandLine("--no-inlining")>] NoInlining
+-    | [<CustomCommandLine("--aggressive-inlining")>] AggroInlining
+-    | [<CustomCommandLine("--no-renaming")>] NoRenaming
+-    | [<CustomCommandLine("--no-renaming-list")>] NoRenamingList of string
+-    | [<CustomCommandLine("--no-sequence")>] NoSequence
+-    | [<CustomCommandLine("--no-remove-unused")>] NoRemoveUnused
+-    | [<CustomCommandLine("--no-overloading")>] NoOverloading
+-    | [<CustomCommandLine("--move-declarations")>] MoveDeclarations
+-    | [<CustomCommandLine("--preprocess")>] Preprocess
+-    | [<CustomCommandLine("--export-kkp-symbol-maps")>] ExportKkpSymbolMaps
+-    | [<MainCommand>] Filenames of filename:string list
+- 
+-    interface IArgParserTemplate with
++    | Version
++    | OutputName of string
++    | Verbose
++    | Debug
++    | Hlsl
++    | FormatArg of OutputFormat
++    | FieldNames of FieldSet
++    | PreserveExternals
++    | PreserveAllGlobals
++    | NoInlining
++    | AggroInlining
++    | NoRenaming
++    | NoRenamingList of string
++    | NoSequence
++    | NoRemoveUnused
++    | NoOverloading
++    | MoveDeclarations
++    | Preprocess
++    | ExportKkpSymbolMaps
++    | Filenames of filename:string list
++
++    with
+         member s.Usage =
+             match s with
+             | OutputName _ -> "Set the output filename (default is shader_code.h)"
+@@ -93,10 +93,10 @@ with
+         if Builtin.isFieldSwizzle field then
+             field |> String.map (fun c -> this.canonicalFieldNames[Builtin.swizzleIndex c])
+         else field
+-    member this.trace str = if this.debug then printfn "%s" str
++    member this.trace (str: string) = if this.debug then stdout.WriteLine str
+ 
+-
+-let helpTextMessage = sprintf "Shader Minifier %s - https://github.com/laurentlb/Shader_Minifier" version
++(*
++let helpTextMessage: string = $"Shader Minifier {version} - https://github.com/laurentlb/Shader_Minifier"
+ 
+ let private argParser = lazy (
+     ArgumentParser.Create<CliArguments>(
+@@ -113,7 +113,7 @@ let private initPrivate argv =
+         debug =
+             args.Contains(Debug) ||
+             Environment.GetEnvironmentVariable("MINIFIER_DEBUG", EnvironmentVariableTarget.User) = "yes"
+-        canonicalFieldNames = (sprintf "%A" (args.GetResult(FieldNames, defaultValue = XYZW))).ToLower()
++        canonicalFieldNames = $"{args.GetResult(FieldNames, defaultValue = XYZW)}".ToLower()
+         preserveExternals = args.Contains(PreserveExternals) || args.Contains(PreserveAllGlobals)
+         preserveAllGlobals = args.Contains(PreserveAllGlobals)
+         hlsl = args.Contains(Hlsl)
+@@ -139,14 +139,15 @@ let flagsHelp = lazy (argParser.Value.PrintUsage(message = helpTextMessage))
+ let init argv =
+     let options, filenames = initPrivate argv
+     if filenames.Length > 0 then
+-        failwithf "Unexpected arguments: %A" (String.concat " " filenames)
++        failwith $"""Unexpected arguments: {String.concat " " filenames}"""
+     options
+ 
+ let initFiles argv =
+     let options, filenames = initPrivate argv
+     if options.version then
+-        printfn "%s" helpTextMessage
++        stdout.WriteLine helpTextMessage
+     else
+         if filenames.Length = 0 then
+             failwith (argParser.Value.PrintUsage(message = "Missing parameter: the list of shaders to minify"))
+     options, filenames
++*)
+diff --git i/Minifier/parse.fs w/Minifier/parse.fs
+index ab8a224..4ff3fc5 100644
+--- i/Minifier/parse.fs
++++ w/Minifier/parse.fs
+@@ -171,7 +171,7 @@ type private ParseImpl(options: Options.Options) =
+         let check ((_,l) as arg : Ast.Decl) =
+             for decl in l do
+                 if decl.name.Name <> options.renameField decl.name.Name then
+-                    failwithf "Record field name '%s' is not allowed by Shader Minifier,\nbecause it looks like a vec4 field name." decl.name.Name
++                    failwith $"Record field name '{decl.name.Name}' is not allowed by Shader Minifier,\nbecause it looks like a vec4 field name."
+             arg
+         let structMember =
+             attempt (pfunction |>> (function Ast.Function (ft,body) -> Ast.Method(ft, body) | _ -> failwith "unexpected"))
+@@ -406,6 +406,6 @@ type private ParseImpl(options: Options.Options) =
+             forbiddenNames = forbiddenNames
+             reorderFunctions = reorderFunctions
+           }
+-        | Failure(str, _, _) -> failwithf "Parse error: %s" str
++        | Failure(str, _, _) -> failwith $"Parse error: {str}"
+ 
+ let runParser options = ParseImpl(options).runParser
+diff --git i/Minifier/preprocessor.fs w/Minifier/preprocessor.fs
+index e5477c3..e538c25 100644
+--- i/Minifier/preprocessor.fs
++++ w/Minifier/preprocessor.fs
+@@ -55,7 +55,7 @@ type private Impl() =
+         return
+             match name with
+             | "GL_GOOGLE_include_directive" -> ""
+-            | _ -> sprintf "#extension %s%s" name behavior
++            | _ -> $"#extension {name}{behavior}"
+     }
+ 
+     let parseDefine = parse {
+@@ -63,14 +63,14 @@ type private Impl() =
+         let! name = parseIdent
+         let! line = parseEndLine
+         defines.Add(name, line)
+-        return sprintf "#define %s%s" name line
++        return $"#define {name}{line}"
+     }
+ 
+     let parseUndef = parse {
+         let! _ = keyword "undef"
+         let! name = parseIdent
+         defines.Remove(name) |> ignore<bool>
+-        return sprintf "#undef %s" name
++        return $"#undef {name}"
+     }
+ 
+     let parseIfdef = parse {
+@@ -167,4 +167,4 @@ let preprocess streamName content =
+         | Success(s,_,_) ->
+             // printfn "%s\n-------------------------" (String.concat "\n" s)
+             String.concat "\n" s
+-        | Failure(str, _, _) -> failwithf "Parse error: %s" str
++        | Failure(str, _, _) -> failwith $"Parse error: {str}"
+diff --git i/Minifier/printer.fs w/Minifier/printer.fs
+index f5148ce..c51c481 100644
+--- i/Minifier/printer.fs
++++ w/Minifier/printer.fs
+@@ -1,7 +1,7 @@
+ ﻿module internal Printer
+ 
+ open System
+-open System.Linq
++// open System.Linq
+ open System.Collections.Generic
+ open Ast
+ open System.Text.RegularExpressions
+@@ -32,9 +32,9 @@ type SymbolMap() =
+     member _.SymFileBytes (shaderSymbol: string) (minifiedShader: string) =
+         if minifiedShader.Length <> symbolRefs.Count then failwith "minified byte size doesn't match symbols"
+         let mutable i = 0 // indexMap maps each distinct symbol name to its index in the pool
+-        let indexMap = symbolRefs.Distinct().ToDictionary(id, (fun _ -> i <- i + 1; int16(i - 1)))
+-        let symbolIndexes = symbolRefs.Select(fun symbolRef -> indexMap[symbolRef]).ToArray()
+-        let symbolPool = indexMap.OrderBy(fun kv -> kv.Value).Select(fun kv -> kv.Key).ToArray()
++        let indexMap = symbolRefs |> Seq.distinct |> Seq.map (fun id -> i <- i + 1; id, int16(i - 1)) |> Map.ofSeq
++        let symbolIndexes = symbolRefs |> Seq.map (fun symbolRef -> indexMap.[symbolRef]) |> Seq.toArray
++        let symbolPool = indexMap |> Seq.sortBy (fun kv -> kv.Value) |> Seq.map (fun kv -> kv.Key) |> Seq.toArray
+         let bytes = kkpSymFormat shaderSymbol minifiedShader.Length symbolPool symbolIndexes
+         bytes
+ 
+@@ -42,7 +42,7 @@ let stripIndentation (s: string) = s.Replace("\000", "").Replace("\t", "") // se
+ 
+ type PrinterImpl(withLocations) =
+ 
+-    let out a = sprintf a
++
+ 
+     let precedenceList = [
+         [","]
+@@ -75,7 +75,7 @@ type PrinterImpl(withLocations) =
+         if id.IsUniqueId then
+             string (char (1000 + int id.Name))
+         else if withLocations then
+-            out "%s@%d,%d@" id.Name id.Loc.line id.Loc.col
++            $"{id.Name}@{id.Loc.line},{id.Loc.col}@"
+         else
+             id.Name
+ 
+@@ -94,7 +94,7 @@ type PrinterImpl(withLocations) =
+                    else str1
+         let str2 = a.ToString("0.################e0", System.Globalization.CultureInfo.InvariantCulture)
+         let parts = Regex.Match(str2, @"([^.]*)\.?([^e]*)e(.*)").Groups
+-        let str2 = sprintf "%s%se%d" parts[1].Value parts[2].Value ((int parts[3].Value) - parts[2].Value.Length)
++        let str2 = $"{parts[1].Value}{parts[2].Value}e{(int parts[3].Value) - parts[2].Value.Length}"
+         let str = [str1; str2] |> List.minBy(_.Length)
+         
+         let sign = if f < 0.M then "-" else ""
+@@ -111,23 +111,23 @@ type PrinterImpl(withLocations) =
+         defaultArg (Option.map (exprToS indent) exp) def
+ 
+     and exprToSLevel indent level = function
+-        | Int (i, suf) -> (out "%d%s" i suf)
+-        | Float (f, suf) -> out "%s%s" (floatToS f) suf
++        | Int (i, suf) -> $"{i}{suf}"
++        | Float (f, suf) -> $"{floatToS f}{suf}"
+         | Var s -> idToS s
+         | Op s -> s
+         | FunCall(f, args) ->
+             match f, args with
+             | Op "?:", [a1; a2; a3] ->
+                 let prec = precedence["?:"]
+-                let res = out "%s?%s%s:%s%s" (exprToSLevel indent (prec+1) a1)
+-                    // The middle expression of ?: is parsed as if grouped: precedence doesn't apply to it.
+-                            (nl (indent+1)) (exprToSLevel (indent+1) 0 a2)
+-                            (nl (indent+1)) (exprToSLevel (indent+1) prec a3)
+-                if prec < level then out "(%s)" res else res
++                let res = $"{exprToSLevel indent (prec+1) a1}?{nl (indent+1)}{exprToSLevel (indent+1) 0 a2}{nl (indent+1)}:{exprToSLevel (indent+1) prec a3}"
++
++
++
++                if prec < level then $"({res})" else res
+             
+             // Unary operators. _++ is prefix and $++ is postfix
+-            | Op op, [a1] when op[0] = '$' -> out "%s%s" (exprToSLevel indent precedence[op] a1) op[1..]
+-            | Op op, [a1] -> out "%s%s" op (exprToSLevel indent precedence["_" + op] a1)
++            | Op op, [a1] when op[0] = '$' -> $"{exprToSLevel indent precedence[op] a1}{op[1..]}"
++            | Op op, [a1] -> $"""{op}{exprToSLevel indent precedence["_" + op] a1}"""
+ 
+             // Binary operators.
+             | Op op, [a1; a2] ->
+@@ -140,23 +140,23 @@ type PrinterImpl(withLocations) =
+ 
+                 // Add a space to avoid "+" or "-" to be parsed as "++" or "--".
+                 let op = if (op = "+" || op = "-") && e2.StartsWith(op) then op + " " else op
+-                let res = out "%s%s%s" e1 op e2
+-                if prec < level then out "(%s)" res
++                let res = $"{e1}{op}{e2}"
++                if prec < level then $"({res})"
+                 else res
+ 
+             // Function calls.
+             | _ -> // We set the level in case a comma operator is used in the argument list.
+-                   out "%s(%s)" (exprToS indent f) (commaListToS (exprToSLevel indent (precedence[","] + 1)) args)
++                   $"""{exprToS indent f}({commaListToS (exprToSLevel indent (precedence[","] + 1)) args})"""
+         | Subscript(arr, ind) ->
+-            out "%s[%s]" (exprToS indent arr) (exprToSOpt indent "" ind)
++            $"""{exprToS indent arr}[{exprToSOpt indent "" ind}]"""
+         | Cast(id, e) ->
+             // Cast seems to have the same precedence as unary minus
+-            out "(%s)%s" id.Name (exprToSLevel indent precedence["_-"] e)
++            $"""({id.Name}){exprToSLevel indent precedence["_-"] e}"""
+         | VectorExp(li) ->
+             // We set the level in case a comma operator is used in the argument list.
+-            out "{%s}" (commaListToS (exprToSLevel indent (precedence[","] + 1)) li)
++            $"""{{{commaListToS (exprToSLevel indent (precedence[","] + 1)) li}}}"""
+         | Dot(e, field) ->
+-            out "%s.%s" (exprToSLevel indent precedence["."] e) field.Name
++            $"""{exprToSLevel indent precedence["."] e}.{field.Name}"""
+         | VerbatimExp s -> s
+ 
+     // Add a space if needed
+@@ -194,7 +194,7 @@ type PrinterImpl(withLocations) =
+                 if endsWithIdentChar str then str + " " else str
+         let typeSpec = typeSpecToS indent ty.name
+         let sizes = String.Join("", [for e in ty.arraySizes -> $"[{exprToS indent e}]"])
+-        out "%s%s%s" (get ty.typeQ) typeSpec sizes
++        $"{get ty.typeQ}{typeSpec}{sizes}"
+ 
+     and declToS indent (ty : Type, vars : DeclElt list) =
+         let out1 decl =
+@@ -206,15 +206,15 @@ type PrinterImpl(withLocations) =
+                     |> List.map (fun size ->
+                         match size with
+                         | Int (0L, _) -> "[]"
+-                        | _ -> out "[%s]" (exprToS indent size))
++                        | _ -> $"[{exprToS indent size}]")
+                     |> String.concat ""
+ 
+             let init =
+                 match decl.init with
+                 | None -> ""
+                 | Some i -> // We set the level in case a comma operator is used in the argument list.
+-                            out "=%s" (exprToSLevel indent (precedence[","] + 1) i)
+-            out "%s%s%s%s" (idToS decl.name) sizes (semToS decl.semantics) init
++                            $"""={exprToSLevel indent (precedence[","] + 1) i}"""
++            $"{idToS decl.name}{sizes}{semToS decl.semantics}{init}"
+ 
+         if vars.IsEmpty then ""
+         else $"{typeToS indent ty} {vars |> commaListToS out1}"
+@@ -231,8 +231,8 @@ type PrinterImpl(withLocations) =
+         | Method (fct, body) -> funDeclToS indent fct body
+ 
+     and directiveToS = function
+-        | [dir; name; value] -> out "%s %s%s\n" dir name value
+-        | li -> out "%s\n" (String.concat " " li)
++        | [dir; name; value] -> $"{dir} {name}{value}\n"
++        | li -> $"""{String.concat " " li}\n"""
+ 
+     /// Detect if the current statement might accept a dangling else.
+     /// Note that the function needs to be recursive to detect things like:
+@@ -254,67 +254,67 @@ type PrinterImpl(withLocations) =
+         | Block [] -> ";"
+         | Block b ->
+             let body = List.map (stmtToS (indent+1)) b |> String.concat ""
+-            out "{%s%s}" body (nl indent)
++            $"{{{body}{nl indent}}}"
+         | Decl (_, []) -> ""
+-        | Decl d -> out "%s;" (declToS indent d)
+-        | Expr e -> out "%s;" (exprToS indent e)
++        | Decl d -> $"{declToS indent d};"
++        | Expr e -> $"{exprToS indent e};"
+         | If(cond, th, el) ->
+             let th = if el <> None && hasDanglingElseProblem th then Block [th] else th
+             let el = match el with
+                      | None -> ""
+                      | Some (If _ as el) -> 
+-                        out "%selse%s" (nl indent) (stmtToS' indent el |> sp)
++                        $"{nl indent}else{sp (stmtToS' indent el)}"
+                      | Some el ->
+-                        out "%selse%s%s" (nl indent) (nl (indent+1)) (stmtToS' (indent+1) el |> sp)
+-            out "if(%s)%s%s" (exprToS indent cond) (stmtToSInd indent th) el
++                        $"{nl indent}else{nl (indent+1)}{sp (stmtToS' (indent+1) el)}"
++            $"if({exprToS indent cond}){stmtToSInd indent th}{el}"
+         | ForD(init, cond, inc, body) ->
+             let cond = exprToSOpt indent "" cond
+             let inc = exprToSOpt indent "" inc
+-            out "for(%s;%s;%s)%s" (declToS indent init) cond inc (stmtToSInd indent body)
++            $"for({declToS indent init};{cond};{inc}){stmtToSInd indent body}"
+         | ForE(init, cond, inc, body) ->
+             let cond = exprToSOpt indent "" cond
+             let inc = exprToSOpt indent "" inc
+             let init = exprToSOpt indent "" init
+-            out "for(%s;%s;%s)%s" init cond inc (stmtToSInd indent body)
++            $"for({init};{cond};{inc}){stmtToSInd indent body}"
+         | While(cond, body) ->
+-            out "while(%s)%s" (exprToS indent cond) (stmtToSInd indent body)
++            $"while({exprToS indent cond}){stmtToSInd indent body}"
+         | DoWhile(cond, body) ->
+-            out "do%s%s%swhile(%s);" (nl (indent+1)) (stmtToS' (indent + 1) body |> sp) (nl indent) (exprToS indent cond)
+-        | Jump(k, None) -> out "%s;" k.toString
+-        | Jump(k, Some exp) -> out "%s%s;" k.toString (exprToS indent exp |> sp)
++            $"do{nl (indent+1)}{stmtToS' (indent + 1) body |> sp}{nl indent}while({exprToS indent cond});"
++        | Jump(k, None) -> $"{k.toString};"
++        | Jump(k, Some exp) -> $"{k.toString}{exprToS indent exp |> sp};"
+         | Verbatim s ->
+             // add a space at end when it seems to be needed
+             if s.Length > 0 && isIdentChar s[s.Length - 1] then s + " " else s
+         | Directive d -> "\n" + directiveToS d
+         | Switch(e, cl) ->
+             let labelToS = function
+-                | Case e -> out "case %s:" (exprToS indent e)
+-                | Default -> out "default:"
++                | Case e -> $"case {exprToS indent e}:"
++                | Default -> "default:"
+             let caseToS (l, sl) =
+                 let stmts = List.map (stmtToS (indent+2)) sl |> String.concat ""
+-                out "%s%s%s" (nl (indent+1)) (labelToS l) stmts
++                $"{nl (indent+1)}{labelToS l}{stmts}"
+             let body = List.map caseToS cl |> String.concat ""
+-            out "%s(%s){%s%s}" "switch" (exprToS indent e) body (nl indent)
++            $"switch({exprToS indent e}){{{body}{nl indent}}}"
+ 
+     and stmtToS indent i =
+-        out "%s%s" (nl indent) (stmtToS' indent i)
++        $"{nl indent}{stmtToS' indent i}"
+ 
+     /// print indented statement
+     and stmtToSInd indent i = stmtToS (indent+1) i
+ 
+     and funToS indent (f: FunctionType) =
+-        out "%s %s(%s)%s" (typeToS indent f.retType) (idToS f.fName) (commaListToS (declToS indent) f.args) (semToS f.semantics)
++        $"{typeToS indent f.retType} {idToS f.fName}({commaListToS (declToS indent) f.args}){semToS f.semantics}"
+ 
+     let topLevelToS = function
+         | TLVerbatim s ->
+             // add a space at the end when it seems to be needed
+             let trailing = if s.Length > 0 && isIdentChar s[s.Length - 1] then " " else ""
+-            out "%s%s" s trailing
++            $"{s}{trailing}"
+         | TLDirective (d, _) -> directiveToS d
+         | Function (fct, body) -> funDeclToS 0 fct body
+-        | Precision ty -> out "precision %s;" (typeToS 0 ty);
+-        | TLDecl decl -> out "%s;" (declToS 0 decl)
+-        | TypeDecl b -> out "%s;" (blockToS 0 b)
++        | Precision ty -> $"precision {typeToS 0 ty};"
++        | TLDecl decl -> $"{declToS 0 decl};"
++        | TypeDecl b -> $"{blockToS 0 b};"
+ 
+     let printIndented tl = 
+         let mutable wasMacro = true
+@@ -323,7 +323,7 @@ type PrinterImpl(withLocations) =
+             let isMacro = match x with TLDirective _ -> true | _ -> false
+             let needEndLine = isMacro && not wasMacro
+             wasMacro <- isMacro
+-            if needEndLine then out "\n%s" (nl 0 + topLevelToS x)
++            if needEndLine then $"\n{nl 0 + topLevelToS x}"
+             else nl 0 + topLevelToS x
+         tl |> List.map f
+ 
+diff --git i/Minifier/renamer.fs w/Minifier/renamer.fs
+index b3c655a..34d1980 100644
+--- i/Minifier/renamer.fs
++++ w/Minifier/renamer.fs
+@@ -393,7 +393,7 @@ type private RenamerImpl(options: Options.Options) =
+ 
+     let newUniqueId (numberOfUsedIdents: int ref) (ns: Namespace) (env: Env) (id: Ident) =
+         numberOfUsedIdents.Value <- numberOfUsedIdents.Value + 1
+-        let newName = sprintf "%04d" numberOfUsedIdents.Value
++        let newName = numberOfUsedIdents.Value.ToString "D4"
+         env.AddRenaming(ns, id, newName)
+ 
+     // A renaming strategy that considers how a variable is used. It optimizes the frequency of
+diff --git i/Minifier/rewriter.fs w/Minifier/rewriter.fs
+index 72827e5..8190484 100644
+--- i/Minifier/rewriter.fs
++++ w/Minifier/rewriter.fs
+@@ -369,7 +369,7 @@ type private RewriterImpl(options: Options.Options, optimizationPass: Optimizati
+             match env.fns.TryFind (v.Name, passedArgs.Length) with
+             | Some [{args = declArgs}, body] ->
+                 if List.length declArgs <> List.length passedArgs then
+-                    failwithf "Cannot inline function %s since it doesn't have the right number of arguments" v.Name
++                    failwith $"Cannot inline function {v.Name} since it doesn't have the right number of arguments"
+                 match body.asStmtList with
+                 | [Jump (JumpKeyword.Return, Some bodyExpr)] ->
+                     didInline.Value <- true
+@@ -378,9 +378,9 @@ type private RewriterImpl(options: Options.Options, optimizationPass: Optimizati
+                 // turned the function into a one-liner, so allow trying again on
+                 // the next pass. (If it didn't, we'll yell next pass.)
+                 | _ when didInline.Value -> e
+-                | _ -> failwithf "Cannot inline function %s since it consists of more than a single return" v.Name
+-            | None -> failwithf "Cannot inline function %s because it's a builtin" v.Name
+-            | _ -> failwithf "Cannot inline function %s because type-based disambiguation of user-defined function overloading is not supported" v.Name
++                | _ -> failwith $"Cannot inline function {v.Name} since it consists of more than a single return"
++            | None -> failwith $"Cannot inline function {v.Name} because it's a builtin"
++            | _ -> failwith $"Cannot inline function {v.Name} because type-based disambiguation of user-defined function overloading is not supported"
+ 
+         | FunCall(Op _, _) as op -> simplifyOperator env op
+ 
+@@ -934,7 +934,7 @@ type private RewriterImpl(options: Options.Options, optimizationPass: Optimizati
+             canBeRenamed && not isCalled && not (funcInfo.funcType.isExternal(options))
+         let unused = [for funcInfo in funcInfos do if isUnused funcInfo then yield funcInfo]
+         if not unused.IsEmpty then
+-            options.trace($"removing unused functions: " + String.Join(", ", unused |> List.map (fun fi -> Printer.debugFunc fi.funcType)))
++            options.trace $"""removing unused functions: {String.Join(", ", unused |> List.map (fun fi -> Printer.debugFunc fi.funcType))}"""
+         let unused = unused |> List.map (fun fi -> fi.func) |> set
+         let mutable edited = false
+         let code = code |> List.filter (function
+@@ -964,7 +964,7 @@ type private RewriterImpl(options: Options.Options, optimizationPass: Optimizati
+ // reorder functions if there were forward declarations
+ let reorderFunctions (options: Options.Options) code =
+     if options.verbose then
+-        printfn "Reordering functions because of forward declarations."
++        stdout.WriteLine "Reordering functions because of forward declarations."
+     
+     let rec graphReorder = function // slow, but who cares?
+         | [] -> []

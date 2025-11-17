@@ -1,10 +1,3 @@
-import { minify } from 'shader-minifier-wasm'
-
-import getOptimizerWasmExports, {
-	type ShaderType as ShaderTypeEnum,
-	type MainModule as WasmExports,
-} from '#optimizer'
-
 export type ShaderType = (typeof ShaderType)[keyof typeof ShaderType]
 
 export const ShaderType = Object.freeze({
@@ -12,22 +5,22 @@ export const ShaderType = Object.freeze({
 	FRAGMENT: 1,
 })
 
-let ShaderTypeValue: WasmExports['ShaderType']
-let Optimizer: WasmExports['Optimizer']
+const bindings = import('#bindings').then(module => module.default())
 
-export default async function compress(shaderType: ShaderType, shaderSource: string): Promise<string> {
-	if (!ShaderTypeValue || !Optimizer) {
-		({ ShaderType: ShaderTypeValue, Optimizer } = await getOptimizerWasmExports())
-	}
+export default async function compress(
+	shaderType: ShaderType,
+	shaderSource: string,
+): Promise<string> {
+	const { Optimizer, Minifier } = await bindings
+	using disposer = new DisposableStack()
 
-	const nativeType: ShaderTypeEnum = (
-		shaderType === ShaderType.VERTEX ? ShaderTypeValue.VERTEX : ShaderTypeValue.FRAGMENT
+	const { result: optimizedCode = '' } = disposer.use(
+		new Optimizer(shaderType, shaderSource),
 	)
 
-	using optimizer = new Optimizer(nativeType, shaderSource)
-	const [ completed, shaderCode = '', errorLog = '' ] = optimizer.result ?? []
+	const { result: minifiedCode = '' } = disposer.use(
+		new Minifier(optimizedCode),
+	)
 
-	if (!completed) throw new Error(errorLog as string)
-
-	return minify({ shader: shaderCode as string }, { format: 'text', preserveExternals: true })
+	return minifiedCode as string
 }

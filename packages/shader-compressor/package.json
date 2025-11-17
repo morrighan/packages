@@ -44,9 +44,6 @@
     "scripts": {
         "build": "bash scripts/build"
     },
-    "dependencies": {
-        "shader-minifier-wasm": "^0.2.1"
-    },
     "engines": {
         "node": "^20.19.5 || ^22.20.0",
         "npm": "^11.6.1"

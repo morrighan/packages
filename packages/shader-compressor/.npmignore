@@ -1,13 +1,5 @@
 # Unnecessary files.
-.*
-CMakeLists.txt
-
-# Exclude source contents.
-tsconfig.json
-artifacts
-sources
-scripts
-tests
+**/*
 
 # Include distribution files.
 dists/*
