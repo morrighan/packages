@@ -1,33 +1,40 @@
 #!/usr/bin/env bash
 
-bootstrap() {
-	unset -f bootstrap
+source "$(git rev-parse --show-toplevel)/scripts/task-runner"
 
-	if [ "$(uname -s)" = "Darwin" ]; then
+__task_emsdk() {
+	if ! __exists emsdk; then
+		EMSDK_QUIET=1 source "artifacts/emsdk/emsdk_env.sh"
+	fi
+}
+
+__task_patch() {
+	git -C artifacts/shader-minifier apply --check < patches/shader-minifier.patch 2> /dev/null && \
+	git -C artifacts/shader-minifier apply < patches/shader-minifier.patch
+}
+
+__task_cmake() {
+	__describe "bindings.cpp => bindings.a"
+
+	if [ ! -f "dists/build.ninja" ]; then
+		emcmake cmake -S . -B dists -G Ninja
+	fi
+
+	cmake --build dists
+}
+
+__task_dotnet() {
+	__describe "bindings.a + minifier.fs => bindings.wasm"
+
+	if __macos; then
 		dotnet() {
 			docker run --rm -it --platform linux/amd64 -v ~/.nuget:/root/.nuget -v .:/sources dotnet:10.0 dotnet "$@"
 		}
 	fi
 
-	if ! test "$(command -v emsdk)"; then
-		EMSDK_QUIET=1 \
-		source "artifacts/emsdk/emsdk_env.sh" > /dev/null
-	fi
-
-	git -C artifacts/shader-minifier apply --check < patches/shader-minifier.patch 2> /dev/null && \
-	git -C artifacts/shader-minifier apply < patches/shader-minifier.patch
-
-	[ ! -f "dists/build.ninja" ] && \
-	emcmake cmake -S . -B dists -G Ninja
-
-	cmake --build dists
 	dotnet publish -r browser-wasm -o dists
 }
 
-aftermath() {
-	unset -f aftermath
-	[ "$(uname -s)" = "Darwin" ] && unset -f dotnet
+__task_default() {
+	__runall emsdk patch cmake dotnet
 }
-
-bootstrap "$@"
-aftermath

@@ -1,26 +1,16 @@
 #!/usr/bin/env bash
 
-function bootstrap() {
-    unset -f bootstrap
+source "$(git rev-parse --show-toplevel)/scripts/task-runner"
 
-    if test "$(command -v emsdk)"; then
+__task_default() {
+    __describe "Install and activate Emsdk"
+
+    if __exists emsdk; then
         return
     fi
 
-    cd packages/shader-compressor/artifacts/emsdk || exit 1
+    local EMSDK="./packages/shader-compressor/artifacts/emsdk/emsdk"
 
-    if [ -v GITHUB_ACTIONS ]; then
-        echo "::group::Install and activate Emsdk"
-    fi
-
-    ./emsdk install latest
-    ./emsdk activate latest
-
-    if [ -v GITHUB_ACTIONS ]; then
-        echo "::endgroup::"
-    fi
-
-    cd ../../../..
+    "$EMSDK" install latest
+    "$EMSDK" activate latest
 }
-
-bootstrap "$@"

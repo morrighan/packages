@@ -10,7 +10,7 @@ const dirname = import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.ur
 const aliasMapper = path.resolve(dirname, 'packages/alias-mapper')
 
 export default defineConfig({
-	ignores: [ 'coverage', 'packages/*/artifacts', 'packages/*/dists', 'packages/**/*.d.ts' ],
+	ignores: [ '.*', 'coverage', 'packages/*/artifacts', 'packages/*/dists', 'packages/**/*.d.ts' ],
 }, {
 	files: [ '**/*.[jt]s?(x)' ],
 

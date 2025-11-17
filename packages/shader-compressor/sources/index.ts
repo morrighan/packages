@@ -14,13 +14,13 @@ export default async function compress(
 	const { Optimizer, Minifier } = await bindings
 	using disposer = new DisposableStack()
 
-	const { result: optimizedCode = '' } = disposer.use(
+	const { result: optimizedCode } = disposer.use(
 		new Optimizer(shaderType, shaderSource),
 	)
 
-	const { result: minifiedCode = '' } = disposer.use(
-		new Minifier(optimizedCode),
+	const { result: minifiedCode } = disposer.use(
+		new Minifier(optimizedCode ?? ''),
 	)
 
-	return minifiedCode as string
+	return minifiedCode as string ?? ''
 }
