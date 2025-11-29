@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-source "$(git rev-parse --show-toplevel)/scripts/task-runner"
+source "$(git rev-parse --show-toplevel)/scripts/task-runner.sh"
 
-__task_emsdk() {
+task_emsdk() {
 	if ! __exists emsdk; then
 		EMSDK_QUIET=1 source "artifacts/emsdk/emsdk_env.sh"
 	fi
 }
 
-__task_patch() {
+task_patch() {
 	git -C artifacts/shader-minifier apply --check < patches/shader-minifier.patch 2> /dev/null && \
 	git -C artifacts/shader-minifier apply < patches/shader-minifier.patch
 }
 
-__task_cmake() {
+task_cmake() {
 	__describe "bindings.cpp => bindings.a"
 
 	if [ ! -f "dists/build.ninja" ]; then
@@ -23,10 +23,10 @@ __task_cmake() {
 	cmake --build dists
 }
 
-__task_dotnet() {
+task_dotnet() {
 	__describe "bindings.a + minifier.fs => bindings.wasm"
 
-	if __macos; then
+	if __darwin; then
 		dotnet() {
 			docker run --rm -it --platform linux/amd64 -v ~/.nuget:/root/.nuget -v .:/sources dotnet:10.0 dotnet "$@"
 		}
@@ -35,6 +35,6 @@ __task_dotnet() {
 	dotnet publish -r browser-wasm -o dists
 }
 
-__task_default() {
+task_default() {
 	__runall emsdk patch cmake dotnet
 }

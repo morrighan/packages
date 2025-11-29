@@ -42,7 +42,7 @@
         "directory": "packages/shader-compressor"
     },
     "scripts": {
-        "build": "bash scripts/build"
+        "build": "bash scripts/build.sh"
     },
     "engines": {
         "node": "^20.19.5 || ^22.20.0",

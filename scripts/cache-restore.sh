@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+function bootstrap() {
+	unset -f bootstrap
+	set -euxo pipefail
+
+	mkdir -p packages/shader-compressor/artifacts/emsdk/upstream/emscripten/cache
+	rsync -a .cache/emsdk/ packages/shader-compressor/artifacts/emsdk/upstream/emscripten/cache
+
+	mkdir -p ~/.cache/ccache
+	rsync -a .cache/ccache/ ~/.cache/ccache
+}
+
+bootstrap "$@"

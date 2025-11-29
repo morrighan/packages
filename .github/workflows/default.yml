@@ -38,7 +38,7 @@ jobs:
         sudo apt-get install -y ccache
 
     - name: Install build tools (Emsdk)
-      run: bash scripts/install-emsdk
+      run: bash scripts/install-emsdk.sh
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v6
@@ -64,10 +64,10 @@ jobs:
 
     - name: Cache (restore)
       if: steps.cache.outputs.cache-hit == 'true'
-      run: bash scripts/cache-restore
+      run: bash scripts/cache-restore.sh
 
     - name: Install, Build and Test
-      run: bash scripts/integration
+      run: bash scripts/integration.sh
       env:
         CI: true
 
@@ -78,4 +78,4 @@ jobs:
 
     - name: Cache (prepack)
       if: steps.cache.outputs.cache-hit != 'true'
-      run: bash scripts/cache-prepack
+      run: bash scripts/cache-prepack.sh
