@@ -15,7 +15,7 @@ export default defineConfig({
 		coverage: {
 			enabled: true,
 			include: [ 'packages/**.{js,ts}' ],
-			exclude: [ '**/artifacts' ],
+			exclude: [ '**/externals' ],
 			reporter: [ 'lcov' ],
 		},
 

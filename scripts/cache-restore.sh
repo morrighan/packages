@@ -4,8 +4,8 @@ function bootstrap() {
 	unset -f bootstrap
 	set -euxo pipefail
 
-	mkdir -p packages/shader-compressor/artifacts/emsdk/upstream/emscripten/cache
-	rsync -a .cache/emsdk/ packages/shader-compressor/artifacts/emsdk/upstream/emscripten/cache
+	mkdir -p packages/shader-compressor/externals/emsdk/upstream/emscripten/cache
+	rsync -a .cache/emsdk/ packages/shader-compressor/externals/emsdk/upstream/emscripten/cache
 
 	mkdir -p ~/.cache/ccache
 	rsync -a .cache/ccache/ ~/.cache/ccache

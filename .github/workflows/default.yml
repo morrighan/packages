@@ -60,7 +60,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: .cache
-        key: cache-${{ github.head_ref || github.ref_name }}-${{ hashFiles('.git/modules/packages/shader-compressor/artifacts/emsdk/refs/heads/main', '.git/modules/packages/shader-compressor/artifacts/glsl-optimizer/refs/heads/master') }}
+        key: cache-${{ github.head_ref || github.ref_name }}-${{ hashFiles('.git/modules/packages/shader-compressor/externals/emsdk/refs/heads/main', '.git/modules/packages/shader-compressor/externals/glsl-optimizer/refs/heads/master') }}
 
     - name: Cache (restore)
       if: steps.cache.outputs.cache-hit == 'true'

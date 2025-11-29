@@ -3,7 +3,7 @@
 #include <optional>
 #include <string>
 
-#include "artifacts/glsl-optimizer/src/glsl/glsl_optimizer.h"
+#include "externals/glsl-optimizer/src/glsl/glsl_optimizer.h"
 
 using namespace emscripten;
 

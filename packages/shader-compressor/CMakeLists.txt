@@ -7,7 +7,7 @@ if(CCACHE_PROGRAM)
     set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
 endif()
 
-set(GLSLOPT_SRC artifacts/glsl-optimizer/src)
+set(GLSLOPT_SRC externals/glsl-optimizer/src)
 file(GLOB_RECURSE glslopt_files
     ${GLSLOPT_SRC}/*.c
     ${GLSLOPT_SRC}/*.cpp)

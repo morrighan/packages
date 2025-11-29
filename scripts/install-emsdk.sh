@@ -9,7 +9,7 @@ task_default() {
 		return
 	fi
 
-	local EMSDK="./packages/shader-compressor/artifacts/emsdk/emsdk"
+	local EMSDK="./packages/shader-compressor/externals/emsdk/emsdk"
 
 	"$EMSDK" install latest
 	"$EMSDK" activate latest

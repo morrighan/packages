@@ -9,7 +9,7 @@ import { test, expect } from 'vitest'
 import compress, { ShaderType } from '@cichol/shader-compressor'
 
 // Constants.
-const SHADER_DIRECTORY = path.resolve(import.meta.dirname, '../artifacts/glsl-optimizer/tests')
+const SHADER_DIRECTORY = path.resolve(import.meta.dirname, '../externals/glsl-optimizer/tests')
 
 // Local helpers.
 async function loadArtifact(targetPath: string): Promise<string> {

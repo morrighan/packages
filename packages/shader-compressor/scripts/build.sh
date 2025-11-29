@@ -4,13 +4,13 @@ source "$(git rev-parse --show-toplevel)/scripts/task-runner.sh"
 
 task_emsdk() {
 	if ! __exists emsdk; then
-		EMSDK_QUIET=1 source "artifacts/emsdk/emsdk_env.sh"
+		EMSDK_QUIET=1 source "externals/emsdk/emsdk_env.sh"
 	fi
 }
 
 task_patch() {
-	git -C artifacts/shader-minifier apply --check < patches/shader-minifier.patch 2> /dev/null && \
-	git -C artifacts/shader-minifier apply < patches/shader-minifier.patch
+	git -C externals/shader-minifier apply --check < patches/shader-minifier.patch 2> /dev/null && \
+	git -C externals/shader-minifier apply < patches/shader-minifier.patch
 }
 
 task_cmake() {
