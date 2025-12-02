@@ -1,3 +1,5 @@
+import process from 'process'
+
 export type ShaderType = (typeof ShaderType)[keyof typeof ShaderType]
 
 export const ShaderType = Object.freeze({
@@ -6,21 +8,44 @@ export const ShaderType = Object.freeze({
 })
 
 const bindings = import('#bindings').then(module => module.default())
+let { Validator, Optimizer, Minifier } = {} as Awaited<typeof bindings>
+const isValidatorInitialized = false
 
-export default async function compress(
-	shaderType: ShaderType,
-	shaderSource: string,
-): Promise<string> {
-	const { Optimizer, Minifier } = await bindings
+function validate(disposer: DisposableStack, ...args: ConstructorParameters<typeof Validator>): void {
+	if (isValidatorInitialized) {
+		Validator.initialize()
+
+		process.once('beforeExit', () => {
+			Validator.finalize()
+		})
+	}
+
+	const { error } = disposer.use(
+		new Validator(...args),
+	)
+
+	if (error) {
+		throw new Error(error as string)
+	}
+}
+
+export default async function compress(shaderType: ShaderType, shaderSource: string): Promise<string> {
+	({ Validator, Optimizer, Minifier } = await bindings)
 	using disposer = new DisposableStack()
+
+	validate(disposer, shaderType, shaderSource)
 
 	const { result: optimizedCode } = disposer.use(
 		new Optimizer(shaderType, shaderSource),
 	)
 
-	const { result: minifiedCode } = disposer.use(
-		new Minifier(optimizedCode ?? ''),
+	validate(disposer, shaderType, optimizedCode)
+
+	const { result: minifiedCode = '' } = disposer.use(
+		new Minifier(optimizedCode),
 	)
 
-	return minifiedCode as string ?? ''
+	validate(disposer, shaderType, minifiedCode)
+
+	return minifiedCode as string
 }

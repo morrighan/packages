@@ -17,7 +17,7 @@ task_cmake() {
 	__describe "bindings.cpp => bindings.a"
 
 	if [ ! -f "dists/build.ninja" ]; then
-		emcmake cmake -S . -B dists -G Ninja
+		emcmake cmake -S . -B dists -G Ninja -DCMAKE_BUILD_TYPE=Release
 	fi
 
 	cmake --build dists

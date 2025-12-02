@@ -54,6 +54,7 @@
     <LinkerArg Include="-fwasm-exceptions" />
     <LinkerArg Include="-Wl,--whole-archive dists/bindings.a -Wl,--no-whole-archive" />
     <LinkerArg Include="-lembind" />
+    <LinkerArg Include="-sASSERTIONS=1" />
     <LinkerArg Include="-sEXPORTED_FUNCTIONS=''" />
     <LinkerArg Include="-sFILESYSTEM=0" />
     <LinkerArg Include="-sEMBIND_AOT=1" />
