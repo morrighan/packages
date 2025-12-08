@@ -9,7 +9,7 @@ import { test, expect } from 'vitest'
 import compress, { ShaderType } from '@cichol/shader-compressor'
 
 // Constants.
-const SHADER_DIRECTORY = path.resolve(import.meta.dirname, '../externals/glsl-optimizer/tests')
+const SHADER_DIRECTORY = path.resolve(import.meta.dirname, 'artifacts')
 
 // Local helpers.
 async function loadArtifact(targetPath: string): Promise<string> {
@@ -20,21 +20,20 @@ async function loadArtifact(targetPath: string): Promise<string> {
 }
 
 test('should be working properly', async () => {
-	const VERTEX_SHADER_SOURCE = await loadArtifact('vertex/MF-GodRays-inES3.txt')
-	const VERTEX_SHADER_OPTIMIZED = await loadArtifact('vertex/MF-GodRays-outES3.txt')
-	const FRAGMENT_SHADER_SOURCE = await loadArtifact('fragment/global-struct-constant-init-metal-inES3.txt')
-	const FRAGMENT_SHADER_OPTIMIZED = await loadArtifact('fragment/global-struct-constant-init-metal-outES3.txt')
+	const [
+		VERTEX_SHADER_SOURCE,
+		VERTEX_SHADER_OPTIMIZED,
+		FRAGMENT_SHADER_SOURCE,
+		FRAGMENT_SHADER_OPTIMIZED,
+	] = await Promise.all(
+		[ 'vert', 'frag' ].flatMap(type => [ `in.${type}`, `out.${type}` ]).map(loadArtifact),
+	)
 
-	for (const [ shaderType, shaderSource, expectedOutput ] of [
-		[ ShaderType.VERTEX, VERTEX_SHADER_SOURCE, VERTEX_SHADER_OPTIMIZED ],
-		[ ShaderType.FRAGMENT, FRAGMENT_SHADER_SOURCE, FRAGMENT_SHADER_OPTIMIZED ],
-	] as const) {
-		const compressedCode = await compress(shaderType, shaderSource) // eslint-disable-line no-await-in-loop
+	await expect(
+		compress(ShaderType.VERTEX, VERTEX_SHADER_SOURCE),
+	).resolves.to.equal(VERTEX_SHADER_OPTIMIZED)
 
-		try {
-			expect(compressedCode).to.equal(expectedOutput)
-		} finally {
-			//
-		}
-	}
+	await expect(
+		compress(ShaderType.FRAGMENT, FRAGMENT_SHADER_SOURCE),
+	).resolves.to.equal(FRAGMENT_SHADER_OPTIMIZED)
 })
