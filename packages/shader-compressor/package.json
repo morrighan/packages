@@ -45,8 +45,8 @@
         "build": "bash scripts/build.sh"
     },
     "engines": {
-        "node": "^20.19.5 || ^22.20.0",
-        "npm": "^11.6.1"
+        "node": "^22.21.1 || ^24.11.1",
+        "npm": "^11.6.4"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

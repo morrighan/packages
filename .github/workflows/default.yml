@@ -12,11 +12,6 @@ jobs:
     name: CI
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-        dotnet-version: [10.0.x]
-
     permissions:
       contents: read
 
@@ -40,17 +35,17 @@ jobs:
     - name: Install build tools (Emsdk)
       run: bash scripts/install-emsdk.sh
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 22.x
       uses: actions/setup-node@v6
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 22.x
         registry-url: https://registry.npmjs.org/
         cache: 'npm'
 
-    - name: Use .NET ${{ matrix.dotnet-version }}
+    - name: Use .NET 10.0.x
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+        dotnet-version: 10.0.x
         dotnet-quality: 'ga'
         cache: true
         cache-dependency-path: packages/shader-compressor/packages.lock.json

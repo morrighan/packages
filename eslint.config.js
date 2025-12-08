@@ -74,6 +74,12 @@ export default defineConfig({
 		'@typescript-eslint/class-methods-use-this': 'off',
 	},
 }, {
+	files: [ 'packages/shader-compressor/sources/**/*.ts' ],
+
+	rules: {
+		'@typescript-eslint/no-unnecessary-type-assertion': 'off',
+	},
+}, {
 	settings: {
 		react: {
 			version: '19',

@@ -36,16 +36,16 @@
     },
     "dependencies": {
         "@babel/runtime-corejs3": "^7.28.4",
-        "chroma-js": "^3.1.2",
-        "core-js-pure": "^3.46.0",
+        "chroma-js": "^3.2.0",
+        "core-js-pure": "^3.47.0",
         "immutable": "^5.1.4"
     },
     "peerDependencies": {
-        "sass": "^1.93.2"
+        "sass": "^1.94.2"
     },
     "engines": {
-        "node": "^20.19.5 || ^22.20.0",
-        "npm": "^11.6.1"
+        "node": "^22.21.1 || ^24.11.1",
+        "npm": "^11.6.4"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
