@@ -1,4 +1,5 @@
 // Node.js built-in APIs.
+import { globSync as glob } from 'fs'
 import { copyFile, rm as remove } from 'fs/promises'
 import path from 'path'
 import process from 'process'
@@ -6,7 +7,6 @@ import { Worker, isMainThread, workerData } from 'worker_threads'
 
 // Third-party modules.
 import { execa } from 'execa'
-import { globSync as glob } from 'glob'
 import { oraPromise as ora } from 'ora'
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor'
 
