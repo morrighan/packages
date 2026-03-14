@@ -1,6 +1,6 @@
 {
     "name": "@cichol/eslint-config",
-    "version": "5.4.0",
+    "version": "5.4.1",
     "description": "An universal ESLint configuration for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -23,7 +23,7 @@
     "dependencies": {
         "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
         "@eslint/compat": "^2.0.3",
-        "@eslint/eslintrc": "^3.3.3",
+        "@eslint/eslintrc": "^3.3.5",
         "@stylistic/eslint-plugin": "^5.10.0",
         "deepmerge": "^4.3.1",
         "eslint-config-airbnb": "^19.0.4",
