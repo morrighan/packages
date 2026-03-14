@@ -52,7 +52,7 @@ jobs:
 
     - name: Cache
       id: cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: .cache
         key: cache-${{ github.head_ref || github.ref_name }}-${{ hashFiles('.git/modules/packages/shader-compressor/externals/emsdk/refs/heads/main', '.git/modules/packages/shader-compressor/externals/glsl-optimizer/refs/heads/master') }}
