@@ -10,7 +10,7 @@ const dirname = import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.ur
 const aliasMapper = path.resolve(dirname, 'packages/alias-mapper')
 
 export default defineConfig({
-	ignores: [ 'coverage', 'packages/*/dists', 'packages/**/*.d.ts' ],
+	ignores: [ '.*', 'coverage', 'packages/*/externals', 'packages/*/dists', 'packages/**/*.d.ts' ],
 }, {
 	files: [ '**/*.[jt]s?(x)' ],
 
@@ -65,13 +65,19 @@ export default defineConfig({
 	files: [ 'packages/eslint-config/**/*.js', 'packages/stylelint-config/**/*.js' ],
 
 	rules: {
-		'import/extensions': [ 'error', 'always' ],
+		'import/extensions': [ 'error', 'ignorePackages' ],
 	},
 }, {
 	files: [ 'packages/sass-bridge/tests/artifacts/*.ts' ],
 
 	rules: {
 		'@typescript-eslint/class-methods-use-this': 'off',
+	},
+}, {
+	files: [ 'packages/shader-compressor/sources/**/*.ts' ],
+
+	rules: {
+		'@typescript-eslint/no-unnecessary-type-assertion': 'off',
 	},
 }, {
 	settings: {

@@ -1,13 +1,16 @@
+import CORE_JS_PACKAGE_JSON from 'core-js-pure/package.json' with { type: 'json' }
+import RUNTIME_PACKAGE_JSON from '@babel/runtime-corejs3/package.json' with { type: 'json' }
+
 // Constants.
-const { default: { version: CORE_JS_VERSION } } = await import('core-js-pure/package.json', { with: { type: 'json' } })
-const { default: { version: RUNTIME_VERSION } } = await import('@babel/runtime-corejs3/package.json', { with: { type: 'json' } })
+const { version: CORE_JS_VERSION } = CORE_JS_PACKAGE_JSON
+const { version: RUNTIME_VERSION } = RUNTIME_PACKAGE_JSON
 
 /**
  * @param {import('@babel/core').ConfigAPI} API
  * @returns {import('@babel/core').TransformOptions}
  */
 export default function configurateBabel(API) {
-	API.assertVersion('^7.26.9')
+	API.assertVersion('^7.29.0')
 	API.cache.never()
 
 	return {

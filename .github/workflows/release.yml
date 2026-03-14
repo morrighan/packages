@@ -14,24 +14,54 @@ jobs:
       contents: read
       id-token: write
 
-    strategy:
-      matrix:
-        node-version: [20.x]
+    env:
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
     steps:
-
-    - name: Checkout the repository
-      uses: actions/checkout@v4
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+    - name: Checkout repository
+      uses: actions/checkout@v5
       with:
-        node-version: ${{ matrix.node-version }}
+        submodules: recursive
+
+    - name: Install build tools (CMake)
+      uses: lukka/get-cmake@latest
+
+    - name: Install build tools (Ccache)
+      run: |
+        sudo rm -f /var/lib/man-db/auto-update && \
+        sudo apt-get install -y ccache
+
+    - name: Install build tools (Emsdk)
+      run: bash scripts/install-emsdk.sh
+
+    - name: Use Node.js 22.x
+      uses: actions/setup-node@v6
+      with:
+        node-version: 22.x
         registry-url: https://registry.npmjs.org/
         cache: 'npm'
 
+    - name: Use .NET 10.0.x
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+        dotnet-quality: 'ga'
+        cache: true
+        cache-dependency-path: packages/shader-compressor/packages.lock.json
+
+    - name: Cache
+      id: cache
+      uses: actions/cache@v5
+      with:
+        path: .cache
+        key: cache-${{ github.head_ref || github.ref_name }}-${{ hashFiles('.git/modules/packages/shader-compressor/externals/emsdk/refs/heads/main', '.git/modules/packages/shader-compressor/externals/glsl-optimizer/refs/heads/master') }}
+
+    - name: Cache (restore)
+      if: steps.cache.outputs.cache-hit == 'true'
+      run: bash scripts/cache-restore.sh
+
     - name: Install, Build and Test
-      run: bash scripts/integration
+      run: bash scripts/integration.sh
       env:
         CI: true
 
@@ -40,7 +70,9 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
+    - name: Cache (prepack)
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: bash scripts/cache-prepack.sh
+
     - name: Publish the package
-      run: npm publish --provenance --workspaces
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npm publish --workspaces

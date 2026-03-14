@@ -1,0 +1,16 @@
+[submodule "emsdk"]
+	path = packages/shader-compressor/externals/emsdk
+	url = git@github.com:emscripten-core/emsdk.git
+
+[submodule "glslang"]
+	path = packages/shader-compressor/externals/glslang
+	url = git@github.com:KhronosGroup/glslang.git
+
+[submodule "glsl-optimizer"]
+	path = packages/shader-compressor/externals/glsl-optimizer
+	url = git@github.com:aras-p/glsl-optimizer.git
+
+[submodule "shader-minifier"]
+	path = packages/shader-compressor/externals/shader-minifier
+	url = git@github.com:laurentlb/shader-minifier.git
+	ignore = dirty

@@ -1,0 +1,8 @@
+BasedOnStyle: Google
+ColumnLimit: 120
+UseTab: Always
+TabWidth: 3
+IndentWidth: 3
+ContinuationIndentWidth: 3
+PPIndentWidth: -3
+AccessModifierOffset: -3

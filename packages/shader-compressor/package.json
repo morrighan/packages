@@ -1,7 +1,7 @@
 {
-    "name": "@cichol/sass-bridge",
+    "name": "@cichol/shader-compressor",
     "version": "5.4.0",
-    "description": "A bridge interface to define Sass custom functions.",
+    "description": "A compressor for WebGL2 shader source code. (GLSL ES 3.00)",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
         "url": "https://github.com/morrighan/packages/issues"
@@ -29,19 +29,20 @@
         },
         "./package.json": "./package.json"
     },
+    "imports": {
+        "#*": [
+            "./dists/*.js",
+            "./dists/*.d.ts",
+            "./dists/*/index.d.js"
+        ]
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/morrighan/packages.git",
-        "directory": "packages/sass-bridge"
+        "directory": "packages/shader-compressor"
     },
-    "dependencies": {
-        "@babel/runtime-corejs3": "^7.29.0",
-        "chroma-js": "^3.2.0",
-        "core-js-pure": "^3.48.0",
-        "immutable": "^5.1.5"
-    },
-    "peerDependencies": {
-        "sass": "^1.98.0"
+    "scripts": {
+        "build": "bash scripts/build.sh"
     },
     "engines": {
         "node": "^22.21.1 || ^24.11.1",

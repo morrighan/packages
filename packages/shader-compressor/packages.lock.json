@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "FParsec": {
+        "type": "Direct",
+        "requested": "[1.1.1, )",
+        "resolved": "1.1.1",
+        "contentHash": "Wdjf/gCNLEwd+0nUCDh9jAIIcKGwfhRramySTnTcVVgNC6i4Vp5aJklUJJfvFkEZMYNZEDGcI8pCa36/TmwmSg==",
+        "dependencies": {
+          "FSharp.Core": "4.3.4"
+        }
+      },
+      "FSharp.Core": {
+        "type": "Direct",
+        "requested": "[10.0.100, )",
+        "resolved": "10.0.100",
+        "contentHash": "vWHaY4Pk7mUv5gJN9+rbods+QnPjhrw3sdGw2R9pFLIBzHkkN26eMgubPHZVoS7xwLA9TZuoHGLrboY5QOBcdA=="
+      },
+      "Microsoft.DotNet.ILCompiler.LLVM": {
+        "type": "Direct",
+        "requested": "[10.0.0-*, )",
+        "resolved": "10.0.0-preview.2.25509.1",
+        "contentHash": "g/3sBM8RxFob6UWLyJckoJHpfap0861WES7nNTEf72x0vYlNDM5cvzIwmgLXyoINN5ZO8URGdeQmpRWa95uU5w=="
+      },
+      "Microsoft.NET.ILLink.Tasks": {
+        "type": "Direct",
+        "requested": "[10.0.0, )",
+        "resolved": "10.0.0",
+        "contentHash": "kICGrGYEzCNI3wPzfEXcwNHgTvlvVn9yJDhSdRK+oZQy4jvYH529u7O0xf5ocQKzOMjfS07+3z9PKRIjrFMJDA=="
+      },
+      "runtime.linux-x64.Microsoft.DotNet.ILCompiler.LLVM": {
+        "type": "Direct",
+        "requested": "[10.0.0-*, )",
+        "resolved": "10.0.0-preview.2.25509.1",
+        "contentHash": "6dtd3XoFpw3jdJFZkfru/qfjlotPKOWOQKwMsi/3VGF6bDmoJwih55nQ14RkaGcoKpTI/zLJszigKOkcYNG2zg=="
+      }
+    },
+    "net10.0/browser-wasm": {
+      "Microsoft.DotNet.ILCompiler.LLVM": {
+        "type": "Direct",
+        "requested": "[10.0.0-*, )",
+        "resolved": "10.0.0-preview.2.25509.1",
+        "contentHash": "g/3sBM8RxFob6UWLyJckoJHpfap0861WES7nNTEf72x0vYlNDM5cvzIwmgLXyoINN5ZO8URGdeQmpRWa95uU5w==",
+        "dependencies": {
+          "runtime.browser-wasm.Microsoft.DotNet.ILCompiler.LLVM": "10.0.0-preview.2.25509.1"
+        }
+      },
+      "runtime.browser-wasm.Microsoft.DotNet.ILCompiler.LLVM": {
+        "type": "Transitive",
+        "resolved": "10.0.0-preview.2.25509.1",
+        "contentHash": "lC4TDyYg9sIJIKZHu/iLED8O57Y7UzMGql1gIkXs/Wcp/MYaNyCAsOAYjs7I7NL7D0Cml1MJ5D386fDiUn4kkw=="
+      }
+    }
+  }
+}

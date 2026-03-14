@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source "$(git rev-parse --show-toplevel)/scripts/task-runner.sh"
+
+task_default() {
+	__describe "Install and activate Emsdk"
+
+	if __exists emsdk; then
+		return
+	fi
+
+	local EMSDK="./packages/shader-compressor/externals/emsdk/emsdk"
+
+	"$EMSDK" install latest
+	"$EMSDK" activate latest
+}

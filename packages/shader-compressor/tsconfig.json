@@ -1,0 +1,16 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "lib": [
+            "ESNext"
+        ],
+        "baseUrl": ".",
+        "typeRoots": [
+            "../../node_modules/@types",
+            "node_modules/@types"
+        ]
+    },
+    "exclude": [
+        "externals"
+    ]
+}

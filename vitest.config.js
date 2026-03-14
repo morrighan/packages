@@ -1,19 +1,24 @@
 // Node.js built-in APIs.
+import { globSync as glob } from 'fs'
 import path from 'path'
+import process from 'process'
 
 // Third-party modules.
 import { defineConfig } from 'vitest/config'
-import { globSync as glob } from 'glob'
+import babel from 'vite-plugin-babel'
 
 // Constants.
 const ONE_SECOND = 1000
 const ONE_MINUTE = 60 * ONE_SECOND
 
 export default defineConfig({
+	plugins: [ babel() ],
+
 	test: {
 		coverage: {
 			enabled: true,
-			include: [ 'packages' ],
+			include: [ 'packages/**.{js,ts}' ],
+			exclude: [ '**/externals' ],
 			reporter: [ 'lcov' ],
 		},
 
@@ -30,7 +35,7 @@ export default defineConfig({
 				},
 			})),
 
-		reporters: [ 'verbose' ],
+		reporters: [ process.env.GITHUB_ACTIONS ? 'github-actions' : 'default' ],
 		testTimeout: ONE_MINUTE,
 	},
 })
