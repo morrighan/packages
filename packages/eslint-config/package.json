@@ -55,7 +55,11 @@
             "eslint-config-airbnb-base": {
                 "eslint": "$eslint"
             },
-            "eslint-plugin-react-hooks": "$eslint-plugin-react-hooks"
+            "eslint-plugin-react-hooks": {
+                ".": "$eslint-plugin-react-hooks",
+                "zod": "^4.3.6",
+                "zod-validation-error": "^4.0.2"
+            }
         },
         "eslint-config-airbnb-base": {
             "eslint": "$eslint"
