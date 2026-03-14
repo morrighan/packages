@@ -1,6 +1,6 @@
 {
     "name": "@cichol/cryptography",
-    "version": "5.4.0",
+    "version": "5.4.1",
     "description": "A cryptography library for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
