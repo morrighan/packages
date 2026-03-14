@@ -21,11 +21,11 @@
         "directory": "packages/stylelint-config"
     },
     "dependencies": {
-        "stylelint-config-sass-guidelines": "^12.1.0",
-        "stylelint-order": "^7.0.0"
+        "stylelint-config-sass-guidelines": "^13.0.0",
+        "stylelint-order": "^8.1.0"
     },
     "peerDependencies": {
-        "stylelint": "^16.26.1"
+        "stylelint": "^17.4.0"
     },
     "engines": {
         "node": "^22.21.1 || ^24.11.1",
