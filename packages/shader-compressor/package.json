@@ -1,6 +1,6 @@
 {
     "name": "@cichol/shader-compressor",
-    "version": "5.4.2",
+    "version": "5.4.3",
     "description": "A compressor for WebGL2 shader source code. (GLSL ES 3.00)",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
