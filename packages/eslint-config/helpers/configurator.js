@@ -1,5 +1,5 @@
 // ESLint-relevant modules.
-import TSESLint from 'typescript-eslint'
+import { defineConfig } from 'eslint/config'
 
 // Local helpers.
 import { mapStylisticRules } from './stylistic-rules-mapper.js'
@@ -26,7 +26,7 @@ function mapKeys(object, iteratee) {
  * @returns {ESLintConfig[]}
  */
 export function configurate(...configurations) {
-	return TSESLint.config(...configurations).map(mapStylisticRules)
+	return defineConfig(...configurations).map(mapStylisticRules)
 }
 
 /**

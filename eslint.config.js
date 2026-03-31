@@ -62,7 +62,7 @@ export default defineConfig({
 		'node/no-unsupported-features/node-builtins': 'off',
 	},
 }, {
-	files: [ 'packages/eslint-config/**/*.js', 'packages/stylelint-config/**/*.js' ],
+	files: [ 'packages/eslint-config/**/*.js', 'packages/stylelint-config/**/*.js', '*.config.js' ],
 
 	rules: {
 		'import/extensions': [ 'error', 'ignorePackages' ],

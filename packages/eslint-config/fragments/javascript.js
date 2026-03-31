@@ -27,7 +27,7 @@ export const configuration = configurate({
 
 	extends: [
 		...fixupConfigRules(
-			compat.extends('airbnb', 'airbnb/hooks'),
+			compat.extends('airbnb'),
 		),
 
 		promisePlugin.configs['flat/recommended'],

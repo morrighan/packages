@@ -6,12 +6,12 @@ const { version: CORE_JS_VERSION } = CORE_JS_PACKAGE_JSON
 const { version: RUNTIME_VERSION } = RUNTIME_PACKAGE_JSON
 
 /**
- * @param {import('@babel/core').ConfigAPI} API
+ * @param {import('@babel/core').ConfigAPI} [API]
  * @returns {import('@babel/core').TransformOptions}
  */
 export default function configurateBabel(API) {
-	API.assertVersion('^7.29.0')
-	API.cache.never()
+	API?.assertVersion('^7.29.0')
+	API?.cache.never()
 
 	return {
 		presets: Object.entries({

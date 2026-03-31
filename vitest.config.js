@@ -5,14 +5,24 @@ import process from 'process'
 
 // Third-party modules.
 import { defineConfig } from 'vitest/config'
-import babel from 'vite-plugin-babel'
+import babel from '@rolldown/plugin-babel'
+
+// Local configurations.
+import configurateBabel from './babel.config.js'
 
 // Constants.
 const ONE_SECOND = 1000
 const ONE_MINUTE = 60 * ONE_SECOND
 
 export default defineConfig({
-	plugins: [ babel() ],
+	plugins: [
+		babel({
+			presets: [ {
+				preset: () => configurateBabel(),
+				rolldown: { filter: { moduleType: [ 'ts' ] } },
+			} ],
+		}),
+	],
 
 	test: {
 		coverage: {

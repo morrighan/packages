@@ -34,11 +34,12 @@
         "@babel/core": "^7.29.0",
         "@babel/plugin-proposal-decorators": "^7.29.0",
         "@babel/plugin-transform-runtime": "^7.29.0",
-        "@babel/preset-env": "^7.29.0",
+        "@babel/preset-env": "^7.29.2",
         "@babel/preset-typescript": "^7.28.5",
-        "@babel/runtime-corejs3": "^7.29.0",
+        "@babel/runtime-corejs3": "^7.29.2",
         "@cichol/eslint-config": "file:./packages/eslint-config",
         "@microsoft/api-extractor": "^7.57.7",
+        "@rolldown/plugin-babel": "^0.2.2",
         "@rollup/plugin-babel": "^7.0.0",
         "@rollup/plugin-node-resolve": "^16.0.3",
         "@types/babel__core": "^7.20.5",
@@ -47,16 +48,15 @@
         "@types/luxon": "^3.7.1",
         "@types/morgan": "^1.9.10",
         "@types/node": "^22.19.15",
-        "@vitest/coverage-v8": "^4.1.0",
-        "babel-plugin-polyfill-corejs3": "^0.14.1",
-        "core-js-pure": "^3.48.0",
+        "@vitest/coverage-v8": "^4.1.2",
+        "babel-plugin-polyfill-corejs3": "^0.14.2",
+        "core-js-pure": "^3.49.0",
         "eslint": "^9.39.4",
         "execa": "^9.6.1",
         "ora": "^9.3.0",
-        "rollup": "^4.59.0",
+        "rollup": "^4.60.1",
         "typescript": "^5.9.3",
-        "vite-plugin-babel": "^1.5.1",
-        "vitest": "^4.1.0"
+        "vitest": "^4.1.2"
     },
     "overrides": {
         "@cichol/eslint-config": {
@@ -65,7 +65,7 @@
                 "eslint-config-airbnb-base": {
                     "eslint": "$eslint"
                 },
-                "eslint-plugin-react-hooks": "^6.1.1"
+                "eslint-plugin-react-hooks": "^7.0.1"
             },
             "eslint-config-airbnb-base": {
                 "eslint": "$eslint"
