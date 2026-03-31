@@ -35,9 +35,9 @@
         "directory": "packages/sass-bridge"
     },
     "dependencies": {
-        "@babel/runtime-corejs3": "^7.29.0",
+        "@babel/runtime-corejs3": "^7.29.2",
         "chroma-js": "^3.2.0",
-        "core-js-pure": "^3.48.0",
+        "core-js-pure": "^3.49.0",
         "immutable": "^5.1.5"
     },
     "peerDependencies": {
