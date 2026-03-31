@@ -1,8 +1,15 @@
+// ESLint-relevant modules.
+import reactHooksPlugin from 'eslint-plugin-react-hooks'
+
 // Local helpers.
 import { configurate } from '../helpers/configurator.js'
 
 export const configuration = configurate({
 	files: [ '**/*.[jt]sx' ],
+
+	extends: [
+		reactHooksPlugin.configs.flat.recommended,
+	],
 
 	languageOptions: {
 		parserOptions: {
