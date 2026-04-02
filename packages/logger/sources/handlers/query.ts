@@ -1,5 +1,5 @@
 // Highlight.js
-import highlight from 'cli-highlight'
+import { highlight } from 'cli-highlight'
 
 // Local helpers.
 import LoggingLevel from '../helpers/logging-level'
