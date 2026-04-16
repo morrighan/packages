@@ -1,5 +1,7 @@
 # `@cichol/alias-mapper`
 
+> **Deprecated** by [Subpath imports][subpath imports]
+
 A resolver in order to shorten deeply nested relative path expression.
 
 [![Build Status][github actions badge]][github actions][![Coverage Status][coverage badge]][coverage][![License][license badge]](LICENSE)[![Package Version][npm package version badge]][npm package]
@@ -128,6 +130,7 @@ After the integration process, you can write code with aliased scopes. an alias 
 
 [MIT Licensed](../../LICENSE).
 
+[subpath imports]: https://nodejs.org/docs/latest/api/packages.html#subpath-imports
 [github actions badge]: https://img.shields.io/github/actions/workflow/status/morrighan/packages/default.yml?branch=develop&style=flat-square
 [github actions]: https://github.com/morrighan/packages/actions
 [coverage badge]: https://img.shields.io/codecov/c/github/morrighan/packages?style=flat-square
