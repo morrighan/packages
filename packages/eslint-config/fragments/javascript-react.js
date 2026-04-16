@@ -2,9 +2,9 @@
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
 
 // Local helpers.
-import { configurate } from '../helpers/configurator.js'
+import configurate from '#helpers/configurator'
 
-export const configuration = configurate({
+export default configurate({
 	files: [ '**/*.[jt]sx' ],
 
 	extends: [
@@ -82,5 +82,3 @@ export const configuration = configurate({
 		'react/static-property-placement': [ 'error', 'static public field' ],
 	},
 })
-
-export default configuration

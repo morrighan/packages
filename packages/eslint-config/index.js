@@ -1,8 +1,8 @@
 // Configuration fragments.
-import { configuration as fragmentForJavaScript } from './fragments/javascript.js'
-import { configuration as fragmentForJSX } from './fragments/javascript-react.js'
-import { configuration as fragmentForTypeScript } from './fragments/typescript.js'
-import { configuration as fragmentForTSX } from './fragments/typescript-react.js'
+import fragmentForJavaScript from '#fragments/javascript'
+import fragmentForJSX from '#fragments/javascript-react'
+import fragmentForTypeScript from '#fragments/typescript'
+import fragmentForTSX from '#fragments/typescript-react'
 
 /**
  * @param {import('eslint').Linter.Config[]} extraConfigs
