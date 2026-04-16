@@ -11,7 +11,7 @@ const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ]
  * @returns {import('rollup').RollupOptions[]}
  */
 const configurateRollup = (...definitions) => definitions.map((
-	[ packageName, extraOutputOptions = { exports: 'auto' } ],
+	[ packageName, extraOutputOptions ],
 ) => ({
 	input: `./packages/${packageName}/sources/index.ts`,
 
@@ -32,7 +32,6 @@ const configurateRollup = (...definitions) => definitions.map((
 }))
 
 export default configurateRollup(
-	[ 'alias-mapper', { exports: 'named' } ],
 	[ 'cryptography' ],
 	[ 'logger' ],
 	[ 'sass-bridge' ],
