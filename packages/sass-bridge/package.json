@@ -41,7 +41,7 @@
         "immutable": "^5.1.5"
     },
     "peerDependencies": {
-        "sass": "^1.98.0"
+        "sass": "^1.99.0"
     },
     "engines": {
         "node": "^22.21.1 || ^24.11.1",
