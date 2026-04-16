@@ -1,6 +1,6 @@
 # `@cichol/alias-mapper`
 
-> **Deprecated** by [Subpath imports][subpath imports]
+> ⚠️ **Deprecated** by [Subpath imports][subpath imports].
 
 A resolver in order to shorten deeply nested relative path expression.
 
