@@ -18,7 +18,7 @@ import {
 	SassTRUE,
 	SassFALSE,
 	SassNULL,
-} from '../types'
+} from '#types'
 
 // Helper functions.
 function isObject(value?: unknown): value is object {

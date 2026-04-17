@@ -11,7 +11,7 @@ import {
 	SassColor,
 	SassList,
 	SassMap,
-} from '../types'
+} from '#types'
 
 export default function sassToJavaScriptType(sassValue: SassType): JavaScriptType {
 	switch (true) {
