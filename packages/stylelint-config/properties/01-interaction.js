@@ -1,6 +1,6 @@
 // Local helpers.
-import _ from '../helpers/generator.js'
-import { ITSELF, DIRECTIONAL } from '../helpers/fragments.js'
+import _ from '#helpers/generator'
+import { ITSELF, DIRECTIONAL } from '#helpers/fragments'
 
 export default _([
 	_('pointer-events'),

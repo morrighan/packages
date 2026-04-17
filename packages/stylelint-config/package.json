@@ -15,6 +15,9 @@
     "type": "module",
     "main": "index.js",
     "types": "index.d.ts",
+    "imports": {
+        "#*": "./*.js"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/morrighan/packages.git",

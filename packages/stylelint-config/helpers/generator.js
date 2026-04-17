@@ -1,5 +1,6 @@
 /**
- * @param {(string | (string | (string | null)[] | null)[])[]} fragments
+ * @template {(string | (string | (string | null)[] | null)[])[]} const T
+ * @param {T} fragments
  * @returns {string[]}
  */
 export default function _(...fragments) {

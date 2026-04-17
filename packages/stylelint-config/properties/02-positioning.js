@@ -1,6 +1,6 @@
 // Local helpers.
-import _ from '../helpers/generator.js'
-import { ITSELF, LOGICAL, TOP_RIGHT_BOTTOM_LEFT } from '../helpers/fragments.js'
+import _ from '#helpers/generator'
+import { ITSELF, LOGICAL, TOP_RIGHT_BOTTOM_LEFT } from '#helpers/fragments'
 
 export default _([
 	_('isolation'),

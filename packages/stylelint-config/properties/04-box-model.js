@@ -1,6 +1,6 @@
 // Local helpers.
-import _ from '../helpers/generator.js'
-import { ITSELF, RANGE_BOUNDABLE, DIRECTIONAL, DIAGONAL } from '../helpers/fragments.js'
+import _ from '#helpers/generator'
+import { ITSELF, RANGE_BOUNDABLE, DIRECTIONAL, DIAGONAL } from '#helpers/fragments'
 
 export default _([
 	_('box-sizing'),
