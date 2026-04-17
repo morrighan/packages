@@ -3,8 +3,8 @@ import invariant from 'tiny-invariant'
 import { encode, decode, type EncoderOptions, type DecoderOptions } from '@msgpack/msgpack'
 
 // Local helpers.
-import { ByteSize, Algorithm } from './constants'
-import { splitByChunkSizes, concatBuffers, base64FromBuffer, computeSecret, calculateHash } from './utilities'
+import { ByteSize, Algorithm } from '#constants'
+import { splitByChunkSizes, concatBuffers, base64FromBuffer, computeSecret, calculateHash } from '#utilities'
 
 export async function generateKeys(): Promise<[ publicKey: ArrayBuffer, privateKey: ArrayBuffer ]> {
 	invariant(!!crypto.subtle)

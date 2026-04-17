@@ -20,6 +20,9 @@
         },
         "./package.json": "./package.json"
     },
+    "imports": {
+        "#*": "./sources/*.ts"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/morrighan/packages.git",

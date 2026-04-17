@@ -2,8 +2,9 @@
 import type { CustomFunction } from 'sass'
 
 // Local helpers.
-import type { SassType, JavaScriptType } from './types'
-import { sassToJavaScriptType, javaScriptToSassType } from './type-converter'
+import type { SassType, JavaScriptType } from '#types'
+import sassToJavaScriptType from '#type-converter/sass-to-javascript'
+import javaScriptToSassType from '#type-converter/javascript-to-sass'
 
 // Type definitions.
 interface Constructor {

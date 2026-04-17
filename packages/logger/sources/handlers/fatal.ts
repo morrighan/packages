@@ -8,4 +8,4 @@ export const name = 'fatal'
 export const level = LoggingLevel.Fatal
 export const label = decorateLabel('FATAL', ColorScheme.Critical)
 
-export { default } from './error' // eslint-disable-line no-restricted-exports
+export { default } from '#handlers/error' // eslint-disable-line no-restricted-exports
