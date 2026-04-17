@@ -30,11 +30,7 @@
         "./package.json": "./package.json"
     },
     "imports": {
-        "#*": [
-            "./dists/*.js",
-            "./dists/*.d.ts",
-            "./dists/*/index.d.js"
-        ]
+        "#*": "./dists/*.js"
     },
     "repository": {
         "type": "git",
