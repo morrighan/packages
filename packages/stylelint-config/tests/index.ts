@@ -4,8 +4,7 @@ import stylelint from 'stylelint'
 import { version } from 'stylelint/package.json' with { type: 'json' }
 
 // Testing target.
-import PROPERTIES_LIST from '../properties'
-import config from '..'
+import config, { PROPERTIES_LIST } from '@cichol/stylelint-config'
 
 function indexOf(propertyName: string): number {
 	return PROPERTIES_LIST.includes(propertyName)

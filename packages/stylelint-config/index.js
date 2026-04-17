@@ -1,5 +1,5 @@
 // Pre-sorted CSS properties list.
-const PROPERTIES_LIST = await Promise.all([
+export const PROPERTIES_LIST = await Promise.all([
 	'composes',
 	'all',
 	import('#properties/01-interaction'),

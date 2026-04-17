@@ -1,5 +1,6 @@
 import * as Stylelint from 'stylelint'
 
-export const PROPERTIES_ORDER: readonly string[]
+declare const PROPERTIES_LIST: readonly string[]
+declare const config: Stylelint.Config
 
-export default {} as Stylelint.Config
+export { PROPERTIES_LIST, config as default }
