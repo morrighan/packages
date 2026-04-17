@@ -5,7 +5,7 @@ import process from 'process'
 import { bold } from '@std/fmt/colors'
 
 // Local helpers.
-import ColorScheme, { getChalkOf } from './color-scheme'
+import ColorScheme, { getChalkOf } from '#helpers/color-scheme'
 
 // Constants.
 const { isTTY } = process.stdout

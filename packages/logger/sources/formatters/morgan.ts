@@ -12,7 +12,7 @@ import { format as prettyBytes } from '@std/fmt/bytes'
 import { format as prettyMs } from '@std/fmt/duration'
 
 // Local helpers.
-import { ExecutionMode, executionMode } from '../helpers/constants'
+import { ExecutionMode, executionMode } from '#helpers/constants'
 
 // Type definitions.
 declare module 'morgan' {

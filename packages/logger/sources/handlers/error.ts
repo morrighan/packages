@@ -6,9 +6,9 @@ import process, { version } from 'process'
 import { blue, gray, bold, underline } from '@std/fmt/colors'
 
 // Local helpers.
-import LoggingLevel from '../helpers/logging-level'
-import ColorScheme from '../helpers/color-scheme'
-import decorateLabel from '../helpers/label-decorator'
+import LoggingLevel from '#helpers/logging-level'
+import ColorScheme from '#helpers/color-scheme'
+import decorateLabel from '#helpers/label-decorator'
 
 // Type definitions.
 type LoggingData = { level: string, message: string } & Record<PropertyKey, any>

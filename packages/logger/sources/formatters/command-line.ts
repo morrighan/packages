@@ -5,10 +5,10 @@ import { DateTime } from 'luxon'
 import { format } from 'winston'
 
 // Local helpers.
-import LoggingLevel from '../helpers/logging-level'
+import LoggingLevel from '#helpers/logging-level'
 
 // Handler implementations.
-import handlers from '../handlers'
+import handlers from '#handlers/index'
 
 export default format.printf(data => {
 	const timestamp = gray(DateTime.now().toISO({ includeOffset: true }))
