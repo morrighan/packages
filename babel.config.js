@@ -1,6 +1,6 @@
 // Constants.
-const { version: CORE_JS_VERSION } = await import('core-js-pure/package.json', { with: { type: 'json' } })
-const { version: RUNTIME_VERSION } = await import('@babel/runtime-corejs3/package.json', { with: { type: 'json' } })
+const { default: { version: CORE_JS_VERSION } } = await import('core-js-pure/package.json', { with: { type: 'json' } })
+const { default: { version: RUNTIME_VERSION } } = await import('@babel/runtime-corejs3/package.json', { with: { type: 'json' } })
 
 /**
  * @param {import('@babel/core').ConfigAPI} [API]
