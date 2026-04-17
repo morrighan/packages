@@ -1,13 +1,5 @@
-// Node.js built-in APIs.
-import path from 'path'
-import { fileURLToPath } from 'url'
-
 // ESLint-relevant modules.
 import defineConfig from '@cichol/eslint-config'
-
-// Constants.
-const dirname = import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url))
-const aliasMapper = path.resolve(dirname, 'packages/alias-mapper')
 
 export default defineConfig({
 	ignores: [ '.*', 'coverage', 'legacies', 'packages/*/externals', 'packages/*/dists', 'packages/**/*.d.ts' ],
@@ -16,7 +8,7 @@ export default defineConfig({
 
 	languageOptions: {
 		parserOptions: {
-			project: 'tsconfig.json',
+			projectService: true,
 			tsconfigRootDir: import.meta.dirname,
 		},
 	},
@@ -28,41 +20,13 @@ export default defineConfig({
 		'node/no-extraneous-import': 'off',
 	},
 }, {
-	files: [ 'packages/alias-mapper/tests/examples/**/*.js' ],
-
-	rules: {
-		'import/extensions': [ 'error', 'never' ],
-	},
-
-	settings: {
-		'import/resolver': {
-			'@cichol/alias-mapper': {
-				basePath: path.resolve(aliasMapper, 'tests/examples'),
-
-				rootDirs: [
-					'sources/frontend',
-				],
-
-				aliases: {
-					common: 'sources/common',
-					backend: 'sources/backend',
-					models: 'sources/backend/models',
-				},
-
-				extensions: [ '.js', '.ts', '.json' ],
-			},
-
-			node: { extensions: [ '.js', '.ts', '.json' ] },
-		},
-	},
-}, {
 	files: [ 'packages/cryptography/sources/**/*.ts' ],
 
 	rules: {
 		'node/no-unsupported-features/node-builtins': 'off',
 	},
 }, {
-	files: [ 'packages/stylelint-config/**/*.js', '*.config.js' ],
+	files: [ '*.config.js' ],
 
 	rules: {
 		'import/extensions': [ 'error', 'ignorePackages' ],
