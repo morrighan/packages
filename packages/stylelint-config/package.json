@@ -13,8 +13,13 @@
         "url": "https://www.cichol.com/"
     },
     "type": "module",
-    "main": "index.js",
-    "types": "index.d.ts",
+    "exports": {
+        ".": {
+            "default": "./index.js",
+            "types": "./index.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
     "imports": {
         "#*": "./*.js"
     },

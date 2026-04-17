@@ -3,7 +3,6 @@ import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
 
 // Constants.
-const formats = Object.freeze({ cjs: 'cjs', esm: 'js' })
 const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ]
 
 /**
@@ -15,13 +14,13 @@ const configurateRollup = (...definitions) => definitions.map((
 ) => ({
 	input: `./packages/${packageName}/sources/index.ts`,
 
-	output: Object.entries(formats).map(([ format, extension ]) => ({
-		file: `./packages/${packageName}/dists/index.${extension}`,
-		format,
+	output: {
+		file: `./packages/${packageName}/dists/index.js`,
+		format: 'esm',
 		sourcemap: 'inline',
 
 		...extraOutputOptions,
-	})),
+	},
 
 	plugins: [
 		resolve({ extensions }),

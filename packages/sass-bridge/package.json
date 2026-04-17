@@ -13,19 +13,10 @@
         "url": "https://www.cichol.com/"
     },
     "type": "module",
-    "main": "./dists/index.cjs",
-    "module": "./dists/index.js",
-    "types": "./dists/index.d.ts",
     "exports": {
         ".": {
-            "import": {
-                "default": "./dists/index.js",
-                "types": "./dists/index.d.ts"
-            },
-            "require": {
-                "default": "./dists/index.cjs",
-                "types": "./dists/index.d.cts"
-            }
+            "default": "./dists/index.js",
+            "types": "./dists/index.d.ts"
         },
         "./package.json": "./package.json"
     },
