@@ -77,3 +77,8 @@ jobs:
     - name: Cache (prepack)
       if: steps.cache.outputs.cache-hit != 'true'
       run: bash scripts/cache-prepack.sh
+
+    - name: Publish the package (simulation)
+      run: |
+        npm version "0.0.0-$(git symbolic-ref --short HEAD).$(git rev-parse --short HEAD)" --workspaces && \
+        npm publish --dry-run --tag="$(git symbolic-ref --short HEAD)" --workspaces
