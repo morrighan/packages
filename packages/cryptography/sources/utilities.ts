@@ -1,7 +1,7 @@
 import type { webcrypto } from 'crypto'
 
 // Local helpers.
-import { Algorithm } from './constants'
+import { Algorithm } from '#constants'
 
 // Type definitions.
 type CryptoKey = webcrypto.CryptoKey

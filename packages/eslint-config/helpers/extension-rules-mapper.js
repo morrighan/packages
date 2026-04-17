@@ -2,10 +2,10 @@
 import TSESLint from 'typescript-eslint'
 
 // Local helpers.
-import { mapOptionsOfBaseRules } from './base-rule-options-getter.js'
+import { mapOptionsOfBaseRules } from '#helpers/base-rule-options-getter'
 
 // Configuration fragments.
-import { configuration } from '../fragments/javascript.js'
+import configuration from '#fragments/javascript'
 
 // Constants.
 const [ { rules: rulesForJavaScript } ] = configuration

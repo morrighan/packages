@@ -1,5 +1,22 @@
 // Pre-sorted CSS properties list.
-import PROPERTIES_LIST from './properties/index.js'
+export const PROPERTIES_LIST = await Promise.all([
+	'composes',
+	'all',
+	import('#properties/01-interaction'),
+	import('#properties/02-positioning'),
+	import('#properties/03-layout'),
+	import('#properties/04-box-model'),
+	import('#properties/05-typography'),
+	import('#properties/06-appearance'),
+	import('#properties/07-svg-relevant'),
+	import('#properties/08-transition'),
+].map(fragments => (
+	typeof fragments === 'string'
+		? Promise.resolve(fragments)
+		: fragments.then(({ default: properties }) => properties)
+))).then(properties => (
+	properties.flat()
+))
 
 /** @type {import('stylelint').Config} */
 export default {

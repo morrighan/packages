@@ -1,6 +1,6 @@
 {
     "name": "@cichol/eslint-config",
-    "version": "5.4.5",
+    "version": "6.0.0",
     "description": "An universal ESLint configuration for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -13,8 +13,16 @@
         "url": "https://www.cichol.com/"
     },
     "type": "module",
-    "main": "index.js",
-    "types": "index.d.ts",
+    "exports": {
+        ".": {
+            "default": "./index.js",
+            "types": "./index.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
+    "imports": {
+        "#*": "./*.js"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/morrighan/packages.git",
@@ -22,7 +30,7 @@
     },
     "dependencies": {
         "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
-        "@eslint/compat": "^2.0.3",
+        "@eslint/compat": "^2.0.5",
         "@eslint/eslintrc": "^3.3.5",
         "@stylistic/eslint-plugin": "^5.10.0",
         "deepmerge": "^4.3.1",
@@ -35,11 +43,11 @@
         "eslint-plugin-promise": "^7.2.1",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.0.1",
-        "typescript-eslint": "^8.58.0"
+        "typescript-eslint": "^8.58.2"
     },
     "peerDependencies": {
         "eslint": "^9.39.4",
-        "typescript": "^5.9.3"
+        "typescript": "^6.0.2"
     },
     "peerDependenciesMeta": {
         "eslint": {
@@ -62,8 +70,8 @@
         }
     },
     "engines": {
-        "node": "^22.21.1 || ^24.11.1",
-        "npm": "^11.6.4"
+        "node": "^24.15.0",
+        "npm": "^11.12.1"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

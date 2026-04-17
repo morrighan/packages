@@ -1,6 +1,6 @@
 // Local helpers.
-import _ from '../helpers/generator.js'
-import { ITSELF } from '../helpers/fragments.js'
+import _ from '#helpers/generator'
+import { ITSELF } from '#helpers/fragments'
 
 export default _([
 	_('alignment-baseline'),

@@ -9,15 +9,15 @@ import * as winston from 'winston'
 import type { level as LoggingLevel, Logger as BaseLogger } from 'winston'
 
 // Formatters.
-import formatForCLI from '../formatters/command-line'
-import formatForMorgan from '../formatters/morgan'
+import formatForCLI from '#formatters/command-line'
+import formatForMorgan from '#formatters/morgan'
 
 // Local helpers.
-import { ExecutionMode, executionMode } from '../helpers/constants'
+import { ExecutionMode, executionMode } from '#helpers/constants'
 
 // Handler implementations.
-import type { LoggingLevelName } from '../handlers'
-import handlers from '../handlers'
+import type { LoggingLevelName } from '#handlers/index'
+import handlers from '#handlers/index'
 
 // Type definitions.
 type Morgan = (req: HttpRequest, res: HttpResponse, next: (error?: Error) => void) => void

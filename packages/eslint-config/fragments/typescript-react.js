@@ -1,7 +1,7 @@
 // Local helpers.
-import { configurate } from '../helpers/configurator.js'
+import configurate from '#helpers/configurator'
 
-export const configuration = configurate({
+export default configurate({
 	files: [ '**/*.tsx' ],
 
 	rules: {
@@ -13,5 +13,3 @@ export const configuration = configurate({
 		'react/prop-types': 'off',
 	},
 })
-
-export default configuration

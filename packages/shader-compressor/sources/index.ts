@@ -9,15 +9,17 @@ export const ShaderType = Object.freeze({
 
 const bindings = import('#bindings').then(module => module.default())
 let { Validator, Optimizer, Minifier } = {} as Awaited<typeof bindings>
-const isValidatorInitialized = false
+let isValidatorInitialized = false
 
 function validate(disposer: DisposableStack, ...args: ConstructorParameters<typeof Validator>): void {
-	if (isValidatorInitialized) {
+	if (!isValidatorInitialized) {
 		Validator.initialize()
 
 		process.once('beforeExit', () => {
 			Validator.finalize()
 		})
+
+		isValidatorInitialized = true
 	}
 
 	const { error } = disposer.use(

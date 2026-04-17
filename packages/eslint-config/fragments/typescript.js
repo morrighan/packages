@@ -2,10 +2,10 @@
 import TSESLint from 'typescript-eslint'
 
 // Local helpers.
-import { configurate } from '../helpers/configurator.js'
-import { mapExtensionRules } from '../helpers/extension-rules-mapper.js'
+import configurate from '#helpers/configurator'
+import { mapExtensionRules } from '#helpers/extension-rules-mapper'
 
-export const configuration = configurate({
+export default configurate({
 	files: [ '**/*.ts?(x)' ],
 
 	extends: [
@@ -180,5 +180,3 @@ export const configuration = configurate({
 		'@typescript-eslint/type-annotation-spacing': 'error',
 	}),
 })
-
-export default configuration

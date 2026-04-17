@@ -3,12 +3,12 @@ import path from 'path'
 import process, { version } from 'process'
 
 // Third-party modules.
-import chalk from 'chalk'
+import { blue, gray, bold, underline } from '@std/fmt/colors'
 
 // Local helpers.
-import LoggingLevel from '../helpers/logging-level'
-import ColorScheme from '../helpers/color-scheme'
-import decorateLabel from '../helpers/label-decorator'
+import LoggingLevel from '#helpers/logging-level'
+import ColorScheme from '#helpers/color-scheme'
+import decorateLabel from '#helpers/label-decorator'
 
 // Type definitions.
 type LoggingData = { level: string, message: string } & Record<PropertyKey, any>
@@ -16,7 +16,7 @@ type HandledData = { label: string, payload: string }
 
 // Constants.
 const rootPath = process.cwd()
-const conjunction = ` ${chalk.blue('──')} `
+const conjunction = ` ${blue('──')} `
 const splat: unique symbol = Symbol.for('splat')
 
 // Handler metadata.
@@ -46,18 +46,18 @@ function mapLocationOfErrorThrown(filename: string): string {
 	let target = path.relative(rootPath, filename)
 
 	if (isDataURI(filename)) {
-		target = chalk.gray(simplifyDataURI(filename))
+		target = gray(simplifyDataURI(filename))
 	} else if (target.includes('node_modules')) {
-		target = chalk.gray(
+		target = gray(
 			target.slice(target.lastIndexOf('node_modules')),
 		).replace(
 			/node_modules[\\/]((?:@[^\\/]+[\\/])?[^\\/]+)(.*)/,
 			(_, moduleName: string, trailing: string) => (
-				`node_modules${path.sep}${chalk.bold.underline(moduleName)}${chalk.gray(trailing)}`
+				`node_modules${path.sep}${bold(underline(moduleName))}${gray(trailing)}`
 			),
 		)
 	} else {
-		target = `${chalk.gray(path.dirname(target) + path.sep)}${chalk.bold.underline(path.basename(target))}`
+		target = `${gray(path.dirname(target) + path.sep)}${bold(underline(path.basename(target)))}`
 	}
 
 	return target
@@ -82,13 +82,13 @@ export default function handle(data: LoggingData): HandledData | undefined {
 
 			switch (true) {
 			case (rawLocation === '<anonymous>'): {
-				location = chalk.gray(rawLocation)
+				location = gray(rawLocation)
 
 				break
 			}
 
 			case (isDataURI(rawLocation)): {
-				location = chalk.gray(simplifyDataURI(rawLocation))
+				location = gray(simplifyDataURI(rawLocation))
 
 				break
 			}
@@ -96,7 +96,7 @@ export default function handle(data: LoggingData): HandledData | undefined {
 			case (rawLocation.startsWith('node:')): {
 				const [ filename, occurredLine ] = rawLocation.slice(5).split(':')
 
-				location = chalk.gray(`https://github.com/${chalk.bold.underline('nodejs')}/node/blob/${version}/lib/${filename}.js#L${occurredLine}`)
+				location = gray(`https://github.com/${bold(underline('nodejs'))}/node/blob/${version}/lib/${filename}.js#L${occurredLine}`)
 
 				break
 			}
@@ -107,7 +107,7 @@ export default function handle(data: LoggingData): HandledData | undefined {
 				if (!path.isAbsolute(filename)) break
 
 				const target = mapLocationOfErrorThrown(path.relative(rootPath, filename))
-				const trailing = chalk.gray(`:${occurredLine}:${occurredColumn}`)
+				const trailing = gray(`:${occurredLine}:${occurredColumn}`)
 
 				location = target + trailing
 			}

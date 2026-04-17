@@ -1,5 +1,5 @@
 // Local helpers.
-import _ from './generator.js'
+import _ from '#helpers/generator'
 
 // Base fragments.
 export const ITSELF = null

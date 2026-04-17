@@ -1,6 +1,6 @@
 {
     "name": "@cichol/stylelint-config",
-    "version": "5.4.5",
+    "version": "6.0.0",
     "description": "An universal Stylelint configuration for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -13,8 +13,16 @@
         "url": "https://www.cichol.com/"
     },
     "type": "module",
-    "main": "index.js",
-    "types": "index.d.ts",
+    "exports": {
+        ".": {
+            "default": "./index.js",
+            "types": "./index.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
+    "imports": {
+        "#*": "./*.js"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/morrighan/packages.git",
@@ -25,11 +33,11 @@
         "stylelint-order": "^8.1.1"
     },
     "peerDependencies": {
-        "stylelint": "^17.6.0"
+        "stylelint": "^17.8.0"
     },
     "engines": {
-        "node": "^22.21.1 || ^24.11.1",
-        "npm": "^11.6.4"
+        "node": "^24.15.0",
+        "npm": "^11.12.1"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

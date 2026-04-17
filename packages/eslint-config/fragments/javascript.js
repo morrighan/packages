@@ -12,8 +12,8 @@ import commentsPlugin from '@eslint-community/eslint-plugin-eslint-comments'
 import stylisticPlugin from '@stylistic/eslint-plugin'
 
 // Local helpers.
-import { configurate, getConfigWithAliasedPluginName } from '../helpers/configurator.js'
-import { extendsBaseRule } from '../helpers/base-rule-extender.js'
+import configurate, { getConfigWithAliasedPluginName } from '#helpers/configurator'
+import extendsBaseRule from '#helpers/base-rule-extender'
 
 // Constants.
 const extensions = [ '.mjs', '.js', '.jsx', '.ts', '.tsx', '.json' ]
@@ -22,7 +22,7 @@ const compat = new FlatCompat({
 	baseDirectory: import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url)),
 })
 
-export const configuration = configurate({
+export default configurate({
 	files: [ '**/*.[jt]s?(x)' ],
 
 	extends: [
@@ -424,5 +424,3 @@ export const configuration = configurate({
 		},
 	},
 })
-
-export default configuration

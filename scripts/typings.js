@@ -1,6 +1,6 @@
 // Node.js built-in APIs.
 import { globSync as glob } from 'fs'
-import { copyFile, rm as remove } from 'fs/promises'
+import { rm as remove } from 'fs/promises'
 import path from 'path'
 import process from 'process'
 import { Worker, isMainThread, workerData } from 'worker_threads'
@@ -37,13 +37,6 @@ async function mergeAllDeclarations(projectFolder = workerData) {
 	})
 }
 
-async function cloneFileForCommonJS(projectFolder = workerData) {
-	const original = path.resolve(projectFolder, 'dists/index.d.ts')
-	const destination = original.replace(/\.d\.ts$/, '.d.cts')
-
-	await copyFile(original, destination)
-}
-
 async function removeTemporaryFiles(projectFolder = workerData) {
 	const typesDirectory = path.resolve(projectFolder, 'types')
 
@@ -74,7 +67,6 @@ export default async function main() {
 	} else {
 		await generateDeclarations()
 		await mergeAllDeclarations()
-		await cloneFileForCommonJS()
 		await removeTemporaryFiles()
 	}
 }

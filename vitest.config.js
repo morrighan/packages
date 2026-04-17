@@ -27,8 +27,8 @@ export default defineConfig({
 	test: {
 		coverage: {
 			enabled: true,
-			include: [ 'packages/**.{js,ts}' ],
-			exclude: [ '**/externals' ],
+			include: [ 'packages/**/*.{js,ts}' ],
+			exclude: [ '**/externals', '*.d.ts', 'packages/shader-compressor/**/bindings.js' ],
 			reporter: [ 'lcov' ],
 		},
 

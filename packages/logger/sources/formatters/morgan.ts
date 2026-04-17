@@ -6,13 +6,13 @@ import {
 } from 'http'
 
 // Third-party modules.
-import chalk from 'chalk'
 import morgan from 'morgan'
-import prettyBytes from 'pretty-bytes'
-import prettyMs from 'pretty-ms'
+import { green, magenta, red, gray, bold, rgb24 } from '@std/fmt/colors'
+import { format as prettyBytes } from '@std/fmt/bytes'
+import { format as prettyMs } from '@std/fmt/duration'
 
 // Local helpers.
-import { ExecutionMode, executionMode } from '../helpers/constants'
+import { ExecutionMode, executionMode } from '#helpers/constants'
 
 // Type definitions.
 declare module 'morgan' {
@@ -34,19 +34,19 @@ function decorateStatusCode(statusCode: keyof typeof STATUS_CODES): string {
 
 	switch (groupOfCode) {
 	case 200: {
-		return chalk.green(baseMessage)
+		return green(baseMessage)
 	}
 
 	case 300: {
-		return chalk.magenta(baseMessage)
+		return magenta(baseMessage)
 	}
 	case 400:
 	case 500: {
-		return chalk.red(baseMessage)
+		return red(baseMessage)
 	}
 
 	default: {
-		return chalk.gray(baseMessage)
+		return gray(baseMessage)
 	}
 	}
 }
@@ -66,8 +66,8 @@ function formatForMorgan(tokens: any, request: HttpRequest, response: HttpRespon
 	const responseTime = Number(_('response-time') ?? -1)
 
 	// Decorated values.
-	const $method = chalk.bold(method)
-	const $version = chalk.rgb(98, 177, 255)(httpVersion)
+	const $method = bold(method ?? '')
+	const $version = rgb24(httpVersion, 0x62B1FF)
 	const $statusCode = decorateStatusCode(statusCode)
 	const $contentLength = contentLength >= 0 ? prettyBytes(contentLength) : '? B'
 	const $responseTime = responseTime >= 0 ? prettyMs(responseTime) : ''

@@ -4,12 +4,17 @@
         "lib": [
             "ESNext"
         ],
-        "baseUrl": ".",
         "typeRoots": [
             "../../node_modules/@types",
             "node_modules/@types",
             "sources/typings"
-        ]
+        ],
+        "paths": {
+            "#*": [
+                "./types/*",
+                "./sources/*"
+            ]
+        }
     },
     "exclude": [
         "dists"

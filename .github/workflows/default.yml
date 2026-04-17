@@ -3,9 +3,11 @@ name: On default
 on:
   push:
     branches: [ develop ]
+    paths-ignore: [ '*.md' ]
 
   pull_request:
     branches: [ develop ]
+    paths-ignore: [ '*.md' ]
 
 jobs:
   build:
@@ -20,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         submodules: recursive
 
@@ -35,10 +37,10 @@ jobs:
     - name: Install build tools (Emsdk)
       run: bash scripts/install-emsdk.sh
 
-    - name: Use Node.js 22.x
+    - name: Use Node.js 24.x
       uses: actions/setup-node@v6
       with:
-        node-version: 22.x
+        node-version: 24.x
         registry-url: https://registry.npmjs.org/
         cache: 'npm'
 
@@ -67,10 +69,16 @@ jobs:
         CI: true
 
     - name: Upload collected code coverage
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v6
       with:
+        directory: coverage
         token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Cache (prepack)
       if: steps.cache.outputs.cache-hit != 'true'
       run: bash scripts/cache-prepack.sh
+
+    - name: Publish the package (simulation)
+      run: |
+        npm version "0.0.0-$(git symbolic-ref --short HEAD).$(git rev-parse --short HEAD)" --workspaces && \
+        npm publish --dry-run --tag="$(git symbolic-ref --short HEAD)" --workspaces
