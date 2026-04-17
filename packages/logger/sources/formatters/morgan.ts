@@ -67,7 +67,7 @@ function formatForMorgan(tokens: any, request: HttpRequest, response: HttpRespon
 
 	// Decorated values.
 	const $method = bold(method ?? '')
-	const $version = rgb24(httpVersion, { r: 98, g: 177, b: 255 })
+	const $version = rgb24(httpVersion, 0x62B1FF)
 	const $statusCode = decorateStatusCode(statusCode)
 	const $contentLength = contentLength >= 0 ? prettyBytes(contentLength) : '? B'
 	const $responseTime = responseTime >= 0 ? prettyMs(responseTime) : ''
