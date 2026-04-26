@@ -8,7 +8,12 @@
             "../../node_modules/@types",
             "node_modules/@types",
             "sources/typings"
-        ]
+        ],
+        "paths": {
+            "#*": [
+                "./sources/*"
+            ]
+        }
     },
     "exclude": [
         "dists"

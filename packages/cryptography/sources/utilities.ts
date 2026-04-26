@@ -1,35 +1,10 @@
 import type { webcrypto } from 'crypto'
 
+// Third-party modules.
+import { decodeBase64 } from '@std/encoding/base64'
+
 // Local helpers.
 import { Algorithm } from '#constants'
-
-// Type definitions.
-type CryptoKey = webcrypto.CryptoKey
-type HkdfParams = webcrypto.AlgorithmIdentifier & webcrypto.HkdfParams
-
-export function base64FromBuffer(buffer: ArrayBuffer): string {
-	let binary = ''
-	const bytes = new Uint8Array(buffer)
-	const length = bytes.byteLength
-
-	for (let index = 0; index < length; index += 1) {
-		binary += String.fromCharCode(bytes[index])
-	}
-
-	return btoa(binary)
-}
-
-export function bufferFromBase64(base64: string): ArrayBuffer {
-	const binary = atob(base64)
-	const { length } = binary
-	const bytes = new Uint8Array(length)
-
-	for (let index = 0; index < length; index += 1) {
-		bytes[index] = binary.charCodeAt(index)
-	}
-
-	return bytes.buffer
-}
 
 export function concatBuffers(...buffers: ArrayBuffer[]): ArrayBuffer {
 	const length = buffers.reduce((sum, buffer) => sum + buffer.byteLength, 0)
@@ -46,7 +21,7 @@ export function concatBuffers(...buffers: ArrayBuffer[]): ArrayBuffer {
 }
 
 export function splitByChunkSizes(data: string | ArrayBuffer, ...sizes: number[]): ArrayBuffer[] {
-	const buffer = typeof data === 'string' ? bufferFromBase64(data) : data
+	const buffer = typeof data === 'string' ? decodeBase64(data).buffer : data
 
 	return [ ...sizes, buffer.byteLength ]
 		.reduce((array, size, index) => array.concat((array[index - 1] ?? 0) + size), [] as number[])
@@ -54,33 +29,29 @@ export function splitByChunkSizes(data: string | ArrayBuffer, ...sizes: number[]
 		.map(([ begin, end ]) => buffer.slice(begin, end))
 }
 
-async function asPublicKey(publicKey: ArrayBuffer | CryptoKey): Promise<CryptoKey> {
-	return publicKey instanceof ArrayBuffer
-		? crypto.subtle.importKey('spki', publicKey, Algorithm.ECDH, false, [])
-		: publicKey
-}
-
-async function asPrivateKey(privateKey: ArrayBuffer | CryptoKey): Promise<CryptoKey> {
-	return privateKey instanceof ArrayBuffer
-		? crypto.subtle.importKey('pkcs8', privateKey, Algorithm.ECDH, false, [ 'deriveBits' ])
-		: privateKey
-}
-
-export async function computeSecret(
-	maybePublicKey: ArrayBuffer | CryptoKey,
-	maybePrivateKey: ArrayBuffer | CryptoKey,
+export function computeSecret(
+	maybePublicKey: ArrayBuffer | webcrypto.CryptoKey,
+	maybePrivateKey: ArrayBuffer | webcrypto.CryptoKey,
+	algorithm: webcrypto.Algorithm,
 ): Promise<ArrayBuffer> {
-	const [ publicKey, privateKey ] = await Promise.all([ asPublicKey(maybePublicKey), asPrivateKey(maybePrivateKey) ])
+	return Promise.all([
+		maybePublicKey instanceof ArrayBuffer
+			? crypto.subtle.importKey('spki', maybePublicKey, algorithm, false, [])
+			: maybePublicKey,
 
-	return crypto.subtle.deriveBits({ ...Algorithm.ECDH, public: publicKey }, privateKey, null)
+		maybePrivateKey instanceof ArrayBuffer
+			? crypto.subtle.importKey('pkcs8', maybePrivateKey, algorithm, false, [ 'deriveBits' ])
+			: maybePrivateKey,
+	]).then(([ publicKey, privateKey ]) => (
+		crypto.subtle.deriveBits({ ...algorithm, public: publicKey }, privateKey, null)
+	))
 }
 
-export async function calculateHash(
+export function calculateHash(
 	buffer: ArrayBuffer,
 	salt: ArrayBuffer | ArrayBufferView<ArrayBuffer>,
 ): Promise<ArrayBuffer> {
-	const algorithm: HkdfParams = { ...Algorithm.HKDF, info: new Uint8Array(), salt: 'buffer' in salt ? salt.buffer : salt }
-	const secretKey: CryptoKey = await crypto.subtle.importKey('raw', buffer, Algorithm.HKDF, false, [ 'deriveBits' ])
-
-	return crypto.subtle.deriveBits(algorithm, secretKey, 512)
+	return crypto.subtle.importKey('raw', buffer, Algorithm.HKDF, false, [ 'deriveBits' ]).then(secretKey => (
+		crypto.subtle.deriveBits({ ...Algorithm.HKDF, info: new Uint8Array(), salt: 'buffer' in salt ? salt.buffer : salt }, secretKey, 512)
+	))
 }
