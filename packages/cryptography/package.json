@@ -1,7 +1,7 @@
 {
     "name": "@cichol/cryptography",
-    "version": "6.0.1",
-    "description": "A cryptography library for personal projects.",
+    "version": "6.1.0",
+    "description": "A cryptography library providing various IES presets based on Web Crypto API for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
         "url": "https://github.com/morrighan/packages/issues"
@@ -18,6 +18,14 @@
             "default": "./dists/index.js",
             "types": "./dists/index.d.ts"
         },
+        "./default": {
+            "default": "./dists/presets/default.js",
+            "types": "./dists/presets/default.d.ts"
+        },
+        "./lightweight": {
+            "default": "./dists/presets/lightweight.js",
+            "types": "./dists/presets/lightweight.d.ts"
+        },
         "./package.json": "./package.json"
     },
     "imports": {
@@ -31,8 +39,9 @@
     "dependencies": {
         "@babel/runtime-corejs3": "^7.29.2",
         "@msgpack/msgpack": "^3.1.3",
-        "core-js-pure": "^3.49.0",
-        "tiny-invariant": "^1.3.3"
+        "@std/assert": "npm:@jsr/std__assert@^1.0.19",
+        "@std/encoding": "npm:@jsr/std__encoding@^1.0.10",
+        "core-js-pure": "^3.49.0"
     },
     "engines": {
         "node": "^24.15.0",

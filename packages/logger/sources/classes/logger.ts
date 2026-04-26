@@ -35,7 +35,7 @@ class Logger {
 				.filter(([ , level ]) => typeof level === 'number'),
 		),
 
-		level: (executionMode === ExecutionMode.ProductionMode ? 'http' : 'verbose') as typeof LoggingLevel,
+		level: (executionMode === ExecutionMode.ProductionMode ? 'http' : 'verbose'),
 
 		transports: [
 			new ConsoleTransport({ format: formatForCLI }),
@@ -48,7 +48,7 @@ class Logger {
 		stream: new PassThrough({ objectMode: true }).on('data', (data: string) => {
 			this.log('http', data.trim())
 		}),
-	}) as Morgan
+	})
 
 	private constructor() {
 		if (new.target !== Logger) {
@@ -69,7 +69,7 @@ class Logger {
 	 * @param message
 	 * @param args Additional metadata.
 	 */
-	public log(level: LoggingLevelName, message: string, ...args: any[]): void
+	public log(level: LoggingLevelName, message: string, ...args: unknown[]): void
 
 	/**
 	 * Logging HTTP I/O.
@@ -86,7 +86,7 @@ class Logger {
 	 */
 	public log(error: Error): void
 
-	public log(...args: any[]): void | Promise<void> {
+	public log(...args: unknown[]): void | Promise<void> {
 		const logger = this.#logger
 		const format = this.#morgan
 
@@ -98,18 +98,16 @@ class Logger {
 		}
 
 		case (args.length >= 1 && args[0] instanceof Error): {
-			const [ error, ...data ] = args as [ Error, ...any[] ]
+			const [ error, ...data ] = args as [ Error, ...unknown[] ]
 
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 			logger.log('error', error.message, error, ...data)
 
 			return undefined
 		}
 
 		default: {
-			const [ level, message, ...data ] = args as [ typeof LoggingLevel, string, ...any[] ]
+			const [ level, message, ...data ] = args as [ typeof LoggingLevel, string, ...unknown[] ]
 
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 			logger.log(level, message, ...data)
 
 			return undefined

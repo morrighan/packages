@@ -5,7 +5,7 @@
 import { test, expect, beforeAll } from 'vitest'
 
 // Testing target.
-import { generateKeys, encrypt as encryptBase, decrypt as decryptBase } from '@cichol/cryptography'
+import { generateKeys, encrypt as encryptBase, decrypt as decryptBase } from '@cichol/cryptography/default'
 
 let encrypt: (data: unknown) => Promise<string>
 let decrypt: (data: any) => Promise<unknown>
@@ -15,6 +15,14 @@ beforeAll(async () => {
 
 	encrypt = (data: unknown) => encryptBase(data, publicKey)
 	decrypt = (data: any) => decryptBase(data as string, privateKey)
+})
+
+test('should generate differently every time, even when using the same data and key', async () => {
+	const ciphers = await Promise.all(
+		Array(100).fill(undefined).map(() => encrypt('Hello, world!')),
+	)
+
+	expect(new Set(ciphers).size).to.equal(ciphers.length)
 })
 
 test('should handle various strings correctly', async () => {

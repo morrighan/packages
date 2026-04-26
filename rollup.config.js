@@ -15,7 +15,7 @@ const configurateRollup = (...definitions) => definitions.map((
 	input: `./packages/${packageName}/sources/index.ts`,
 
 	output: {
-		file: `./packages/${packageName}/dists/index.js`,
+		dir: `./packages/${packageName}/dists`,
 		format: 'esm',
 		sourcemap: 'inline',
 
@@ -31,7 +31,7 @@ const configurateRollup = (...definitions) => definitions.map((
 }))
 
 export default configurateRollup(
-	[ 'cryptography' ],
+	[ 'cryptography', { preserveModules: true } ],
 	[ 'logger' ],
 	[ 'sass-bridge' ],
 	[ 'shader-compressor' ],

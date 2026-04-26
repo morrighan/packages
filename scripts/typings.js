@@ -11,7 +11,11 @@ import { oraPromise as ora } from 'ora'
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor'
 
 async function generateDeclarations(projectFolder = workerData) {
-	await execa({ cwd: projectFolder })`tsc --project sources --outDir types`
+	const $ = execa({ cwd: projectFolder })
+	const outDir = path.basename(projectFolder) === 'cryptography' ? 'dists' : 'types'
+
+	await $`tsc --project sources --outDir ${outDir}`
+	await $`tsc-alias --outDir ${outDir}`
 }
 
 async function mergeAllDeclarations(projectFolder = workerData) {
@@ -66,6 +70,9 @@ export default async function main() {
 		await ora(Promise.all(tasks), 'Generating type declarations ...')
 	} else {
 		await generateDeclarations()
+
+		if (path.basename(workerData) === 'cryptography') return
+
 		await mergeAllDeclarations()
 		await removeTemporaryFiles()
 	}
