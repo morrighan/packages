@@ -70,7 +70,7 @@ function formatForMorgan(tokens: any, request: HttpRequest, response: HttpRespon
 	const $version = rgb24(httpVersion, 0x62B1FF)
 	const $statusCode = decorateStatusCode(statusCode)
 	const $contentLength = contentLength >= 0 ? prettyBytes(contentLength) : '? B'
-	const $responseTime = responseTime >= 0 ? prettyMs(responseTime) : ''
+	const $responseTime = responseTime >= 0 ? prettyMs(responseTime, { ignoreZero: true }) : ''
 
 	// Additional information.
 	const metadata = `(${$contentLength}, ${$responseTime})`
