@@ -1,6 +1,6 @@
 {
     "name": "@cichol/eslint-config",
-    "version": "6.1.0",
+    "version": "6.1.1",
     "description": "An universal ESLint configuration for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -43,7 +43,7 @@
         "eslint-plugin-promise": "^7.2.1",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
-        "typescript-eslint": "^8.59.0"
+        "typescript-eslint": "^8.59.1"
     },
     "peerDependencies": {
         "eslint": "^9.39.4",
