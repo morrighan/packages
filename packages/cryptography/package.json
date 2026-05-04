@@ -18,13 +18,9 @@
             "default": "./dists/index.js",
             "types": "./dists/index.d.ts"
         },
-        "./default": {
-            "default": "./dists/presets/default.js",
-            "types": "./dists/presets/default.d.ts"
-        },
-        "./lightweight": {
-            "default": "./dists/presets/lightweight.js",
-            "types": "./dists/presets/lightweight.d.ts"
+        "./*": {
+            "default": "./dists/presets/*.js",
+            "types": "./dists/presets/*.d.ts"
         },
         "./package.json": "./package.json"
     },
