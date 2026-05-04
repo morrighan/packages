@@ -34,7 +34,7 @@
         "@babel/core": "^7.29.0",
         "@babel/plugin-proposal-decorators": "^7.29.0",
         "@babel/plugin-transform-runtime": "^7.29.0",
-        "@babel/preset-env": "^7.29.2",
+        "@babel/preset-env": "^7.29.3",
         "@babel/preset-typescript": "^7.28.5",
         "@babel/runtime-corejs3": "^7.29.2",
         "@cichol/eslint-config": "file:./packages/eslint-config",
@@ -55,7 +55,7 @@
         "execa": "^9.6.1",
         "ora": "^9.4.0",
         "rollup": "^4.60.2",
-        "tsc-alias": "^1.8.16",
+        "tsc-alias": "^1.8.17",
         "typescript": "^6.0.3",
         "vitest": "^4.1.5"
     },

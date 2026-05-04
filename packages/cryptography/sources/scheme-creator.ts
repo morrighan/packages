@@ -2,7 +2,7 @@ import type { webcrypto } from 'crypto'
 
 // Third-party modules.
 import { assert } from '@std/assert'
-import { encodeBase64 } from '@std/encoding'
+import { encodeBase64Url } from '@std/encoding'
 import { encode as encodeFn, decode as decodeFn, Encoder, Decoder } from '@msgpack/msgpack'
 
 // Local helpers.
@@ -49,7 +49,7 @@ const createEncryptFn = (
 	const encrypted = await crypto.subtle.importKey('raw-secret', encryptionKey, Algorithm[encryptionAlgorithm], false, [ 'encrypt' ])
 		.then(cipherKey => crypto.subtle.encrypt({ ...Algorithm[encryptionAlgorithm], iv }, cipherKey, encodedData))
 
-	return encodeBase64(concatBuffers(shareableKey, salt.buffer, encrypted))
+	return encodeBase64Url(concatBuffers(shareableKey, salt.buffer, encrypted))
 }
 
 const createDecryptFn = (

@@ -1,7 +1,7 @@
 import type { webcrypto } from 'crypto'
 
 // Third-party modules.
-import { decodeBase64 } from '@std/encoding/base64'
+import { decodeBase64Url } from '@std/encoding'
 
 // Local helpers.
 import { Algorithm } from '#constants'
@@ -21,7 +21,7 @@ export function concatBuffers(...buffers: ArrayBuffer[]): ArrayBuffer {
 }
 
 export function splitByChunkSizes(data: string | ArrayBuffer, ...sizes: number[]): ArrayBuffer[] {
-	const buffer = typeof data === 'string' ? decodeBase64(data).buffer : data
+	const buffer = typeof data === 'string' ? decodeBase64Url(data).buffer : data
 
 	return [ ...sizes, buffer.byteLength ]
 		.reduce((array, size, index) => array.concat((array[index - 1] ?? 0) + size), [] as number[])
