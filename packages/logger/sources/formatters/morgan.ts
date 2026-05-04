@@ -6,7 +6,7 @@ import {
 } from 'http'
 
 // Third-party modules.
-import morgan from 'morgan'
+import morgan, { type TokenIndexer } from 'morgan'
 import { green, magenta, red, gray, bold, rgb24 } from '@std/fmt/colors'
 import { format as prettyBytes } from '@std/fmt/bytes'
 import { format as prettyMs } from '@std/fmt/duration'
@@ -17,14 +17,6 @@ import { ExecutionMode, executionMode } from '#helpers/constants'
 // Type definitions.
 declare module 'morgan' {
 	const combined: morgan.FormatFn
-}
-
-interface TokenIndexer {
-	[tokenName: string]: (
-		request: HttpRequest,
-		response: HttpResponse,
-		...args: any[]
-	) => string | undefined
 }
 
 // Helpers.
@@ -51,10 +43,10 @@ function decorateStatusCode(statusCode: keyof typeof STATUS_CODES): string {
 	}
 }
 
-function formatForMorgan(tokens: any, request: HttpRequest, response: HttpResponse): string {
+function formatForMorgan(tokens: TokenIndexer, request: HttpRequest, response: HttpResponse): string {
 	function _(token: string, ...subArgs: any[]): string | void {
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-		return (tokens as TokenIndexer)[token](request, response, ...subArgs)
+		return tokens[token](request, response, ...subArgs)
 	}
 
 	// Raw values.

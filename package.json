@@ -71,6 +71,11 @@
             "eslint-config-airbnb-base": {
                 "eslint": "$eslint"
             }
+        },
+        "@cichol/logger": {
+            "cls-rtracer": {
+                "uuid": "^14.0.0"
+            }
         }
     },
     "engines": {
