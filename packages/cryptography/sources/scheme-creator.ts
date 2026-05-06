@@ -3,11 +3,11 @@ import type { webcrypto } from 'crypto'
 // Third-party modules.
 import { assert } from '@std/assert'
 import { encodeBase64Url } from '@std/encoding'
-import { encode as encodeFn, decode as decodeFn, Encoder, Decoder } from '@msgpack/msgpack'
+import { encode as serializeFn, decode as deserializeFn, Encoder, Decoder } from '@msgpack/msgpack'
 
 // Local helpers.
 import { ByteSize, Algorithm, type AlgorithmKind, isEncapsulatable } from '#constants'
-import { splitByChunkSizes, concatBuffers, computeSecret, calculateHash } from '#utilities'
+import { splitByChunkSizes, concatBuffers, computeSecret, deriveSymmetricKeys } from '#utilities'
 
 const createGenerateKeysFn = (
 	KEM: AlgorithmKind<'KEM'>,
@@ -31,24 +31,19 @@ const createEncryptFn = (
 ): (
 	data: unknown,
 	publicKey: ArrayBuffer,
-	encode?: typeof encodeFn | Encoder,
-) => Promise<string> => async (data, publicKey, encode = encodeFn): Promise<string> => {
+	serialize?: typeof serializeFn | Encoder,
+) => Promise<string> => async (data, publicKey, serialize = serializeFn): Promise<string> => {
 	assert(!!crypto.subtle)
 	assert(publicKey instanceof ArrayBuffer)
 	assert(publicKey.byteLength === ByteSize[KEM].SPKI)
 
-	const salt = crypto.getRandomValues(new Uint8Array(ByteSize.SALT))
 	const [ sharedSecret, shareableKey ] = await computeSecret(KEM, publicKey, generateKeys!)
+	const [ iv, encryptionKey ] = await deriveSymmetricKeys(KEM, DEM, sharedSecret)
+	const serialized = serialize instanceof Encoder ? serialize.encode(data) : serialize(data)
 
-	const [ iv, encryptionKey ] = await calculateHash(sharedSecret, salt)
-		.then(hashOfSecret => splitByChunkSizes(hashOfSecret, ByteSize.IV, ByteSize.ENCRYPTION_KEY))
-
-	const encodedData = encode instanceof Encoder ? encode.encode(data) : encode(data)
-
-	const encrypted = await crypto.subtle.importKey('raw-secret', encryptionKey, Algorithm[DEM], false, [ 'encrypt' ])
-		.then(cipherKey => crypto.subtle.encrypt({ ...Algorithm[DEM], iv }, cipherKey, encodedData))
-
-	return encodeBase64Url(concatBuffers(shareableKey, salt.buffer, encrypted))
+	return crypto.subtle.importKey('raw-secret', encryptionKey, Algorithm[DEM], false, [ 'encrypt' ])
+		.then(cipherKey => crypto.subtle.encrypt({ ...Algorithm[DEM], iv }, cipherKey, serialized))
+		.then(encrypted => encodeBase64Url(concatBuffers(shareableKey, encrypted)))
 }
 
 const createDecryptFn = (
@@ -57,23 +52,20 @@ const createDecryptFn = (
 ): (
 	data: string,
 	privateKey: ArrayBuffer,
-	decode?: typeof decodeFn | Decoder,
-) => Promise<unknown> => async (data, privateKey, decode = decodeFn) => {
+	deserialize?: typeof deserializeFn | Decoder,
+) => Promise<unknown> => async (data, privateKey, deserialize = deserializeFn) => {
 	assert(!!crypto.subtle)
 	assert(typeof data === 'string')
 	assert(privateKey instanceof ArrayBuffer)
 	assert(privateKey.byteLength === ByteSize[KEM].PKCS8)
 
-	const [ shareableKey, salt, encrypted ] = splitByChunkSizes(data, ByteSize[KEM].SHAREABLE_KEY, ByteSize.SALT)
+	const [ shareableKey, encrypted ] = splitByChunkSizes(data, ByteSize[KEM].SHAREABLE_KEY)
 	const [ sharedSecret ] = await computeSecret(KEM, shareableKey, privateKey)
+	const [ iv, decryptionKey ] = await deriveSymmetricKeys(KEM, DEM, sharedSecret)
 
-	const [ iv, decryptionKey ] = await calculateHash(sharedSecret, salt)
-		.then(hashOfSecret => splitByChunkSizes(hashOfSecret, ByteSize.IV, ByteSize.ENCRYPTION_KEY))
-
-	const decrypted = await crypto.subtle.importKey('raw-secret', decryptionKey, Algorithm[DEM], false, [ 'decrypt' ])
+	return crypto.subtle.importKey('raw-secret', decryptionKey, Algorithm[DEM], false, [ 'decrypt' ])
 		.then(cipherKey => crypto.subtle.decrypt({ ...Algorithm[DEM], iv }, cipherKey, encrypted))
-
-	return decode instanceof Decoder ? decode.decode(decrypted) : decode(decrypted)
+		.then(decrypted => (deserialize instanceof Decoder ? deserialize.decode(decrypted) : deserialize(decrypted)))
 }
 
 export function createIntegratedEncryptionScheme(

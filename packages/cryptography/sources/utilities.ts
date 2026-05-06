@@ -1,10 +1,14 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable node/prefer-global/text-encoder */
+
 // Third-party modules.
 import { decodeBase64Url } from '@std/encoding'
 
 // Local helpers.
-import { Algorithm, type AlgorithmKind, isEncapsulatable } from '#constants'
+import { ByteSize, Algorithm, type AlgorithmKind, isEncapsulatable } from '#constants'
 
-export function concatBuffers(...buffers: ArrayBuffer[]): ArrayBuffer {
+export function concatBuffers(...sources: (ArrayBuffer | ArrayBufferView<ArrayBuffer>)[]): ArrayBuffer {
+	const buffers = sources.map(info => ('buffer' in info ? info.buffer : info))
 	const length = buffers.reduce((sum, buffer) => sum + buffer.byteLength, 0)
 	const result = new Uint8Array(length)
 	let offset = 0
@@ -90,11 +94,14 @@ export async function computeSecret(
 	return shareableKey ? [ sharedSecret, shareableKey ] : [ sharedSecret ]
 }
 
-export function calculateHash(
+export function deriveSymmetricKeys(
+	KEM: AlgorithmKind<'KEM'>,
+	DEM: AlgorithmKind<'DEM'>,
 	buffer: ArrayBuffer,
-	salt: ArrayBuffer | ArrayBufferView<ArrayBuffer>,
-): Promise<ArrayBuffer> {
-	return crypto.subtle.importKey('raw', buffer, Algorithm.HKDF, false, [ 'deriveBits' ]).then(secretKey => (
-		crypto.subtle.deriveBits({ ...Algorithm.HKDF, info: new Uint8Array(), salt: 'buffer' in salt ? salt.buffer : salt }, secretKey, 512)
-	))
+): Promise<ArrayBuffer[]> {
+	const info = new TextEncoder().encode(`${KEM};${DEM}`).buffer
+
+	return crypto.subtle.importKey('raw', buffer, Algorithm.HKDF, false, [ 'deriveBits' ])
+		.then(secretKey => crypto.subtle.deriveBits({ ...Algorithm.HKDF, info, salt: new Uint8Array() }, secretKey, 512))
+		.then(hashOfSecret => splitByChunkSizes(hashOfSecret, ByteSize.IV, ByteSize.ENCRYPTION_KEY))
 }
