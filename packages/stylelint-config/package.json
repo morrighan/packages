@@ -1,6 +1,6 @@
 {
     "name": "@cichol/stylelint-config",
-    "version": "6.1.3",
+    "version": "6.1.4",
     "description": "An universal Stylelint configuration for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {

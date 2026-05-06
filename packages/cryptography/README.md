@@ -28,6 +28,9 @@ import { generateKeys, encrypt, decrypt } from '@cichol/cryptography/default'
 // For using lightweight preset.
 import { generateKeys, encrypt, decrypt } from '@cichol/cryptography/lightweight'
 
+// For using post quantum preset.
+import { generateKeys, encrypt, decrypt } from '@cichol/cryptography/post-quantum'
+
 const [ publicKey, privateKey ] = await generateKeys()
 
 const encryptedData = await encrypt('Hello, world!', publicKey)
@@ -37,10 +40,11 @@ await decrypt(encryptedData, privateKey) // 'Hello, world!'
 
 ## IES Presets
 
-| Name | Key Exchange | Key Derivation | Symmetric Encryption |
-|------|--------------|----------------|----------------------|
+| Name | Key Agreement | Key Derivation | Symmetric Encryption |
+|------|---------------|----------------|----------------------|
 | `default` | [ECDH][spec-ecdh] (P-521) | [HKDF][spec-hkdf] (SHA-512) | [AES-GCM][spec-aes-gcm] (256bit) |
 | `lightweight` | [X25519][spec-x25519] | [HKDF][spec-hkdf] (SHA-512) | [ChaCha20-Poly1305][spec-chacha20-poly1305] (256bit) |
+| `post-quantum` | [ML-KEM][spec-ml-kem]-1024 | [HKDF][spec-hkdf] (SHA-512) | [ChaCha20-Poly1305][spec-chacha20-poly1305] (256bit) |
 
 ## License
 
@@ -55,6 +59,7 @@ await decrypt(encryptedData, privateKey) // 'Hello, world!'
 [npm package]: https://www.npmjs.com/package/@cichol/cryptography
 [spec-ecdh]: https://www.w3.org/TR/webcrypto-2/#ecdh
 [spec-x25519]: https://www.w3.org/TR/webcrypto-2/#x25519
+[spec-ml-kem]: https://wicg.github.io/webcrypto-modern-algos/#ml-kem
 [spec-hkdf]: https://www.w3.org/TR/webcrypto-2/#hkdf
 [spec-aes-gcm]: https://www.w3.org/TR/webcrypto-2/#aes-gcm
 [spec-chacha20-poly1305]: https://wicg.github.io/webcrypto-modern-algos/#chacha20-poly1305
