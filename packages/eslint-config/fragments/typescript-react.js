@@ -1,7 +1,7 @@
-// Local helpers.
-import configurate from '#helpers/configurator'
+// ESLint-relevant modules.
+import { defineConfig } from 'eslint/config'
 
-export default configurate({
+export default defineConfig({
 	files: [ '**/*.tsx' ],
 
 	rules: {

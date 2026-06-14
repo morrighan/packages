@@ -1,13 +1,3 @@
-// ESLint-relevant modules.
-import { defineConfig } from 'eslint/config'
-
-// Local helpers.
-import mapStylisticRules from '#helpers/stylistic-rules-mapper'
-
-// Type definitions.
-/** @typedef {import('eslint').Linter.Config} ESLintConfig */
-/** @typedef {import('eslint').Linter.Plugin} ESLintPlugin */
-
 /**
  * @template T
  * @param {T} object
@@ -22,20 +12,12 @@ function mapKeys(object, iteratee) {
 }
 
 /**
- * @param {ESLintConfig[]} configurations
- * @returns {ESLintConfig[]}
- */
-export default function configurate(...configurations) {
-	return defineConfig(...configurations).map(mapStylisticRules)
-}
-
-/**
- * @param {ESLintConfig} configuration
+ * @param {import('eslint').Linter.Config} configuration
  * @param {{ originalName: string; aliasedName: string; }} arg1
- * @param {ESLintPlugin} [plugin]
- * @returns {ESLintConfig}
+ * @param {import('eslint').Linter.Plugin} [plugin]
+ * @returns {import('eslint').Linter.Config}
  */
-export function getConfigWithAliasedPluginName(configuration, { originalName, aliasedName }, plugin) {
+function getConfigWithAliasedPluginName(configuration, { originalName, aliasedName }, plugin) {
 	const rules = mapKeys(
 		configuration.rules ?? {},
 		(ruleEntry, ruleName) => (
@@ -47,3 +29,5 @@ export function getConfigWithAliasedPluginName(configuration, { originalName, al
 
 	return { ...configuration, rules, plugins }
 }
+
+export default getConfigWithAliasedPluginName

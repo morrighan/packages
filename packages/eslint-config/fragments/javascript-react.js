@@ -1,14 +1,22 @@
 // ESLint-relevant modules.
-import reactHooksPlugin from 'eslint-plugin-react-hooks'
+import { defineConfig } from 'eslint/config'
+import pluginReact from 'eslint-plugin-react'
+import pluginReactHooks from 'eslint-plugin-react-hooks'
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y'
 
-// Local helpers.
-import configurate from '#helpers/configurator'
+// Other rules.
+import rulesBase from '#rules/base'
+import rulesReact from '#rules/react'
+import rulesReactStylistic from '#rules/react-stylistic'
+import rulesJsxA11y from '#rules/jsx-a11y'
 
-export default configurate({
+export default defineConfig({
 	files: [ '**/*.[jt]sx' ],
 
 	extends: [
-		reactHooksPlugin.configs.flat.recommended,
+		pluginReact.configs.flat.recommended,
+		pluginReactHooks.configs.flat.recommended,
+		pluginJsxA11y.flatConfigs.recommended,
 	],
 
 	languageOptions: {
@@ -17,32 +25,39 @@ export default configurate({
 		},
 	},
 
+	plugins: {
+		react: pluginReact,
+	},
+
 	rules: {
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent-props.md} */
-		'react/jsx-indent-props': [ 'error', 'tab' ],
+		'no-underscore-dangle': [ rulesBase['no-underscore-dangle'][0], {
+			...rulesBase['no-underscore-dangle'][1],
+			allow: rulesBase['no-underscore-dangle'][1].allow.concat([ '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' ]),
+		} ],
 
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent.md} */
-		'react/jsx-indent': [ 'error', 'tab' ],
+		'class-methods-use-this': [ 'error', {
+			exceptMethods: [
+				'render',
+				'getInitialState',
+				'getDefaultProps',
+				'getChildContext',
+				'componentWillMount',
+				'UNSAFE_componentWillMount',
+				'componentDidMount',
+				'componentWillReceiveProps',
+				'UNSAFE_componentWillReceiveProps',
+				'shouldComponentUpdate',
+				'componentWillUpdate',
+				'UNSAFE_componentWillUpdate',
+				'componentDidUpdate',
+				'componentWillUnmount',
+				'componentDidCatch',
+				'getSnapshotBeforeUpdate',
+			],
+		} ],
 
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md} */
-		'react/jsx-filename-extension': [ 'error', { extensions: [ '.jsx', '.tsx' ] } ],
-
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-uses-react.md} */
-		'react/jsx-uses-react': 'off',
-
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md} */
-		'react/no-multi-comp': [ 'error', { ignoreStateless: true } ],
-
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/react-in-jsx-scope.md} */
-		'react/react-in-jsx-scope': 'off',
-
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/require-default-props.md} */
-		'react/require-default-props': 'off',
-
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/state-in-constructor.md} */
-		'react/state-in-constructor': [ 'error', 'never' ],
-
-		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/static-property-placement.md} */
-		'react/static-property-placement': [ 'error', 'static public field' ],
+		...rulesReact,
+		...rulesReactStylistic,
+		...rulesJsxA11y,
 	},
 })
