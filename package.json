@@ -31,47 +31,35 @@
         "version": "npm version \"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\" --workspaces"
     },
     "devDependencies": {
-        "@babel/core": "^7.29.0",
-        "@babel/plugin-proposal-decorators": "^7.29.0",
-        "@babel/plugin-transform-runtime": "^7.29.0",
-        "@babel/preset-env": "^7.29.3",
-        "@babel/preset-typescript": "^7.28.5",
-        "@babel/runtime-corejs3": "^7.29.2",
+        "@babel/core": "^7.29.7",
+        "@babel/plugin-proposal-decorators": "^7.29.7",
+        "@babel/plugin-transform-runtime": "^7.29.7",
+        "@babel/preset-env": "^7.29.7",
+        "@babel/preset-typescript": "^7.29.7",
+        "@babel/runtime-corejs3": "^7.29.7",
         "@cichol/eslint-config": "file:./packages/eslint-config",
-        "@microsoft/api-extractor": "^7.58.7",
+        "@microsoft/api-extractor": "^7.58.9",
         "@rolldown/plugin-babel": "^0.2.3",
-        "@rollup/plugin-babel": "^7.0.0",
+        "@rollup/plugin-babel": "^7.1.0",
         "@rollup/plugin-node-resolve": "^16.0.3",
         "@types/babel__core": "^7.20.5",
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/chroma-js": "^3.1.2",
         "@types/luxon": "^3.7.1",
         "@types/morgan": "^1.9.10",
-        "@types/node": "^24.12.2",
-        "@vitest/coverage-v8": "^4.1.5",
+        "@types/node": "^24.13.2",
+        "@vitest/coverage-v8": "^4.1.8",
         "babel-plugin-polyfill-corejs3": "^0.14.2",
         "core-js-pure": "^3.49.0",
         "eslint": "^9.39.4",
         "execa": "^9.6.1",
         "ora": "^9.4.0",
-        "rollup": "^4.60.2",
+        "rollup": "^4.62.0",
         "tsc-alias": "^1.8.17",
         "typescript": "^6.0.3",
-        "vitest": "^4.1.5"
+        "vitest": "^4.1.8"
     },
     "overrides": {
-        "@cichol/eslint-config": {
-            "eslint-config-airbnb": {
-                "eslint": "$eslint",
-                "eslint-config-airbnb-base": {
-                    "eslint": "$eslint"
-                },
-                "eslint-plugin-react-hooks": "^7.1.1"
-            },
-            "eslint-config-airbnb-base": {
-                "eslint": "$eslint"
-            }
-        },
         "@cichol/logger": {
             "cls-rtracer": {
                 "uuid": "^14.0.0"
