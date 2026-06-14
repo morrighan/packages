@@ -4,9 +4,6 @@ import rTracer from 'cls-rtracer'
 import { DateTime } from 'luxon'
 import { format } from 'winston'
 
-// Local helpers.
-import LoggingLevel from '#helpers/logging-level'
-
 // Handler implementations.
 import handlers from '#handlers/index'
 
@@ -19,13 +16,13 @@ export default format.printf(data => {
 	// Execute handler and then, get decorated payload.
 	const { label, payload } = Reflect.apply(performHandle, undefined, [ data ]) ?? fallback
 
-	let extraFingerprint: string | undefined
+	const extraFingerprint = [
+		[ 'Request-ID', rTracer.id() ],
+		[ 'Transaction-ID', data.transactionId ],
+	]
+		.filter(([ , idValue ]) => idValue)
+		.map(([ kind, idValue ]) => `${kind} = ${idValue}`)
+		.join(' | ')
 
-	if (handler?.level === LoggingLevel.Http) {
-		extraFingerprint = data.transactionId
-			? `(Transaction-ID = ${data.transactionId as string})`
-			: `(Request-ID = ${rTracer.id() as string})`
-	}
-
-	return `${label as string} ${timestamp}${extraFingerprint ? ` ${extraFingerprint}` : ''}\n${payload as string}`
+	return `${label as string} ${timestamp}${extraFingerprint ? ` (${extraFingerprint})` : ''}\n${payload as string}`
 })

@@ -1,6 +1,6 @@
 {
     "name": "@cichol/logger",
-    "version": "6.1.4",
+    "version": "6.2.0",
     "description": "A logger based on `winston` for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -29,13 +29,13 @@
         "directory": "packages/logger"
     },
     "dependencies": {
-        "@babel/runtime-corejs3": "^7.29.2",
+        "@babel/runtime-corejs3": "^7.29.7",
         "@std/fmt": "npm:@jsr/std__fmt@^1.0.10",
         "cli-highlight": "^2.1.11",
-        "cls-rtracer": "^2.6.3",
+        "cls-rtracer": "^2.6.4",
         "core-js-pure": "^3.49.0",
         "luxon": "^3.7.2",
-        "morgan": "^1.10.1",
+        "morgan": "^1.11.0",
         "winston": "^3.19.0"
     },
     "engines": {

@@ -1,15 +1,17 @@
-// Local helpers.
-import configurate from '#helpers/configurator'
+// ESLint-relevant modules.
+import { defineConfig } from 'eslint/config'
 
-export default configurate({
+// Other rules.
+import rulesReact from '#rules/react'
+
+export default defineConfig({
 	files: [ '**/*.tsx' ],
 
 	rules: {
-		/**
-		 * Prefers to use TypeScript's typings instead of `prop-types` module.
-		 *
-		 * @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prop-types.md}
-		 */
+		'class-methods-use-this': 'off',
+		'@typescript-eslint/class-methods-use-this': rulesReact['class-methods-use-this'],
+
+		/** @see {@link https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prop-types.md} */
 		'react/prop-types': 'off',
 	},
 })

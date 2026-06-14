@@ -10,4 +10,7 @@ The centralized repository of npm packages for personal projects.
 
 ## License
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmorrighan%2Fpackages.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmorrighan%2Fpackages?ref=badge_large)
+[![FOSSA Status][fossa badge]][fossa status]
+
+[fossa badge]: https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmorrighan%2Fpackages.svg?type=large
+[fossa status]: https://app.fossa.com/projects/git%2Bgithub.com%2Fmorrighan%2Fpackages?ref=badge_large
