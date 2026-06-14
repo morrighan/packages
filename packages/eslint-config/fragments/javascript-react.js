@@ -35,27 +35,6 @@ export default defineConfig({
 			allow: rulesBase['no-underscore-dangle'][1].allow.concat([ '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' ]),
 		} ],
 
-		'class-methods-use-this': [ 'error', {
-			exceptMethods: [
-				'render',
-				'getInitialState',
-				'getDefaultProps',
-				'getChildContext',
-				'componentWillMount',
-				'UNSAFE_componentWillMount',
-				'componentDidMount',
-				'componentWillReceiveProps',
-				'UNSAFE_componentWillReceiveProps',
-				'shouldComponentUpdate',
-				'componentWillUpdate',
-				'UNSAFE_componentWillUpdate',
-				'componentDidUpdate',
-				'componentWillUnmount',
-				'componentDidCatch',
-				'getSnapshotBeforeUpdate',
-			],
-		} ],
-
 		...rulesReact,
 		...rulesReactStylistic,
 		...rulesJsxA11y,
