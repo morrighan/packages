@@ -1,6 +1,6 @@
 // Rollup plugins.
-import resolve from '@rollup/plugin-node-resolve'
-import babel from '@rollup/plugin-babel'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import { babel } from '@rollup/plugin-babel'
 
 // Constants.
 const extensions = [ '.ts', '.mjs', '.js', '.json', '.node' ]
@@ -23,7 +23,7 @@ const configurateRollup = (...definitions) => definitions.map((
 	},
 
 	plugins: [
-		resolve({ extensions }),
+		nodeResolve({ extensions }),
 		babel({ extensions, babelHelpers: 'runtime' }),
 	],
 
