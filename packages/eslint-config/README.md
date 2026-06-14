@@ -11,13 +11,13 @@ An universal ESLint configuration for personal projects.
   - [Requisites](#requisites)
   - [Installation](#installation)
   - [Usage](#usage)
-  - [Contained presets and plugins](#contained-presets-and-plugins)
+  - [Contained plugins](#contained-plugins)
   - [License](#license)
 
 ## Requisites
 
-- ESLint `^9.10.0`
-- TypeScript `^5.4.5`
+- ESLint `^9.29.4`
+- TypeScript `^6.0.3`
 
 ## Installation
 
@@ -35,18 +35,15 @@ export default defineConfig(
 );
 ```
 
-## Contained presets and plugins
+## Contained plugins
 
-- Presets
-  - [eslint-config-airbnb][eslint-config-airbnb]
-  - [eslint-config-airbnb-base][eslint-config-airbnb-base]
-- Plugins
-  - [eslint-plugin-import][eslint-plugin-import]
-  - [eslint-plugin-node][eslint-plugin-node]
-  - [eslint-plugin-promise][eslint-plugin-promise]
-  - [eslint-plugin-eslint-comments][eslint-plugin-eslint-comments]
-  - [eslint-plugin-react][eslint-plugin-react]
-  - [eslint-plugin-jsx-a11y][eslint-plugin-jsx-a11y]
+- [eslint-plugin-import-x][eslint-plugin-import]
+- [eslint-plugin-n][eslint-plugin-node]
+- [eslint-plugin-promise][eslint-plugin-promise]
+- [eslint-plugin-eslint-comments][eslint-plugin-eslint-comments]
+- [eslint-plugin-react][eslint-plugin-react]
+- [eslint-plugin-react-hooks][eslint-plugin-react-hooks]
+- [eslint-plugin-jsx-a11y][eslint-plugin-jsx-a11y]
 
 ## License
 
@@ -62,9 +59,10 @@ export default defineConfig(
 [eslint]: https://eslint.org/
 [eslint-config-airbnb]: https://www.npmjs.com/package/eslint-preset-airbnb
 [eslint-config-airbnb-base]: https://www.npmjs.com/package/eslint-config-airbnb-base
-[eslint-plugin-import]: https://www.npmjs.com/package/eslint-plugin-import
-[eslint-plugin-node]: https://www.npmjs.com/package/eslint-plugin-node
+[eslint-plugin-import]: https://www.npmjs.com/package/eslint-plugin-import-x
+[eslint-plugin-node]: https://www.npmjs.com/package/eslint-plugin-n
 [eslint-plugin-promise]: https://www.npmjs.com/package/eslint-plugin-promise
-[eslint-plugin-eslint-comments]: https://www.npmjs.com/package/eslint-plugin-eslint-comments
+[eslint-plugin-eslint-comments]: https://www.npmjs.com/package/@eslint-community/eslint-plugin-eslint-comments
 [eslint-plugin-react]: https://www.npmjs.com/package/eslint-plugin-react
+[eslint-plugin-react-hooks]: https://www.npmjs.com/package/eslint-plugin-react-hooks
 [eslint-plugin-jsx-a11y]: https://www.npmjs.com/package/eslint-plugin-jsx-a11y
