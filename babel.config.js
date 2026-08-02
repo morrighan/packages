@@ -7,19 +7,19 @@ const { default: { version: RUNTIME_VERSION } } = await import('@babel/runtime-c
  * @returns {import('@babel/core').TransformOptions}
  */
 export default function configurateBabel(API) {
-	API?.assertVersion('^7.29.0')
+	API?.assertVersion('^8.0.1')
 	API?.cache.never()
 
 	return {
 		presets: Object.entries({
-			'@babel/preset-env': { bugfixes: true, targets: { node: 'current' }, modules: false },
+			'@babel/preset-env': { targets: { node: 'current' }, modules: false },
 			'@babel/preset-typescript': {},
 		}),
 
 		plugins: Object.entries({
 			'babel-plugin-polyfill-corejs3': { method: 'usage-pure', version: CORE_JS_VERSION, proposals: true },
 			'@babel/plugin-proposal-decorators': { version: '2023-11' },
-			'@babel/plugin-transform-runtime': { regenerator: false, version: RUNTIME_VERSION },
+			'@babel/plugin-transform-runtime': { version: RUNTIME_VERSION },
 		}),
 	}
 }
