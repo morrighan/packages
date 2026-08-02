@@ -31,43 +31,53 @@
         "version": "npm version \"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\" --workspaces"
     },
     "devDependencies": {
-        "@babel/core": "^7.29.7",
-        "@babel/plugin-proposal-decorators": "^7.29.7",
-        "@babel/plugin-transform-runtime": "^7.29.7",
-        "@babel/preset-env": "^7.29.7",
-        "@babel/preset-typescript": "^7.29.7",
-        "@babel/runtime-corejs3": "^7.29.7",
+        "@babel/core": "^8.0.1",
+        "@babel/plugin-proposal-decorators": "^8.0.2",
+        "@babel/plugin-transform-runtime": "^8.0.1",
+        "@babel/preset-env": "^8.0.2",
+        "@babel/preset-typescript": "^8.0.1",
+        "@babel/runtime-corejs3": "^8.0.0",
         "@cichol/eslint-config": "file:./packages/eslint-config",
-        "@microsoft/api-extractor": "^7.58.9",
+        "@microsoft/api-extractor": "^7.58.12",
         "@rolldown/plugin-babel": "^0.2.3",
         "@rollup/plugin-babel": "^7.1.0",
         "@rollup/plugin-node-resolve": "^16.0.3",
         "@types/babel__core": "^7.20.5",
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/chroma-js": "^3.1.2",
-        "@types/luxon": "^3.7.1",
+        "@types/luxon": "^3.7.3",
         "@types/morgan": "^1.9.10",
-        "@types/node": "^24.13.2",
-        "@vitest/coverage-v8": "^4.1.8",
-        "babel-plugin-polyfill-corejs3": "^0.14.2",
+        "@types/node": "^24.13.3",
+        "@vitest/coverage-v8": "^4.1.10",
+        "babel-plugin-polyfill-corejs3": "^1.0.0",
         "core-js-pure": "^3.49.0",
-        "eslint": "^9.39.4",
-        "execa": "^9.6.1",
-        "ora": "^9.4.0",
-        "rollup": "^4.62.0",
-        "tsc-alias": "^1.8.17",
+        "eslint": "^9.39.5",
+        "eslint-plugin-oxlint": "^1.69.0",
+        "execa": "^10.0.1",
+        "ora": "^9.4.1",
+        "rollup": "^4.62.4",
+        "tsc-alias": "^1.9.1",
         "typescript": "^6.0.3",
-        "vitest": "^4.1.8"
+        "vitest": "^4.1.10"
     },
     "overrides": {
         "@cichol/logger": {
             "cls-rtracer": {
-                "uuid": "^14.0.0"
+                "uuid": "^14.0.1"
             }
+        },
+        "@rollup/plugin-babel": {
+            "@babel/core": "8.0.1"
         }
     },
     "engines": {
-        "node": "^24.15.0",
-        "npm": "^11.12.1"
+        "node": "^24.18.1",
+        "npm": "^12.0.2"
+    },
+    "allowScripts": {
+        "@parcel/watcher@2.6.0": true,
+        "core-js-pure@3.49.0": true,
+        "fsevents@2.3.3": true,
+        "unrs-resolver@1.12.2": true
     }
 }
