@@ -9,9 +9,9 @@
             "node_modules/@types",
             "sources/typings"
         ],
+        "rootDir": ".",
         "paths": {
             "#*": [
-                "./types/*",
                 "./sources/*"
             ]
         }
