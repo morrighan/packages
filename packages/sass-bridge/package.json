@@ -31,7 +31,7 @@
     "dependencies": {
         "@babel/runtime-corejs3": "^8.0.0",
         "chroma-js": "^3.2.0",
-        "core-js-pure": "^3.49.0",
+        "core-js-pure": "^3.50.0",
         "immutable": "^5.1.9"
     },
     "peerDependencies": {
