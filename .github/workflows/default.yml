@@ -41,8 +41,10 @@ jobs:
       uses: actions/setup-node@v6
       with:
         node-version: 24.x
-        registry-url: https://registry.npmjs.org/
-        cache: 'npm'
+        cache: 'yarn'
+
+    - name: Enable Corepack
+      run: corepack enable
 
     - name: Use .NET 10.0.x
       uses: actions/setup-dotnet@v5
@@ -80,5 +82,5 @@ jobs:
 
     - name: Publish the package (simulation)
       run: |
-        npm version "0.0.0-$(git symbolic-ref --short HEAD).$(git rev-parse --short HEAD)" --workspaces && \
-        npm publish --dry-run --tag="$(git symbolic-ref --short HEAD)" --workspaces
+        yarn workspaces foreach -A --no-private exec npm pkg set version="0.0.0-$(git symbolic-ref --short HEAD).$(git rev-parse --short HEAD)" && \
+        yarn workspaces foreach -A --no-private npm publish --dry-run --tag="$(git symbolic-ref --short HEAD)"

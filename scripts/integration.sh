@@ -4,13 +4,10 @@ function bootstrap() {
 	unset -f bootstrap
 	set -euxo pipefail
 
-	npm config --global set fund=false
-	npm config delete always-auth
-	npm install --global npm
-	npm ci --ignore-scripts --allow-remote=root
-	npm ls --depth=0
-	npm run build
-	npm test
+	yarn install --immutable
+	yarn workspaces list
+	yarn build
+	yarn test
 }
 
 bootstrap "$@"

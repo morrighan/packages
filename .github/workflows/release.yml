@@ -38,8 +38,10 @@ jobs:
       uses: actions/setup-node@v6
       with:
         node-version: 24.x
-        registry-url: https://registry.npmjs.org/
-        cache: 'npm'
+        cache: 'yarn'
+
+    - name: Enable Corepack
+      run: corepack enable
 
     - name: Use .NET 10.0.x
       uses: actions/setup-dotnet@v5
@@ -76,4 +78,4 @@ jobs:
       run: bash scripts/cache-prepack.sh
 
     - name: Publish the package
-      run: npm publish --workspaces
+      run: yarn workspaces foreach -A --no-private npm publish --provenance
