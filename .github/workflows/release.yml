@@ -7,75 +7,11 @@ on:
 
 jobs:
   build:
-    name: CI
-    runs-on: ubuntu-latest
-
+    name: Release
+    uses: ./.github/workflows/base.yml
     permissions:
       contents: read
       id-token: write
-
-    env:
-      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v6
-      with:
-        submodules: recursive
-
-    - name: Install build tools (CMake)
-      uses: lukka/get-cmake@latest
-
-    - name: Install build tools (Ccache)
-      run: |
-        sudo rm -f /var/lib/man-db/auto-update && \
-        sudo apt-get install -y ccache
-
-    - name: Install build tools (Emsdk)
-      run: bash scripts/install-emsdk.sh
-
-    - name: Use Node.js 24.x
-      uses: actions/setup-node@v6
-      with:
-        node-version: 24.x
-        cache: 'yarn'
-
-    - name: Enable Corepack
-      run: corepack enable
-
-    - name: Use .NET 10.0.x
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 10.0.x
-        dotnet-quality: 'ga'
-        cache: true
-        cache-dependency-path: packages/shader-compressor/packages.lock.json
-
-    - name: Cache
-      id: cache
-      uses: actions/cache@v5
-      with:
-        path: .cache
-        key: cache-${{ github.head_ref || github.ref_name }}-${{ hashFiles('.git/modules/packages/shader-compressor/externals/emsdk/refs/heads/main', '.git/modules/packages/shader-compressor/externals/glsl-optimizer/refs/heads/master') }}
-
-    - name: Cache (restore)
-      if: steps.cache.outputs.cache-hit == 'true'
-      run: bash scripts/cache-restore.sh
-
-    - name: Install, Build and Test
-      run: bash scripts/integration.sh
-      env:
-        CI: true
-
-    - name: Upload collected code coverage
-      uses: codecov/codecov-action@v6
-      with:
-        directory: coverage
-        token: ${{ secrets.CODECOV_TOKEN }}
-
-    - name: Cache (prepack)
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: bash scripts/cache-prepack.sh
-
-    - name: Publish the package
-      run: yarn workspaces foreach -A --no-private npm publish --provenance
+    with:
+      release: true
+    secrets: inherit
