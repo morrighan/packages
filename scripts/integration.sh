@@ -5,7 +5,7 @@ function bootstrap() {
 	set -euxo pipefail
 
 	yarn install --immutable
-	yarn workspaces list
+	yarn info --all --name-only
 	yarn build
 	yarn test
 }

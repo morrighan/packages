@@ -21,66 +21,81 @@ jobs:
       NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v6
+    - name: Checkout
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         submodules: recursive
 
-    - name: Install build tools (CMake)
-      uses: lukka/get-cmake@latest
+    - name: Setup (CMake & Ninja)
+      uses: lukka/get-cmake@fffaaafeea488556c2c12dad60690008bc1caacb # v4.4.2
 
-    - name: Install build tools (Ccache)
+    - name: Setup (Ccache)
       run: |
         sudo rm -f /var/lib/man-db/auto-update && \
         sudo apt-get install -y ccache
 
-    - name: Install build tools (Emsdk)
+    - name: Setup (Emscripten SDK)
       run: bash scripts/install-emsdk.sh
 
-    - name: Use Node.js 24.x
-      uses: actions/setup-node@v6
+    - name: Setup (Node.js)
+      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
       with:
         node-version: 24.x
-        cache: 'yarn'
+        package-manager-cache: false
 
-    - name: Enable Corepack
-      run: corepack enable
+    - name: Setup (Yarn Berry)
+      run: |
+        npm install --global corepack && \
+        corepack enable && \
+        echo "Yarn v$(yarn --version)"
 
-    - name: Use .NET 10.0.x
-      uses: actions/setup-dotnet@v5
+    - name: Setup (.NET)
+      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 #v6.0.0
       with:
         dotnet-version: 10.0.x
         dotnet-quality: 'ga'
         cache: true
         cache-dependency-path: packages/shader-compressor/packages.lock.json
 
-    - name: Cache
-      id: cache
-      uses: actions/cache@v5
+    - name: Cache (dependencies · path resolution)
+      id: yarn-cache
+      run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
+
+    - name: Cache (dependencies)
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ${{ steps.yarn-cache.outputs.dir }}
+        key: yarn-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          yarn-${{ runner.os }}-${{ runner.arch }}-
+
+    - name: Cache (build artifacts)
+      id: cache-build-artifacts
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: .cache
-        key: cache-${{ github.head_ref || github.ref_name }}-${{ hashFiles('.git/modules/packages/shader-compressor/externals/emsdk/refs/heads/main', '.git/modules/packages/shader-compressor/externals/glsl-optimizer/refs/heads/master') }}
+        key: cache-build-artifacts-${{ github.head_ref || github.ref_name }}-${{ hashFiles('.git/modules/emsdk/HEAD', '.git/modules/glsl-optimizer/HEAD') }}
+        restore-keys: |
+          cache-build-artifacts-${{ github.head_ref || github.ref_name }}-
 
-    - name: Cache (restore)
-      if: steps.cache.outputs.cache-hit == 'true'
+    - name: Cache (build artifacts · restoration)
+      if: steps.cache-build-artifacts.outputs.cache-hit == 'true'
       run: bash scripts/cache-restore.sh
 
     - name: Install, Build and Test
       run: bash scripts/integration.sh
-      env:
-        CI: true
 
-    - name: Upload collected code coverage
-      uses: codecov/codecov-action@v6
+    - name: Collect code coverage
+      uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
       with:
         directory: coverage
         token: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: Cache (prepack)
-      if: steps.cache.outputs.cache-hit != 'true'
+    - name: Cache (build artifacts · prepackage)
+      if: steps.cache-build-artifacts.outputs.cache-hit != 'true'
       run: bash scripts/cache-prepack.sh
 
-    - name: Publish the package (simulation)
+    - name: Publish (simulation)
       run: |
-        yarn workspaces foreach -A --no-private exec npm pkg set version="0.0.0-$(git symbolic-ref --short HEAD).$(git rev-parse --short HEAD)" && \
-        yarn workspaces foreach -A --no-private npm publish --dry-run --tag="$(git symbolic-ref --short HEAD)"
+        yarn workspaces foreach -Av --no-private exec npm pkg set version="0.0.0-$(git symbolic-ref --short HEAD).$(git rev-parse --short HEAD)" && \
+        yarn workspaces foreach -Av --no-private npm publish --dry-run --tag="$(git symbolic-ref --short HEAD)"

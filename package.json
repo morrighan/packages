@@ -21,14 +21,14 @@
     ],
     "scripts": {
         "build": "yarn build:individual && yarn build:rollup && yarn build:dts",
-        "build:individual": "yarn workspaces foreach -A run build",
+        "build:individual": "yarn workspaces foreach -Aptiv --no-private run build",
         "build:rollup": "yarn rollup --config --silent",
         "build:dts": "node scripts/typings.js",
         "test": "yarn test:eslint && yarn test:tsc && yarn test:vitest",
         "test:eslint": "yarn eslint .",
         "test:tsc": "find packages/* -mindepth 0 -maxdepth 0 -type d -exec sh -c \"yarn tsc --project {} --noEmit\" \\;",
         "test:vitest": "yarn vitest run",
-        "version": "yarn workspaces foreach -A --no-private exec npm pkg set version=\"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\""
+        "version": "yarn workspaces foreach -Av --no-private exec npm pkg set version=\"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\""
     },
     "devDependencies": {
         "@babel/core": "^8.0.1",
