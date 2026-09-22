@@ -32,7 +32,7 @@
         "build": "bash scripts/build.sh"
     },
     "engines": {
-        "node": "^24.18.0"
+        "node": "^24.21.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

@@ -31,42 +31,43 @@
         "version": "yarn workspaces foreach -Av --no-private exec npm pkg set version=\"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\""
     },
     "devDependencies": {
-        "@babel/core": "^8.0.1",
+        "@babel/core": "^8.0.6",
         "@babel/plugin-proposal-decorators": "^8.0.2",
-        "@babel/plugin-transform-runtime": "^8.0.1",
-        "@babel/preset-env": "^8.0.2",
+        "@babel/plugin-transform-runtime": "^8.0.6",
+        "@babel/preset-env": "^8.0.6",
         "@babel/preset-typescript": "^8.0.1",
-        "@babel/runtime-corejs3": "^8.0.0",
+        "@babel/runtime-corejs3": "^8.0.6",
         "@cichol/eslint-config": "file:./packages/eslint-config",
-        "@microsoft/api-extractor": "^7.58.12",
-        "@rolldown/plugin-babel": "^0.2.3",
+        "@microsoft/api-extractor": "^7.59.1",
+        "@rolldown/plugin-babel": "^0.2.4",
         "@rollup/plugin-babel": "^7.1.0",
         "@rollup/plugin-node-resolve": "^16.0.3",
         "@types/babel__core": "^7.20.5",
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/chroma-js": "^3.1.2",
-        "@types/luxon": "^3.7.4",
+        "@types/luxon": "^3.7.5",
         "@types/morgan": "^1.9.10",
-        "@types/node": "^24.13.3",
-        "@vitest/coverage-v8": "^4.1.10",
+        "@types/node": "^24.13.6",
+        "@vitest/coverage-v8": "^5.0.1",
         "babel-plugin-polyfill-corejs3": "^1.0.0",
         "core-js-pure": "^3.50.0",
         "eslint": "^9.39.5",
         "execa": "^10.0.1",
         "ora": "^9.4.1",
-        "postcss": "^8.4.49",
-        "rolldown": "^1.0.0-rc.5",
-        "rollup": "^4.62.4",
-        "stylelint": "^17.14.1",
-        "tsc-alias": "^1.9.1",
+        "postcss": "^8.5.28",
+        "rolldown": "^1.2.9",
+        "rollup": "^4.63.4",
+        "stylelint": "^17.15.0",
+        "tsc-alias": "^1.9.5",
         "typescript": "^6.0.3",
-        "vitest": "^4.1.10"
+        "vite": "^8.3.0",
+        "vitest": "^5.0.1"
     },
     "resolutions": {
-        "cls-rtracer/uuid": "^14.0.1"
+        "cls-rtracer/uuid": "^14.0.2"
     },
     "engines": {
-        "node": "^24.18.0"
+        "node": "^24.21.0"
     },
     "packageManager": "yarn@4.18.0"
 }

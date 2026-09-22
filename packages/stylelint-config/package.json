@@ -33,14 +33,14 @@
         "stylelint-order": "^8.1.1"
     },
     "peerDependencies": {
-        "stylelint": "^17.14.1"
+        "stylelint": "^17.15.0"
     },
     "devDependencies": {
-        "postcss": "^8.4.49",
-        "stylelint": "^17.14.1"
+        "postcss": "^8.5.28",
+        "stylelint": "^17.15.0"
     },
     "engines": {
-        "node": "^24.18.0"
+        "node": "^24.21.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
