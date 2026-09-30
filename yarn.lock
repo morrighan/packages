@@ -1365,8 +1365,8 @@ __metadata:
   linkType: soft
 
 "@cichol/eslint-config@file:./packages/eslint-config::locator=%40cichol%2Fpackages%40workspace%3A.":
-  version: 6.3.0
-  resolution: "@cichol/eslint-config@file:./packages/eslint-config#./packages/eslint-config::hash=115f4a&locator=%40cichol%2Fpackages%40workspace%3A."
+  version: 6.4.0
+  resolution: "@cichol/eslint-config@file:./packages/eslint-config#./packages/eslint-config::hash=be9f25&locator=%40cichol%2Fpackages%40workspace%3A."
   dependencies:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.8.1"
     "@stylistic/eslint-plugin": "npm:^5.10.0"
@@ -1381,7 +1381,7 @@ __metadata:
   peerDependencies:
     eslint: ^9.39.5
     typescript: ^6.0.3
-  checksum: 10c0/32774ee0ac4f1ec67890ccb8b7ecd4890b79c34eded9d3cf88227c8cc45d1ebf19cb78285b00e592dd6736dcda190e20177c6250af925ff983c9af3da3a6940c
+  checksum: 10c0/fb7e8db3264b17744f694b68b29ed9b51c374093730d824e60c282028da819173ec0c1b9f1292da1a191a6b52bbae4e30a21668be91428192cd4c26ca69a5480
   languageName: node
   linkType: hard
 
