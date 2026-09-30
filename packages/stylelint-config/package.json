@@ -1,6 +1,6 @@
 {
     "name": "@cichol/stylelint-config",
-    "version": "6.3.0",
+    "version": "6.4.0",
     "description": "An universal Stylelint configuration for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -33,11 +33,14 @@
         "stylelint-order": "^8.1.1"
     },
     "peerDependencies": {
-        "stylelint": "^17.14.1"
+        "stylelint": "^17.15.0"
+    },
+    "devDependencies": {
+        "postcss": "^8.5.28",
+        "stylelint": "^17.15.0"
     },
     "engines": {
-        "node": "^24.18.0",
-        "npm": "^12.0.0"
+        "node": "^24.21.0"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
