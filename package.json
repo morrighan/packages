@@ -26,7 +26,7 @@
         "build:dts": "node scripts/typings.js",
         "test": "yarn test:eslint && yarn test:tsc && yarn test:vitest",
         "test:eslint": "yarn eslint .",
-        "test:tsc": "find packages/* -mindepth 0 -maxdepth 0 -type d -exec sh -c \"yarn tsc --project {} --noEmit\" \\;",
+        "test:tsc": "yarn workspaces foreach -Apv --no-private exec yarn run -T tsc --project . --noEmit",
         "test:vitest": "yarn vitest run",
         "version": "yarn workspaces foreach -Av --no-private exec npm pkg set version=\"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\""
     },
