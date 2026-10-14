@@ -30,14 +30,14 @@
     },
     "dependencies": {
         "stylelint-config-sass-guidelines": "^13.0.0",
-        "stylelint-order": "^8.1.1"
+        "stylelint-order": "^8.1.2"
     },
     "peerDependencies": {
-        "stylelint": "^17.15.0"
+        "stylelint": "^17.16.0"
     },
     "devDependencies": {
-        "postcss": "^8.5.28",
-        "stylelint": "^17.15.0"
+        "postcss": "^8.5.30",
+        "stylelint": "^17.16.0"
     },
     "engines": {
         "node": "^24.21.0"
