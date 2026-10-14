@@ -28,7 +28,7 @@
         "test:eslint": "yarn eslint .",
         "test:tsc": "yarn workspaces foreach -Apv --no-private exec yarn run -T tsc --project . --noEmit",
         "test:vitest": "yarn vitest run",
-        "version": "yarn workspaces foreach -Av --no-private exec npm pkg set version=\"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\""
+        "version": "yarn workspaces foreach -Apv --no-private exec npm pkg set version=\"$(git symbolic-ref --short HEAD | sed 's/.*\\///')\""
     },
     "devDependencies": {
         "@babel/core": "^8.0.6",
