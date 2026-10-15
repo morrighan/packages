@@ -1364,28 +1364,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cichol/eslint-config@file:./packages/eslint-config::locator=%40cichol%2Fpackages%40workspace%3A.":
-  version: 6.4.0
-  resolution: "@cichol/eslint-config@file:./packages/eslint-config#./packages/eslint-config::hash=b135a7&locator=%40cichol%2Fpackages%40workspace%3A."
-  dependencies:
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.8.1"
-    "@stylistic/eslint-plugin": "npm:^5.10.0"
-    eslint-import-resolver-typescript: "npm:^4.4.5"
-    eslint-plugin-import-x: "npm:^4.17.1"
-    eslint-plugin-jsx-a11y: "npm:^6.10.2"
-    eslint-plugin-n: "npm:^18.4.1"
-    eslint-plugin-promise: "npm:^7.3.0"
-    eslint-plugin-react: "npm:^7.37.5"
-    eslint-plugin-react-hooks: "npm:^7.1.1"
-    typescript-eslint: "npm:^8.71.2"
-  peerDependencies:
-    eslint: ^9.39.5
-    typescript: ^6.0.3
-  checksum: 10c0/26143e71d131177a00993445935d32f9e837accbe1b4876a394ebad75d63c24487dfe0f4f07d36aaed89c88b1185e3e6d52dafa140413e71470ff86baafe4b29
-  languageName: node
-  linkType: hard
-
-"@cichol/eslint-config@workspace:packages/eslint-config":
+"@cichol/eslint-config@workspace:*, @cichol/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@cichol/eslint-config@workspace:packages/eslint-config"
   dependencies:
@@ -1432,7 +1411,7 @@ __metadata:
     "@babel/preset-env": "npm:^8.0.7"
     "@babel/preset-typescript": "npm:^8.0.7"
     "@babel/runtime-corejs3": "npm:^8.0.7"
-    "@cichol/eslint-config": "file:./packages/eslint-config"
+    "@cichol/eslint-config": "workspace:*"
     "@microsoft/api-extractor": "npm:^7.59.4"
     "@rolldown/plugin-babel": "npm:^0.2.4"
     "@rollup/plugin-babel": "npm:^7.1.0"

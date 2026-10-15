@@ -37,7 +37,7 @@
         "@babel/preset-env": "^8.0.7",
         "@babel/preset-typescript": "^8.0.7",
         "@babel/runtime-corejs3": "^8.0.7",
-        "@cichol/eslint-config": "file:./packages/eslint-config",
+        "@cichol/eslint-config": "workspace:*",
         "@microsoft/api-extractor": "^7.59.4",
         "@rolldown/plugin-babel": "^0.2.4",
         "@rollup/plugin-babel": "^7.1.0",
