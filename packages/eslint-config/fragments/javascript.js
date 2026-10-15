@@ -52,9 +52,9 @@ export default defineConfig({
 	},
 
 	settings: {
-		'import/extensions': extensions,
-		'import/ignore': [ 'node_modules', '\\.(scss|css|svg|json)$' ],
-		'import/core-modules': [],
-		'import/resolver': { node: { extensions } },
+		'import-x/extensions': extensions,
+		'import-x/ignore': [ 'node_modules', '\\.(scss|css|svg|json)$' ],
+		'import-x/core-modules': [],
+		'import-x/resolver': { node: { extensions } },
 	},
 })
