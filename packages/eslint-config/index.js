@@ -18,3 +18,9 @@ export default function defineConfig(...extraConfigs) {
 
 	return [ ...baseConfiguration, ...extraConfigs ]
 }
+
+export { plugin as TSESLintPlugin } from 'typescript-eslint'
+export { default as promisePlugin } from 'eslint-plugin-promise'
+export { default as nodePlugin } from 'eslint-plugin-n'
+export { default as commentsPlugin } from '@eslint-community/eslint-plugin-eslint-comments'
+export { default as stylisticPlugin } from '@stylistic/eslint-plugin'
