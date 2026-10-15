@@ -32,10 +32,10 @@ export default defineConfig({
 	},
 
 	settings: {
-		'import/parsers': {
+		'import-x/parsers': {
 			'@typescript-eslint/parser': [ '.ts', '.tsx' ],
 		},
 
-		'import/resolver': { typescript: { extensions } },
+		'import-x/resolver': { typescript: { extensions } },
 	},
 })
