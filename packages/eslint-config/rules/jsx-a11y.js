@@ -1,7 +1,5 @@
 /** @type {import('eslint').Linter.RulesRecord} */
 const rules = {
-	'jsx-a11y/accessible-emoji': 'off',
-
 	'jsx-a11y/alt-text': [ 'error', {
 		elements: [ 'img', 'object', 'area', 'input[type="image"]' ],
 		img: [],
@@ -74,7 +72,6 @@ const rules = {
 		allowExpressionValues: true,
 	} ],
 
-	'jsx-a11y/no-onchange': 'off',
 	'jsx-a11y/no-redundant-roles': [ 'error', { nav: [ 'navigation' ] } ],
 
 	'jsx-a11y/no-static-element-interactions': [ 'error', {
@@ -85,7 +82,6 @@ const rules = {
 	'jsx-a11y/role-supports-aria-props': 'error',
 	'jsx-a11y/scope': 'error',
 	'jsx-a11y/tabindex-no-positive': 'error',
-	'jsx-a11y/label-has-for': 'off',
 	'jsx-a11y/anchor-ambiguous-text': 'off',
 	'jsx-a11y/no-aria-hidden-on-focusable': 'off',
 	'jsx-a11y/prefer-tag-over-role': 'off',

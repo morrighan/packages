@@ -30,10 +30,11 @@
     },
     "dependencies": {
         "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
+        "@eslint/compat": "^2.1.1",
         "@stylistic/eslint-plugin": "^5.10.0",
         "eslint-import-resolver-typescript": "^4.4.5",
         "eslint-plugin-import-x": "^4.17.1",
-        "eslint-plugin-jsx-a11y": "^6.10.2",
+        "eslint-plugin-jsx-a11y-x": "^0.2.0",
         "eslint-plugin-n": "^18.4.1",
         "eslint-plugin-promise": "^7.3.0",
         "eslint-plugin-react": "^7.37.5",
@@ -41,11 +42,11 @@
         "typescript-eslint": "^8.71.2"
     },
     "peerDependencies": {
-        "eslint": "^9.39.5",
+        "eslint": "^10.12.0",
         "typescript": "^6.0.3"
     },
     "devDependencies": {
-        "eslint": "^9.39.5",
+        "eslint": "^10.12.0",
         "typescript": "^6.0.3"
     },
     "engines": {
