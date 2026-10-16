@@ -1,8 +1,12 @@
 // ESLint-relevant modules.
 import { defineConfig } from 'eslint/config'
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
 import pluginReact from 'eslint-plugin-react'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
-import pluginJsxA11y from 'eslint-plugin-jsx-a11y'
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y-x'
+
+// Utilities.
+import getConfigWithAliasedPluginName from '#utilities/aliased-config-getter'
 
 // Other rules.
 import rulesBase from '#rules/base'
@@ -14,9 +18,16 @@ export default defineConfig({
 	files: [ '**/*.[jt]sx' ],
 
 	extends: [
-		pluginReact.configs.flat.recommended,
+		fixupConfigRules(
+			pluginReact.configs.flat.recommended,
+		),
+
 		pluginReactHooks.configs.flat.recommended,
-		pluginJsxA11y.flatConfigs.recommended,
+
+		getConfigWithAliasedPluginName(
+			pluginJsxA11y.configs.recommended,
+			{ originalName: 'jsx-a11y-x', aliasedName: 'jsx-a11y' },
+		),
 	],
 
 	languageOptions: {
@@ -26,7 +37,7 @@ export default defineConfig({
 	},
 
 	plugins: {
-		react: pluginReact,
+		react: fixupPluginRules(pluginReact),
 	},
 
 	rules: {

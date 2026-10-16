@@ -1,6 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable import/extensions */
-
 // Third-party modules.
 import { test, expect } from 'vitest'
 import * as sass from 'sass'
