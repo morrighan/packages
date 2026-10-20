@@ -15,7 +15,7 @@ import rulesReactStylistic from '#rules/react-stylistic'
 import rulesJsxA11y from '#rules/jsx-a11y'
 
 export default defineConfig({
-	files: [ '**/*.[jt]sx' ],
+	files: [ '**/*.[jt]sx', '**/hooks/*.[jt]s?(x)', '**/use*.[jt]s?(x)' ],
 
 	extends: [
 		fixupConfigRules(
