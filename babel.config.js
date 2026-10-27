@@ -7,8 +7,10 @@ const { default: { version: RUNTIME_VERSION } } = await import('@babel/runtime-c
  * @returns {import('@babel/core').TransformOptions}
  */
 export default function configurateBabel(API) {
-	API?.assertVersion('^8.0.1')
-	API?.cache.never()
+	if (API) {
+		API.assertVersion('^8.0.1')
+		API.cache.never()
+	}
 
 	return {
 		presets: Object.entries({
