@@ -1229,8 +1229,8 @@ __metadata:
   dependencies:
     "@babel/runtime-corejs3": "npm:^8.0.8"
     "@msgpack/msgpack": "npm:^3.1.3"
-    "@std/assert": "npm:@jsr/std__assert@^1.0.19"
-    "@std/encoding": "npm:@jsr/std__encoding@^1.0.11"
+    "@std/assert": "jsr:^1.0.19"
+    "@std/encoding": "jsr:^1.0.11"
     core-js-pure: "npm:^3.51.0"
   languageName: unknown
   linkType: soft
@@ -1264,7 +1264,7 @@ __metadata:
   resolution: "@cichol/logger@workspace:packages/logger"
   dependencies:
     "@babel/runtime-corejs3": "npm:^8.0.8"
-    "@std/fmt": "npm:@jsr/std__fmt@^1.0.10"
+    "@std/fmt": "jsr:^1.0.10"
     cli-highlight: "npm:^2.1.11"
     cls-rtracer: "npm:^2.6.4"
     core-js-pure: "npm:^3.51.0"
@@ -2131,6 +2131,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@std/assert@jsr:^1.0.19":
+  version: 1.0.19
+  resolution: "@std/assert@jsr:1.0.19::__archiveUrl=https%3A%2F%2Fnpm.jsr.io%2F~%2F11%2F%40jsr%2Fstd__assert%2F1.0.19.tgz"
+  dependencies:
+    "@jsr/std__internal": "npm:^1.0.12"
+  checksum: 10c0/0d513937101f20d8d547e5a3fdf71a08877b03e26bbf0a86f84db09d3c4ff261e4ba59fa81ce130d73aa9cf76b57a92b3902bc32416e2dacac8b29ff1d1dcc3f
+  languageName: node
+  linkType: hard
+
 "@std/assert@npm:@jsr/std__assert@^1.0.19":
   version: 1.0.19
   resolution: "@jsr/std__assert@npm:1.0.19::__archiveUrl=https%3A%2F%2Fnpm.jsr.io%2F~%2F11%2F%40jsr%2Fstd__assert%2F1.0.19.tgz"
@@ -2140,10 +2149,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@std/encoding@jsr:^1.0.11":
+  version: 1.0.11
+  resolution: "@std/encoding@jsr:1.0.11::__archiveUrl=https%3A%2F%2Fnpm.jsr.io%2F~%2F11%2F%40jsr%2Fstd__encoding%2F1.0.11.tgz"
+  checksum: 10c0/3e6714639e685f2d60b21414e490cde61b7c30f313b18a2bf6fe90250ea34f96309c61c492ab786a276d4b5b68760b87be0850fe1f9bfe18e40efb647576d53b
+  languageName: node
+  linkType: hard
+
 "@std/encoding@npm:@jsr/std__encoding@^1.0.11":
   version: 1.0.11
   resolution: "@jsr/std__encoding@npm:1.0.11::__archiveUrl=https%3A%2F%2Fnpm.jsr.io%2F~%2F11%2F%40jsr%2Fstd__encoding%2F1.0.11.tgz"
   checksum: 10c0/3e6714639e685f2d60b21414e490cde61b7c30f313b18a2bf6fe90250ea34f96309c61c492ab786a276d4b5b68760b87be0850fe1f9bfe18e40efb647576d53b
+  languageName: node
+  linkType: hard
+
+"@std/fmt@jsr:^1.0.10":
+  version: 1.0.10
+  resolution: "@std/fmt@jsr:1.0.10::__archiveUrl=https%3A%2F%2Fnpm.jsr.io%2F~%2F11%2F%40jsr%2Fstd__fmt%2F1.0.10.tgz"
+  checksum: 10c0/e1e93180e6e74d381e905dc4e8fd1b36e3c14277e47e27c35040f0f017248fc129e6bfd4f4a7637050217dcc1f76fd07b6d6d40ad28c2583d04de0baa6f0abff
   languageName: node
   linkType: hard
 
@@ -3832,9 +3855,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.464":
-  version: 1.5.464
-  resolution: "electron-to-chromium@npm:1.5.464"
-  checksum: 10c0/65e6244c3b109942497ec6f7e8294258e74a7b410c804339fec39ecb2921926423e08f8f3a2a7979008c1a196a4c57145c1e76abe40ba374f60028fab23baa10
+  version: 1.5.465
+  resolution: "electron-to-chromium@npm:1.5.465"
+  checksum: 10c0/245aad3dfb1a02705d82d326e80dd8ea2314377ce39fe2816a74c1e6e70d9f6297dc8ab54195fc7d064e254a0752f01915917e5f2944e9c2b7ae4b6c0d593f1b
   languageName: node
   linkType: hard
 
