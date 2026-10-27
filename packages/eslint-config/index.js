@@ -19,6 +19,7 @@ export default function defineConfig(...extraConfigs) {
 	return [ ...baseConfiguration, ...extraConfigs ]
 }
 
+export { default as globals } from 'globals'
 export { plugin as TSESLintPlugin } from 'typescript-eslint'
 export { default as promisePlugin } from 'eslint-plugin-promise'
 export { default as nodePlugin } from 'eslint-plugin-n'

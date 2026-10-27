@@ -48,6 +48,7 @@
         "@types/luxon": "^3.7.6",
         "@types/morgan": "^1.9.10",
         "@types/node": "^24.19.2",
+        "@typescript/native": "npm:typescript@^7.0.2",
         "@vitest/coverage-v8": "^5.0.5",
         "babel-plugin-polyfill-corejs3": "^1.0.0",
         "core-js-pure": "^3.50.0",
@@ -59,7 +60,7 @@
         "rollup": "^4.64.7",
         "stylelint": "^17.16.0",
         "tsc-alias": "^1.9.7",
-        "typescript": "^6.0.3",
+        "typescript": "npm:@typescript/typescript6@^6.0.2",
         "vite": "^8.3.4",
         "vitest": "^5.0.5"
     },

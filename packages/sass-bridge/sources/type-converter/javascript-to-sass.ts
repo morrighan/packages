@@ -29,6 +29,7 @@ function isObject(value?: unknown): value is object {
 
 function isMap(value?: unknown): value is Map<unknown, unknown> {
 	if (value instanceof Map) return true
+
 	if (util.types.isMap(value)) return true
 
 	return isObject(value) && Symbol.toStringTag in value && value[Symbol.toStringTag] === 'Map'

@@ -32,6 +32,7 @@ function decorateStatusCode(statusCode: keyof typeof STATUS_CODES): string {
 	case 300: {
 		return magenta(baseMessage)
 	}
+
 	case 400:
 	case 500: {
 		return red(baseMessage)

@@ -1,5 +1,6 @@
 // Helper functions.
 const _ = Object.freeze
+
 const $ = <T, const U extends string = ''>(
 	X: T,
 	$brand?: U, // eslint-disable-line @typescript-eslint/no-unused-vars
