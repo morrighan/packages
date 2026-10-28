@@ -40,7 +40,7 @@
         "core-js-pure": "^3.51.0"
     },
     "engines": {
-        "node": "^24.21.0"
+        "node": "^24.22.1"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
