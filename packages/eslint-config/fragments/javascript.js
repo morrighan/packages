@@ -13,6 +13,7 @@ import getConfigWithAliasedPluginName from '#utilities/aliased-config-getter'
 // Other rules.
 import rulesBase from '#rules/base'
 import rulesBaseStylistic from '#rules/base-stylistic'
+import rulesBaseEmptyLines from '#rules/base-empty-lines'
 import rulesImport from '#rules/import'
 import rulesNode from '#rules/node'
 
@@ -47,6 +48,7 @@ export default defineConfig({
 	rules: {
 		...rulesBase,
 		...rulesBaseStylistic,
+		...rulesBaseEmptyLines,
 		...rulesImport,
 		...rulesNode,
 	},

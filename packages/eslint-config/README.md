@@ -7,17 +7,17 @@ An universal ESLint configuration for personal projects.
 ## Table of Contents
 
 - [`@cichol/eslint-config`](#cicholeslint-config)
-  - [Table of Contents](#table-of-contents)
-  - [Requisites](#requisites)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contained plugins](#contained-plugins)
-  - [License](#license)
+	- [Table of Contents](#table-of-contents)
+	- [Requisites](#requisites)
+	- [Installation](#installation)
+	- [Usage](#usage)
+	- [Contained plugins](#contained-plugins)
+	- [License](#license)
 
 ## Requisites
 
-- ESLint `^9.29.4`
-- TypeScript `^6.0.3`
+- ESLint `^10.12.0`
+- TypeScript `^6.0.2`
 
 ## Installation
 

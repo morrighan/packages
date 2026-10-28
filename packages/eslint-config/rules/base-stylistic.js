@@ -80,7 +80,6 @@ const rules = {
 	'@stylistic/line-comment-position': 'off',
 	'@stylistic/linebreak-style': [ 'error', 'unix' ],
 	'@stylistic/lines-around-comment': 'off',
-	'@stylistic/lines-between-class-members': [ 'error', 'always', { exceptAfterSingleLine: false } ],
 
 	'@stylistic/max-len': [ 'error', 120, 3, {
 		ignoreUrls: true,
@@ -119,7 +118,7 @@ const rules = {
 
 	'@stylistic/no-mixed-spaces-and-tabs': 'error',
 	'@stylistic/no-multi-spaces': [ 'error', { ignoreEOLComments: false } ],
-	'@stylistic/no-multiple-empty-lines': [ 'error', { max: 1, maxBOF: 0, maxEOF: 0 } ],
+
 	'@stylistic/no-tabs': 'off',
 	'@stylistic/no-trailing-spaces': [ 'error', { skipBlankLines: false, ignoreComments: false } ],
 	'@stylistic/no-whitespace-before-property': 'error',
@@ -136,7 +135,6 @@ const rules = {
 	'@stylistic/object-property-newline': [ 'error', { allowAllPropertiesOnSameLine: true } ],
 	'@stylistic/one-var-declaration-per-line': [ 'error', 'always' ],
 	'@stylistic/operator-linebreak': [ 'error', 'before', { overrides: { '=': 'ignore' } } ],
-	'@stylistic/padded-blocks': [ 'error', { blocks: 'never', classes: 'never', switches: 'never' }, { allowSingleLineBlocks: true } ],
 	'@stylistic/padding-line-between-statements': 'off',
 	'@stylistic/quote-props': [ 'error', 'as-needed', { keywords: false, unnecessary: true, numbers: false } ],
 	'@stylistic/quotes': [ 'error', 'single', { avoidEscape: true } ],

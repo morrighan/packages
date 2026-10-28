@@ -30,5 +30,6 @@ test(`should work properly w/ Stylelint v${version}`, async () => {
 	const result = stylelint.lint({ code: '', config })
 
 	await expect(result).resolves.not.toThrow()
+
 	expect(await result).to.have.own.property('errored', false)
 })

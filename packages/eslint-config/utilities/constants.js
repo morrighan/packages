@@ -1,13 +1,20 @@
-export const browserGlobals = Object.freeze([
-	'addEventListener', 'blur', 'close', 'closed', 'confirm', 'defaultStatus', 'defaultstatus', 'event', 'external',
-	'find', 'focus', 'frameElement', 'frames', 'history', 'innerHeight', 'innerWidth', 'length', 'location',
-	'locationbar', 'menubar', 'moveBy', 'moveTo', 'name', 'onblur', 'onerror', 'onfocus', 'onload', 'onresize',
-	'onunload', 'open', 'opener', 'opera', 'outerHeight', 'outerWidth', 'pageXOffset', 'pageYOffset', 'parent', 'print',
-	'removeEventListener', 'resizeBy', 'resizeTo', 'screen', 'screenLeft', 'screenTop', 'screenX', 'screenY', 'scroll',
-	'scrollbars', 'scrollBy', 'scrollTo', 'scrollX', 'scrollY', 'self', 'status', 'statusbar', 'stop', 'toolbar', 'top',
+import globals from 'globals'
+
+const confusingNames = new Set([
+	'event', 'name', 'status', 'length', 'origin', 'self', 'top', 'parent', 'frames', 'frameElement', 'opener',
+	'location', 'history', 'screen', 'closed', 'external', 'innerWidth', 'innerHeight', 'outerWidth', 'outerHeight',
+	'screenX', 'screenY', 'screenLeft', 'screenTop', 'scrollX', 'scrollY', 'pageXOffset', 'pageYOffset', 'open',
+	'close', 'focus', 'blur', 'find', 'print', 'stop', 'confirm', 'scroll', 'scrollTo', 'scrollBy', 'moveTo', 'moveBy',
+	'resizeTo', 'resizeBy', 'addEventListener', 'removeEventListener', 'dispatchEvent',
 ])
 
-export const extensions = Object.freeze([ '.mjs', '.js', '.jsx', '.ts', '.tsx', '.json' ])
+export const browserGlobals = Object.freeze(
+	Object.keys(globals.browser)
+		.filter(name => confusingNames.has(name) || /^on[a-z]/.test(name))
+		.sort(),
+)
+
+export const extensions = Object.freeze([ '.cjs', '.mjs', '.js', '.jsx', '.mts', '.ts', '.tsx', '.json' ])
 
 export const devDependencies = Object.freeze([
 	'tests/**',
@@ -15,7 +22,7 @@ export const devDependencies = Object.freeze([
 	'test.{js,jsx,ts,tsx}',
 	'test-*.{js,jsx,ts,tsx}',
 	'**/*{.,_,-}test.{js,jsx,ts,tsx}',
-	'**/*.config.js',
+	'**/*.config.{js,mjs,ts,mts}',
 ])
 
 export const modifiableArgs = Object.freeze([

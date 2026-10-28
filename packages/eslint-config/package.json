@@ -1,6 +1,6 @@
 {
     "name": "@cichol/eslint-config",
-    "version": "6.5.1",
+    "version": "6.6.0",
     "description": "An universal ESLint configuration for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -35,19 +35,20 @@
         "eslint-import-resolver-typescript": "^4.4.5",
         "eslint-plugin-import-x": "^4.17.1",
         "eslint-plugin-jsx-a11y-x": "^0.2.0",
-        "eslint-plugin-n": "^18.4.1",
+        "eslint-plugin-n": "^18.5.0",
         "eslint-plugin-promise": "^7.3.0",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
-        "typescript-eslint": "^8.71.2"
+        "globals": "^17.13.0",
+        "typescript-eslint": "^8.72.1"
     },
     "peerDependencies": {
-        "eslint": "^10.12.0",
-        "typescript": "^6.0.3"
+        "eslint": "^10.13.0",
+        "typescript": "^6.0.2"
     },
     "devDependencies": {
-        "eslint": "^10.12.0",
-        "typescript": "^6.0.3"
+        "eslint": "^10.13.0",
+        "typescript": "npm:@typescript/typescript6@^6.0.2"
     },
     "engines": {
         "node": "^24.21.0"
