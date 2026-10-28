@@ -36,7 +36,7 @@
         "stylelint": "^17.16.0"
     },
     "devDependencies": {
-        "postcss": "^8.5.31",
+        "postcss": "^8.5.32",
         "stylelint": "^17.16.0"
     },
     "engines": {
