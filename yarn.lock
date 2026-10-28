@@ -1674,8 +1674,8 @@ __metadata:
   linkType: hard
 
 "@microsoft/api-extractor@npm:^7.59.4":
-  version: 7.59.4
-  resolution: "@microsoft/api-extractor@npm:7.59.4"
+  version: 7.60.0
+  resolution: "@microsoft/api-extractor@npm:7.60.0"
   dependencies:
     "@microsoft/api-extractor-model": "npm:7.33.15"
     "@microsoft/tsdoc": "npm:~0.17.0"
@@ -1689,10 +1689,10 @@ __metadata:
     resolve: "npm:~1.22.1"
     semver: "npm:~7.7.4"
     source-map: "npm:~0.6.1"
-    typescript: "npm:5.9.3"
+    typescript: "npm:6.0.3"
   bin:
     api-extractor: bin/api-extractor
-  checksum: 10c0/2b805f72318edb8dab720a2b2eb2a6b82faebbb6a6b5b836fced38875e61d344b14c7edf63724a27ab091fed4df8ef9923141f579fb1ddc7679d48ce02301e96
+  checksum: 10c0/4c04c881cbd482a0c11d000d8e3bb301fe486d6e3ee49b07c75bcce145fe16a6ea10bd1662e757c7aa54d43836a98f8a9973e93790be2d806e56b3cf596479c2
   languageName: node
   linkType: hard
 
@@ -2582,7 +2582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript/old@npm:typescript@^6":
+"@typescript/old@npm:typescript@^6, typescript@npm:6.0.3":
   version: 6.0.3
   resolution: "typescript@npm:6.0.3"
   bin:
@@ -3307,11 +3307,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.11.33":
-  version: 2.11.33
-  resolution: "baseline-browser-mapping@npm:2.11.33"
+  version: 2.11.34
+  resolution: "baseline-browser-mapping@npm:2.11.34"
   bin:
     baseline-browser-mapping: dist/cli.cjs
-  checksum: 10c0/41ccaadfbae9d8df112b8771631465e7f04def4a319502f99d59ad04879ab2a35d609baf27a9feb523f8eee1728d7a9fd71125a13eca5bf06bcb240212c33d5e
+  checksum: 10c0/294a4513440f4cacca2d84032ccff2dd284b429356af0c12574360d1e471ad1ab2383b101261193bec87891f90d2fea29cb75d3e54b2b69a060c6e726c433c58
   languageName: node
   linkType: hard
 
@@ -3855,9 +3855,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.464":
-  version: 1.5.465
-  resolution: "electron-to-chromium@npm:1.5.465"
-  checksum: 10c0/245aad3dfb1a02705d82d326e80dd8ea2314377ce39fe2816a74c1e6e70d9f6297dc8ab54195fc7d064e254a0752f01915917e5f2944e9c2b7ae4b6c0d593f1b
+  version: 1.5.466
+  resolution: "electron-to-chromium@npm:1.5.466"
+  checksum: 10c0/6fe02934bcbd15ed8ffc0cbd51f7df82c553f4d98bac6f51b235bb8c672ae91c8ec6aefa5283edeb50bf61de28893dd1742fb8f30ca7c5d7a22785b0235be610
   languageName: node
   linkType: hard
 
@@ -5798,11 +5798,11 @@ __metadata:
   linkType: hard
 
 "magic-string@npm:^1.4.3":
-  version: 1.4.4
-  resolution: "magic-string@npm:1.4.4"
+  version: 1.4.5
+  resolution: "magic-string@npm:1.4.5"
   dependencies:
     "@jridgewell/sourcemap-codec": "npm:^1.6.0"
-  checksum: 10c0/046bf4f17264034ba25a9f93a238b35502e17e2365b70f8a0952a9f6d228dd711290f782697cc361f9c19f4f54fd7c2a35fb77b82b093b1eebb4b8d3af0746c7
+  checksum: 10c0/79295b85e19f2e18bb01b81671d27ae192546e88534dfcef2e36f2c04f45b39db497ce85a62efda0336356308cdc037a1c73fc0f1bd0945d12ae1e794163b247
   languageName: node
   linkType: hard
 
@@ -7556,16 +7556,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.9.3":
-  version: 5.9.3
-  resolution: "typescript@npm:5.9.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/6bd7552ce39f97e711db5aa048f6f9995b53f1c52f7d8667c1abdc1700c68a76a308f579cd309ce6b53646deb4e9a1be7c813a93baaf0a28ccd536a30270e1c5
-  languageName: node
-  linkType: hard
-
 "typescript@npm:@typescript/typescript6@^6.0.2":
   version: 6.0.2
   resolution: "@typescript/typescript6@npm:6.0.2"
@@ -7577,13 +7567,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>":
-  version: 5.9.3
-  resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
+"typescript@patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>":
+  version: 6.0.3
+  resolution: "typescript@patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>::version=6.0.3&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/ad09fdf7a756814dce65bc60c1657b40d44451346858eea230e10f2e95a289d9183b6e32e5c11e95acc0ccc214b4f36289dcad4bf1886b0adb84d711d336a430
+  checksum: 10c0/2f25c74e65663c248fa1ade2b8459d9ce5372ff9dad07067310f132966ebec1d93f6c42f0baf77a6b6a7a91460463f708e6887013aaade22111037457c6b25df
   languageName: node
   linkType: hard
 
