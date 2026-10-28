@@ -1,6 +1,6 @@
 {
     "name": "@cichol/logger",
-    "version": "6.6.0",
+    "version": "6.6.1",
     "description": "A logger based on `winston` for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -39,7 +39,7 @@
         "winston": "^3.19.0"
     },
     "engines": {
-        "node": "^24.21.0"
+        "node": "^24.22.1"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

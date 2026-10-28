@@ -1,6 +1,6 @@
 {
     "name": "@cichol/shader-compressor",
-    "version": "6.6.0",
+    "version": "6.6.1",
     "description": "A compressor for WebGL2 shader source code. (GLSL ES 3.00)",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -32,7 +32,7 @@
         "build": "bash scripts/build.sh"
     },
     "engines": {
-        "node": "^24.21.0"
+        "node": "^24.22.1"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",

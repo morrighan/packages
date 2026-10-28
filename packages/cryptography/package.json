@@ -1,6 +1,6 @@
 {
     "name": "@cichol/cryptography",
-    "version": "6.6.0",
+    "version": "6.6.1",
     "description": "A cryptography library providing various IES presets based on Web Crypto API for personal projects.",
     "homepage": "https://github.com/morrighan/packages",
     "bugs": {
@@ -40,7 +40,7 @@
         "core-js-pure": "^3.51.0"
     },
     "engines": {
-        "node": "^24.21.0"
+        "node": "^24.22.1"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
